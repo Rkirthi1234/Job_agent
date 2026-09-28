@@ -21,7 +21,6 @@ from urllib.parse import urlparse
 
 AtsName = Literal["greenhouse", "lever"]
 
-# Deliberately narrow, real domain markers -- not a company-specific
 # job ID or path, per the spec ("Do not hardcode a company-specific job ID").
 _GREENHOUSE_DOMAIN_MARKERS = ("greenhouse.io",)
 _LEVER_DOMAIN_MARKERS = ("lever.co",)
