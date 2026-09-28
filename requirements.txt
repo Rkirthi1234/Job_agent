@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+sqlalchemy
+pypdf
+python-docx
+openai
+python-multipart
+python-dotenv
+pytest
+httpx
+fpdf2
+playwright

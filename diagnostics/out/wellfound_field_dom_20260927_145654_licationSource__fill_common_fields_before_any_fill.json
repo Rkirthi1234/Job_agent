@@ -1,0 +1,3749 @@
+{
+  "stage": "WellfoundApplicationSource._fill_common_fields:before_any_fill",
+  "mode": "full",
+  "timestamp": "2026-09-27 14:56:49",
+  "page": "https://wellfound.com/jobs/4748852-staff-software-engineer-infrastructure-san-francisco-hq",
+  "frames": [
+    {
+      "frame": "main",
+      "name": "",
+      "url": "https://wellfound.com/jobs/4748852-staff-software-engineer-infrastructure-san-francisco-hq",
+      "detached": false
+    },
+    {
+      "frame": "frame#1",
+      "name": "",
+      "url": "about:blank",
+      "detached": false
+    }
+  ],
+  "structure": {
+    "main": {
+      "readyState": "complete",
+      "msSinceNavStart": 18545,
+      "isTopFrame": true,
+      "labelElementCount": 27,
+      "shadowHosts": [],
+      "iframes": [
+        {
+          "id": null,
+          "name": null,
+          "title": "Help Scout Beacon - Open",
+          "src": null,
+          "visible": true
+        }
+      ],
+      "dialogs": [
+        {
+          "tag": "div",
+          "id": null,
+          "role": "dialog",
+          "ariaModal": null,
+          "openAttr": false,
+          "ariaLabel": "Help Scout Beacon",
+          "visible": false,
+          "fieldCount": 0
+        },
+        {
+          "tag": "div",
+          "id": null,
+          "role": "dialog",
+          "ariaModal": "true",
+          "openAttr": false,
+          "ariaLabel": "",
+          "visible": true,
+          "fieldCount": 21
+        }
+      ],
+      "forms": [
+        {
+          "id": null,
+          "name": null,
+          "action": null,
+          "method": null,
+          "visible": true,
+          "fieldCount": 1
+        },
+        {
+          "id": null,
+          "name": null,
+          "action": null,
+          "method": null,
+          "visible": true,
+          "fieldCount": 21
+        }
+      ]
+    },
+    "frame#1": {
+      "readyState": "complete",
+      "msSinceNavStart": 15099,
+      "isTopFrame": false,
+      "labelElementCount": 0,
+      "shadowHosts": [],
+      "iframes": [],
+      "dialogs": [],
+      "forms": []
+    }
+  },
+  "dynamic": {
+    "previous_stage": "WellfoundApplicationSource.after_navigation",
+    "added": [],
+    "removed": []
+  },
+  "inventory": [
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "search",
+      "name": "search",
+      "type": "text",
+      "ariaLabel": "Search everything",
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": "Search",
+      "autocomplete": "off",
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles_input__wttwe",
+      "labelSource": "aria-label",
+      "labelFor": "",
+      "labelForCount": 1,
+      "wrappingLabel": null,
+      "nearbyText": null,
+      "visible": true,
+      "opacity": "1",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": false,
+      "inDialog": false,
+      "dialog": null,
+      "form": "form.styles_component__zVZZA",
+      "container": "form.styles_component__zVZZA",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349853][jobListingQuestionOptionId]--256728",
+      "name": null,
+      "type": "checkbox",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+      "labelSource": "label[for]",
+      "labelFor": "She/Her/Hers",
+      "labelForCount": 1,
+      "wrappingLabel": "Preferred Pronouns*She/Her/HersHe/Him/HisThey/Them/TheirsPrefer not to answer",
+      "nearbyText": {
+        "tag": "span",
+        "text": "*",
+        "isLabelElement": false
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349853][jobListingQuestionOptionId]--256729",
+      "name": null,
+      "type": "checkbox",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+      "labelSource": "label[for]",
+      "labelFor": "He/Him/His",
+      "labelForCount": 1,
+      "wrappingLabel": "Preferred Pronouns*She/Her/HersHe/Him/HisThey/Them/TheirsPrefer not to answer",
+      "nearbyText": {
+        "tag": "label",
+        "text": "She/Her/Hers",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349853][jobListingQuestionOptionId]--256730",
+      "name": null,
+      "type": "checkbox",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+      "labelSource": "label[for]",
+      "labelFor": "They/Them/Theirs",
+      "labelForCount": 1,
+      "wrappingLabel": "Preferred Pronouns*She/Her/HersHe/Him/HisThey/Them/TheirsPrefer not to answer",
+      "nearbyText": {
+        "tag": "label",
+        "text": "He/Him/His",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349853][jobListingQuestionOptionId]--256731",
+      "name": null,
+      "type": "checkbox",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+      "labelSource": "label[for]",
+      "labelFor": "Prefer not to answer",
+      "labelForCount": 1,
+      "wrappingLabel": "Preferred Pronouns*She/Her/HersHe/Him/HisThey/Them/TheirsPrefer not to answer",
+      "nearbyText": {
+        "tag": "label",
+        "text": "They/Them/Theirs",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--customQuestionAnswers[349854][answer]",
+      "name": "customQuestionAnswers[349854][answer]",
+      "type": "text",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "text-dark-aaaa text-md max-w-full placeholder-dark-a ring-in...",
+      "labelSource": "wrapping-label",
+      "labelFor": null,
+      "labelForCount": 0,
+      "wrappingLabel": "Phone Number*",
+      "nearbyText": {
+        "tag": "span",
+        "text": "*",
+        "isLabelElement": false
+      },
+      "visible": true,
+      "opacity": "1",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": false,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349855][jobListingQuestionOptionId]--256732",
+      "name": "customQuestionAnswers[349855][jobListingQuestionOptionId]",
+      "type": "radio",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+      "labelSource": "label[for]",
+      "labelFor": "Yes",
+      "labelForCount": 1,
+      "wrappingLabel": "Orb has an office-centric work model with 3 days per week in the office. Our SF ...",
+      "nearbyText": {
+        "tag": "span",
+        "text": "*",
+        "isLabelElement": false
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349855][jobListingQuestionOptionId]--256733",
+      "name": "customQuestionAnswers[349855][jobListingQuestionOptionId]",
+      "type": "radio",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+      "labelSource": "label[for]",
+      "labelFor": "No",
+      "labelForCount": 1,
+      "wrappingLabel": "Orb has an office-centric work model with 3 days per week in the office. Our SF ...",
+      "nearbyText": {
+        "tag": "label",
+        "text": "Yes",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--customQuestionAnswers[349856][answer]",
+      "name": "customQuestionAnswers[349856][answer]",
+      "type": "text",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "text-dark-aaaa text-md max-w-full placeholder-dark-a ring-in...",
+      "labelSource": "wrapping-label",
+      "labelFor": null,
+      "labelForCount": 0,
+      "wrappingLabel": "LinkedIn Profile",
+      "nearbyText": {
+        "tag": "div",
+        "text": "LinkedIn Profile",
+        "isLabelElement": false
+      },
+      "visible": true,
+      "opacity": "1",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": false,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349857][jobListingQuestionOptionId]--256734",
+      "name": "customQuestionAnswers[349857][jobListingQuestionOptionId]",
+      "type": "radio",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+      "labelSource": "label[for]",
+      "labelFor": "Can work for any employer",
+      "labelForCount": 1,
+      "wrappingLabel": "U.S. Work Authorization*Can work for any employerCan work for current employerSe...",
+      "nearbyText": {
+        "tag": "span",
+        "text": "*",
+        "isLabelElement": false
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349857][jobListingQuestionOptionId]--256735",
+      "name": "customQuestionAnswers[349857][jobListingQuestionOptionId]",
+      "type": "radio",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+      "labelSource": "label[for]",
+      "labelFor": "Can work for current employer",
+      "labelForCount": 1,
+      "wrappingLabel": "U.S. Work Authorization*Can work for any employerCan work for current employerSe...",
+      "nearbyText": {
+        "tag": "label",
+        "text": "Can work for any employer",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349857][jobListingQuestionOptionId]--256736",
+      "name": "customQuestionAnswers[349857][jobListingQuestionOptionId]",
+      "type": "radio",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+      "labelSource": "label[for]",
+      "labelFor": "Seeking work authorization",
+      "labelForCount": 1,
+      "wrappingLabel": "U.S. Work Authorization*Can work for any employerCan work for current employerSe...",
+      "nearbyText": {
+        "tag": "label",
+        "text": "Can work for current employer",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349857][jobListingQuestionOptionId]--256737",
+      "name": "customQuestionAnswers[349857][jobListingQuestionOptionId]",
+      "type": "radio",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+      "labelSource": "label[for]",
+      "labelFor": "NA, applying to non-US location",
+      "labelForCount": 1,
+      "wrappingLabel": "U.S. Work Authorization*Can work for any employerCan work for current employerSe...",
+      "nearbyText": {
+        "tag": "label",
+        "text": "Seeking work authorization",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349858][jobListingQuestionOptionId]--256738",
+      "name": "customQuestionAnswers[349858][jobListingQuestionOptionId]",
+      "type": "radio",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+      "labelSource": "label[for]",
+      "labelFor": "Yes",
+      "labelForCount": 1,
+      "wrappingLabel": "Will you now or in the future require visa transfer or sponsorship?*YesNo",
+      "nearbyText": {
+        "tag": "span",
+        "text": "*",
+        "isLabelElement": false
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349858][jobListingQuestionOptionId]--256739",
+      "name": "customQuestionAnswers[349858][jobListingQuestionOptionId]",
+      "type": "radio",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+      "labelSource": "label[for]",
+      "labelFor": "No",
+      "labelForCount": 1,
+      "wrappingLabel": "Will you now or in the future require visa transfer or sponsorship?*YesNo",
+      "nearbyText": {
+        "tag": "label",
+        "text": "Yes",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256740",
+      "name": null,
+      "type": "checkbox",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+      "labelSource": "label[for]",
+      "labelFor": "Online job board (LinkedIn, Indeed)",
+      "labelForCount": 1,
+      "wrappingLabel": "How did you hear about Orb?*Online job board (LinkedIn, Indeed)RepvueBuiltInOrb ...",
+      "nearbyText": {
+        "tag": "span",
+        "text": "*",
+        "isLabelElement": false
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256741",
+      "name": null,
+      "type": "checkbox",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+      "labelSource": "label[for]",
+      "labelFor": "Repvue",
+      "labelForCount": 1,
+      "wrappingLabel": "How did you hear about Orb?*Online job board (LinkedIn, Indeed)RepvueBuiltInOrb ...",
+      "nearbyText": {
+        "tag": "label",
+        "text": "Online job board (LinkedIn, Indeed)",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256742",
+      "name": null,
+      "type": "checkbox",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+      "labelSource": "label[for]",
+      "labelFor": "BuiltIn",
+      "labelForCount": 1,
+      "wrappingLabel": "How did you hear about Orb?*Online job board (LinkedIn, Indeed)RepvueBuiltInOrb ...",
+      "nearbyText": {
+        "tag": "label",
+        "text": "Repvue",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256743",
+      "name": null,
+      "type": "checkbox",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+      "labelSource": "label[for]",
+      "labelFor": "Orb employee referral",
+      "labelForCount": 1,
+      "wrappingLabel": "How did you hear about Orb?*Online job board (LinkedIn, Indeed)RepvueBuiltInOrb ...",
+      "nearbyText": {
+        "tag": "label",
+        "text": "BuiltIn",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256744",
+      "name": null,
+      "type": "checkbox",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+      "labelSource": "label[for]",
+      "labelFor": "Social media/industry event",
+      "labelForCount": 1,
+      "wrappingLabel": "How did you hear about Orb?*Online job board (LinkedIn, Indeed)RepvueBuiltInOrb ...",
+      "nearbyText": {
+        "tag": "label",
+        "text": "Orb employee referral",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "input",
+      "id": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256745",
+      "name": null,
+      "type": "checkbox",
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+      "labelSource": "label[for]",
+      "labelFor": "Other",
+      "labelForCount": 1,
+      "wrappingLabel": "How did you hear about Orb?*Online job board (LinkedIn, Indeed)RepvueBuiltInOrb ...",
+      "nearbyText": {
+        "tag": "label",
+        "text": "Social media/industry event",
+        "isLabelElement": true
+      },
+      "visible": false,
+      "opacity": "0",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": true,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    },
+    {
+      "frame": "main",
+      "tag": "textarea",
+      "id": "form-input--customQuestionAnswers[349860][answer]",
+      "name": "customQuestionAnswers[349860][answer]",
+      "type": null,
+      "ariaLabel": null,
+      "ariaLabelledby": null,
+      "ariaLabelledbyResolved": null,
+      "ariaLabelledbyText": null,
+      "placeholder": null,
+      "autocomplete": null,
+      "role": null,
+      "dataTest": null,
+      "classHead": "styles-module_component__2Y90D text-dark-aaaa text-md max-w-...",
+      "labelSource": "wrapping-label",
+      "labelFor": null,
+      "labelForCount": 0,
+      "wrappingLabel": "About you",
+      "nearbyText": {
+        "tag": "div",
+        "text": "About you",
+        "isLabelElement": false
+      },
+      "visible": true,
+      "opacity": "1",
+      "ariaHidden": null,
+      "disabled": false,
+      "readonly": false,
+      "required": false,
+      "hasValue": false,
+      "inDialog": true,
+      "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+      "form": "form",
+      "container": "form",
+      "inShadowRoot": false,
+      "inTopFrame": true
+    }
+  ],
+  "fields": {
+    "name": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[autocomplete='name']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[aria-label*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[aria-label*='full name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--userPreferredName",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--preferredName",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='name']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='fullName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='applicantName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='full_name']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='userPreferredName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='preferredName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[autocomplete='name']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[aria-label*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[aria-label*='full name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "#form-input--name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "#form-input--userPreferredName",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "#form-input--preferredName",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='name']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='fullName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='applicantName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='full_name']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='userPreferredName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='preferredName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[id*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[placeholder*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "full name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "preferred name",
+        "matches": 0,
+        "text_element": true
+      }
+    ],
+    "email": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[type='email']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[autocomplete='email']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[aria-label*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='email']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='applicationEmail']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='applicantEmail']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "email",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "email",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[type='email']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[autocomplete='email']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[aria-label*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "#form-input--email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='email']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='applicationEmail']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='applicantEmail']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[id*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[placeholder*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "email",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "email",
+        "matches": 0,
+        "text_element": true
+      }
+    ],
+    "phone": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[type='tel']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[autocomplete='tel']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[aria-label*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[aria-label*='telephone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--userPhone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='phone']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='phoneNumber']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='userPhone']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='applicantPhone']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "phone",
+        "matches": 1,
+        "text_element": true,
+        "elements": [
+          {
+            "tag": "label",
+            "id": null,
+            "htmlFor": "form-input--undefined",
+            "classHead": "block mb-6",
+            "isLabelElement": true,
+            "textLength": 13,
+            "text": "Phone Number*",
+            "containsFormControl": true,
+            "parent": "div",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "phone",
+        "matches": 1,
+        "text_element": true,
+        "elements": [
+          {
+            "tag": "div",
+            "id": null,
+            "htmlFor": null,
+            "classHead": "text-dark-aaaa text-md font-medium antialiased",
+            "isLabelElement": false,
+            "textLength": 13,
+            "text": "Phone Number*",
+            "containsFormControl": false,
+            "parent": "div",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "phone number",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "phone number",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "phone number",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "phone number",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "phone number",
+        "matches": 1,
+        "text_element": true,
+        "elements": [
+          {
+            "tag": "label",
+            "id": null,
+            "htmlFor": "form-input--undefined",
+            "classHead": "block mb-6",
+            "isLabelElement": true,
+            "textLength": 13,
+            "text": "Phone Number*",
+            "containsFormControl": true,
+            "parent": "div",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "phone number",
+        "matches": 1,
+        "text_element": true,
+        "elements": [
+          {
+            "tag": "div",
+            "id": null,
+            "htmlFor": null,
+            "classHead": "text-dark-aaaa text-md font-medium antialiased",
+            "isLabelElement": false,
+            "textLength": 13,
+            "text": "Phone Number*",
+            "containsFormControl": false,
+            "parent": "div",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[type='tel']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[autocomplete='tel']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[aria-label*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[aria-label*='telephone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "#form-input--phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "#form-input--userPhone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='phone']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='phoneNumber']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='userPhone']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='applicantPhone']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[id*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[placeholder*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "phone",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "phone",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "phone number",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "phone number",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "phone number",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "phone number",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "phone number",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "phone number",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "telephone",
+        "matches": 0,
+        "text_element": true
+      }
+    ],
+    "location": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#downshift-0-input",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='location']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='San Francisco']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='location']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='location' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[autocomplete*='address' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "location",
+        "matches": 1,
+        "text_element": false,
+        "elements": [
+          {
+            "tag": "input",
+            "id": "form-input--modal-form-4748852--customQuestionAnswers[349857][jobListingQuestionOptionId]--256737",
+            "name": "customQuestionAnswers[349857][jobListingQuestionOptionId]",
+            "type": "radio",
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "ariaLabelledbyResolved": null,
+            "ariaLabelledbyText": null,
+            "placeholder": null,
+            "autocomplete": null,
+            "role": null,
+            "dataTest": null,
+            "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+            "labelSource": "label[for]",
+            "labelFor": "NA, applying to non-US location",
+            "labelForCount": 1,
+            "wrappingLabel": "U.S. Work Authorization*Can work for any employerCan work for current employerSe...",
+            "nearbyText": {
+              "tag": "label",
+              "text": "Seeking work authorization",
+              "isLabelElement": true
+            },
+            "visible": false,
+            "opacity": "0",
+            "ariaHidden": null,
+            "disabled": false,
+            "readonly": false,
+            "required": false,
+            "hasValue": true,
+            "inDialog": true,
+            "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+            "form": "form",
+            "container": "form",
+            "inShadowRoot": false,
+            "inTopFrame": true,
+            "pw_visible": false,
+            "pw_enabled": true,
+            "pw_editable": true
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "location",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "location",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "location",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "location",
+        "matches": 2,
+        "text_element": true,
+        "elements": [
+          {
+            "tag": "label",
+            "id": null,
+            "htmlFor": "form-input--undefined",
+            "classHead": "block mb-6",
+            "isLabelElement": true,
+            "textLength": 135,
+            "text": null,
+            "containsFormControl": true,
+            "parent": "div",
+            "visible": true
+          },
+          {
+            "tag": "label",
+            "id": null,
+            "htmlFor": "form-input--modal-form-4748852--customQuestionAnswers[349857][jobListingQuestionOptionId]--256737",
+            "classHead": "styles-module_radio__18RgL",
+            "isLabelElement": true,
+            "textLength": 31,
+            "text": "NA, applying to non-US location",
+            "containsFormControl": false,
+            "parent": "div",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "location",
+        "matches": 6,
+        "text_element": true,
+        "elements": [
+          {
+            "tag": "dt",
+            "id": null,
+            "htmlFor": null,
+            "classHead": "",
+            "isLabelElement": false,
+            "textLength": 8,
+            "text": "Location",
+            "containsFormControl": false,
+            "parent": "div",
+            "visible": true
+          },
+          {
+            "tag": "dt",
+            "id": null,
+            "htmlFor": null,
+            "classHead": "",
+            "isLabelElement": false,
+            "textLength": 10,
+            "text": "Relocation",
+            "containsFormControl": false,
+            "parent": "div",
+            "visible": true
+          },
+          {
+            "tag": "dd",
+            "id": null,
+            "htmlFor": null,
+            "classHead": "",
+            "isLabelElement": false,
+            "textLength": 8,
+            "text": "Location",
+            "containsFormControl": false,
+            "parent": "dl",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "city",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "city",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "city",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "city",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "city",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "city",
+        "matches": 1,
+        "text_element": true,
+        "elements": [
+          {
+            "tag": "em",
+            "id": null,
+            "htmlFor": null,
+            "classHead": "",
+            "isLabelElement": false,
+            "textLength": 94,
+            "text": null,
+            "containsFormControl": false,
+            "parent": "p",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "#downshift-0-input",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[id*='location']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[placeholder*='San Francisco']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='location']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name*='location' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[autocomplete*='address' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "location",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "location",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "location",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "location",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "location",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "location",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "city",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "city",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "city",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "city",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "city",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "city",
+        "matches": 0,
+        "text_element": true
+      }
+    ],
+    "linkedin": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='linkedin' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='linkedin' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='linkedin' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[type='url']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "linkedin",
+        "matches": 1,
+        "text_element": false,
+        "elements": [
+          {
+            "tag": "input",
+            "id": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256740",
+            "name": null,
+            "type": "checkbox",
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "ariaLabelledbyResolved": null,
+            "ariaLabelledbyText": null,
+            "placeholder": null,
+            "autocomplete": null,
+            "role": null,
+            "dataTest": null,
+            "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+            "labelSource": "label[for]",
+            "labelFor": "Online job board (LinkedIn, Indeed)",
+            "labelForCount": 1,
+            "wrappingLabel": "How did you hear about Orb?*Online job board (LinkedIn, Indeed)RepvueBuiltInOrb ...",
+            "nearbyText": {
+              "tag": "span",
+              "text": "*",
+              "isLabelElement": false
+            },
+            "visible": false,
+            "opacity": "0",
+            "ariaHidden": null,
+            "disabled": false,
+            "readonly": false,
+            "required": false,
+            "hasValue": true,
+            "inDialog": true,
+            "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+            "form": "form",
+            "container": "form",
+            "inShadowRoot": false,
+            "inTopFrame": true,
+            "pw_visible": false,
+            "pw_enabled": true,
+            "pw_editable": true
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "linkedin",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "linkedin",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "linkedin",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "linkedin",
+        "matches": 3,
+        "text_element": true,
+        "elements": [
+          {
+            "tag": "label",
+            "id": null,
+            "htmlFor": "form-input--undefined",
+            "classHead": "block mb-6",
+            "isLabelElement": true,
+            "textLength": 16,
+            "text": "LinkedIn Profile",
+            "containsFormControl": true,
+            "parent": "div",
+            "visible": true
+          },
+          {
+            "tag": "label",
+            "id": null,
+            "htmlFor": "form-input--undefined",
+            "classHead": "block mb-6",
+            "isLabelElement": true,
+            "textLength": 129,
+            "text": null,
+            "containsFormControl": true,
+            "parent": "div",
+            "visible": true
+          },
+          {
+            "tag": "label",
+            "id": null,
+            "htmlFor": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256740",
+            "classHead": "styles-module_checkbox__q3r7A",
+            "isLabelElement": true,
+            "textLength": 35,
+            "text": "Online job board (LinkedIn, Indeed)",
+            "containsFormControl": false,
+            "parent": "div",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "linkedin",
+        "matches": 2,
+        "text_element": true,
+        "elements": [
+          {
+            "tag": "div",
+            "id": null,
+            "htmlFor": null,
+            "classHead": "text-dark-aaaa text-md font-medium antialiased",
+            "isLabelElement": false,
+            "textLength": 16,
+            "text": "LinkedIn Profile",
+            "containsFormControl": false,
+            "parent": "div",
+            "visible": true
+          },
+          {
+            "tag": "label",
+            "id": null,
+            "htmlFor": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256740",
+            "classHead": "styles-module_checkbox__q3r7A",
+            "isLabelElement": true,
+            "textLength": 35,
+            "text": "Online job board (LinkedIn, Indeed)",
+            "containsFormControl": false,
+            "parent": "div",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name*='linkedin' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[id*='linkedin' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[placeholder*='linkedin' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[type='url']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "linkedin",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "linkedin",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "linkedin",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "linkedin",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "linkedin",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "linkedin",
+        "matches": 0,
+        "text_element": true
+      }
+    ],
+    "github": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='github' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='github' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='github' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "github",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "github",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "github",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "github",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "github",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "github",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name*='github' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[id*='github' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[placeholder*='github' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "github",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "github",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "github",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "github",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "github",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "github",
+        "matches": 0,
+        "text_element": true
+      }
+    ],
+    "portfolio": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='portfolio' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='portfolio' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='portfolio' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='website' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='website' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='website' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "website",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "website",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "website",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "website",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "website",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "website",
+        "matches": 1,
+        "text_element": true,
+        "elements": [
+          {
+            "tag": "dd",
+            "id": null,
+            "htmlFor": null,
+            "classHead": "",
+            "isLabelElement": false,
+            "textLength": 7,
+            "text": "Website",
+            "containsFormControl": false,
+            "parent": "dl",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name*='portfolio' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[id*='portfolio' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[placeholder*='portfolio' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name*='website' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[id*='website' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[placeholder*='website' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "portfolio",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "website",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "website",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:textbox",
+        "arg": "website",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_role:combobox",
+        "arg": "website",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "website",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "website",
+        "matches": 0,
+        "text_element": true
+      }
+    ],
+    "resume": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--resume",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='resume']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='cv']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[type='file']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='resume' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[accept*='pdf']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "resume",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "resume",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "resume",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "resume",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "cv",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "cv",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "cv",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "cv",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "#form-input--resume",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='resume']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[name='cv']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[type='file']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[id*='resume' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "css",
+        "arg": "input[accept*='pdf']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "resume",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "resume",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "resume",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "resume",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_label",
+        "arg": "cv",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "get_by_placeholder",
+        "arg": "cv",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "label_element_text",
+        "arg": "cv",
+        "matches": 0,
+        "text_element": true
+      },
+      {
+        "frame": "frame#1",
+        "strategy": "any_element_text",
+        "arg": "cv",
+        "matches": 0,
+        "text_element": true
+      }
+    ]
+  },
+  "label_scans": {
+    "name": {
+      "field": "name",
+      "keywords": [
+        "name",
+        "full name",
+        "preferred name"
+      ],
+      "label_elements_in_main_frame": 27,
+      "label_elements_in_other_frames": {
+        "frame#1": 0
+      },
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "email": {
+      "field": "email",
+      "keywords": [
+        "email"
+      ],
+      "label_elements_in_main_frame": 27,
+      "label_elements_in_other_frames": {
+        "frame#1": 0
+      },
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "phone": {
+      "field": "phone",
+      "keywords": [
+        "phone",
+        "phone number",
+        "telephone"
+      ],
+      "label_elements_in_main_frame": 27,
+      "label_elements_in_other_frames": {
+        "frame#1": 0
+      },
+      "label_read_errors": 0,
+      "matched_labels": [
+        {
+          "index": 6,
+          "text": "phone number*",
+          "label_visible": true,
+          "for": "form-input--undefined",
+          "hash_selector": "#form-input--undefined",
+          "hash_selector_matches": 0,
+          "attr_selector_matches": 0,
+          "nested_control_matches": 1,
+          "target_found_via": "nested-in-label",
+          "target": {
+            "tag": "input",
+            "id": "form-input--customQuestionAnswers[349854][answer]",
+            "name": "customQuestionAnswers[349854][answer]",
+            "type": "text",
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "ariaLabelledbyResolved": null,
+            "ariaLabelledbyText": null,
+            "placeholder": null,
+            "autocomplete": null,
+            "role": null,
+            "dataTest": null,
+            "classHead": "text-dark-aaaa text-md max-w-full placeholder-dark-a ring-in...",
+            "labelSource": "wrapping-label",
+            "labelFor": null,
+            "labelForCount": 0,
+            "wrappingLabel": "Phone Number*",
+            "nearbyText": {
+              "tag": "span",
+              "text": "*",
+              "isLabelElement": false
+            },
+            "visible": true,
+            "opacity": "1",
+            "ariaHidden": null,
+            "disabled": false,
+            "readonly": false,
+            "required": false,
+            "hasValue": false,
+            "inDialog": true,
+            "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+            "form": "form",
+            "container": "form",
+            "inShadowRoot": false,
+            "inTopFrame": true,
+            "pw_visible": true,
+            "pw_enabled": true,
+            "pw_editable": true
+          },
+          "reject_reason": "target_name_contains_customQuestionAnswers (excluded for name/email/phone)"
+        }
+      ]
+    },
+    "location": {
+      "field": "location",
+      "keywords": [
+        "location",
+        "city"
+      ],
+      "label_elements_in_main_frame": 27,
+      "label_elements_in_other_frames": {
+        "frame#1": 0
+      },
+      "label_read_errors": 0,
+      "matched_labels": [
+        {
+          "index": 11,
+          "text": "u.s. work authorization*\ncan work for any employer\ncan work ...",
+          "label_visible": true,
+          "for": "form-input--undefined",
+          "hash_selector": "#form-input--undefined",
+          "hash_selector_matches": 0,
+          "attr_selector_matches": 0,
+          "nested_control_matches": 4,
+          "target_found_via": "nested-in-label",
+          "target": {
+            "tag": "input",
+            "id": "form-input--modal-form-4748852--customQuestionAnswers[349857][jobListingQuestionOptionId]--256734",
+            "name": "customQuestionAnswers[349857][jobListingQuestionOptionId]",
+            "type": "radio",
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "ariaLabelledbyResolved": null,
+            "ariaLabelledbyText": null,
+            "placeholder": null,
+            "autocomplete": null,
+            "role": null,
+            "dataTest": null,
+            "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+            "labelSource": "label[for]",
+            "labelFor": "Can work for any employer",
+            "labelForCount": 1,
+            "wrappingLabel": "U.S. Work Authorization*Can work for any employerCan work for current employerSe...",
+            "nearbyText": {
+              "tag": "span",
+              "text": "*",
+              "isLabelElement": false
+            },
+            "visible": false,
+            "opacity": "0",
+            "ariaHidden": null,
+            "disabled": false,
+            "readonly": false,
+            "required": false,
+            "hasValue": true,
+            "inDialog": true,
+            "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+            "form": "form",
+            "container": "form",
+            "inShadowRoot": false,
+            "inTopFrame": true,
+            "pw_visible": false,
+            "pw_enabled": true,
+            "pw_editable": true
+          },
+          "reject_reason": "target_not_visible"
+        },
+        {
+          "index": 15,
+          "text": "na, applying to non-us location",
+          "label_visible": true,
+          "for": "form-input--modal-form-4748852--customQuestionAnswers[349857][jobListingQuestionOptionId]--256737",
+          "hash_selector_error": "Error: Locator.count: SyntaxError: Failed to execute 'querySelectorAll' on 'Document': '#form-input--modal-form-4748852--custom",
+          "attr_selector_matches": 1,
+          "element_reachable_only_via_[id=...]": {
+            "tag": "input",
+            "id": "form-input--modal-form-4748852--customQuestionAnswers[349857][jobListingQuestionOptionId]--256737",
+            "name": "customQuestionAnswers[349857][jobListingQuestionOptionId]",
+            "type": "radio",
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "ariaLabelledbyResolved": null,
+            "ariaLabelledbyText": null,
+            "placeholder": null,
+            "autocomplete": null,
+            "role": null,
+            "dataTest": null,
+            "classHead": "styles-module_input__2dF35 styles-module_warning__2Y7z2",
+            "labelSource": "label[for]",
+            "labelFor": "NA, applying to non-US location",
+            "labelForCount": 1,
+            "wrappingLabel": "U.S. Work Authorization*Can work for any employerCan work for current employerSe...",
+            "nearbyText": {
+              "tag": "label",
+              "text": "Seeking work authorization",
+              "isLabelElement": true
+            },
+            "visible": false,
+            "opacity": "0",
+            "ariaHidden": null,
+            "disabled": false,
+            "readonly": false,
+            "required": false,
+            "hasValue": true,
+            "inDialog": true,
+            "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+            "form": "form",
+            "container": "form",
+            "inShadowRoot": false,
+            "inTopFrame": true,
+            "pw_visible": false,
+            "pw_enabled": true,
+            "pw_editable": true
+          },
+          "nested_control_matches": 0,
+          "reject_reason": "no_target (for-selector matched nothing/raised AND no input/textarea nested in label)"
+        }
+      ]
+    },
+    "linkedin": {
+      "field": "linkedin",
+      "keywords": [
+        "linkedin"
+      ],
+      "label_elements_in_main_frame": 27,
+      "label_elements_in_other_frames": {
+        "frame#1": 0
+      },
+      "label_read_errors": 0,
+      "matched_labels": [
+        {
+          "index": 10,
+          "text": "linkedin profile",
+          "label_visible": true,
+          "for": "form-input--undefined",
+          "hash_selector": "#form-input--undefined",
+          "hash_selector_matches": 0,
+          "attr_selector_matches": 0,
+          "nested_control_matches": 1,
+          "target_found_via": "nested-in-label",
+          "target": {
+            "tag": "input",
+            "id": "form-input--customQuestionAnswers[349856][answer]",
+            "name": "customQuestionAnswers[349856][answer]",
+            "type": "text",
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "ariaLabelledbyResolved": null,
+            "ariaLabelledbyText": null,
+            "placeholder": null,
+            "autocomplete": null,
+            "role": null,
+            "dataTest": null,
+            "classHead": "text-dark-aaaa text-md max-w-full placeholder-dark-a ring-in...",
+            "labelSource": "wrapping-label",
+            "labelFor": null,
+            "labelForCount": 0,
+            "wrappingLabel": "LinkedIn Profile",
+            "nearbyText": {
+              "tag": "div",
+              "text": "LinkedIn Profile",
+              "isLabelElement": false
+            },
+            "visible": true,
+            "opacity": "1",
+            "ariaHidden": null,
+            "disabled": false,
+            "readonly": false,
+            "required": false,
+            "hasValue": false,
+            "inDialog": true,
+            "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+            "form": "form",
+            "container": "form",
+            "inShadowRoot": false,
+            "inTopFrame": true,
+            "pw_visible": true,
+            "pw_enabled": true,
+            "pw_editable": true
+          },
+          "reject_reason": "none (production WOULD accept this target)"
+        },
+        {
+          "index": 19,
+          "text": "how did you hear about orb?*\nonline job board (linkedin, ind...",
+          "label_visible": true,
+          "for": "form-input--undefined",
+          "hash_selector": "#form-input--undefined",
+          "hash_selector_matches": 0,
+          "attr_selector_matches": 0,
+          "nested_control_matches": 6,
+          "target_found_via": "nested-in-label",
+          "target": {
+            "tag": "input",
+            "id": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256740",
+            "name": null,
+            "type": "checkbox",
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "ariaLabelledbyResolved": null,
+            "ariaLabelledbyText": null,
+            "placeholder": null,
+            "autocomplete": null,
+            "role": null,
+            "dataTest": null,
+            "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+            "labelSource": "label[for]",
+            "labelFor": "Online job board (LinkedIn, Indeed)",
+            "labelForCount": 1,
+            "wrappingLabel": "How did you hear about Orb?*Online job board (LinkedIn, Indeed)RepvueBuiltInOrb ...",
+            "nearbyText": {
+              "tag": "span",
+              "text": "*",
+              "isLabelElement": false
+            },
+            "visible": false,
+            "opacity": "0",
+            "ariaHidden": null,
+            "disabled": false,
+            "readonly": false,
+            "required": false,
+            "hasValue": true,
+            "inDialog": true,
+            "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+            "form": "form",
+            "container": "form",
+            "inShadowRoot": false,
+            "inTopFrame": true,
+            "pw_visible": false,
+            "pw_enabled": true,
+            "pw_editable": true
+          },
+          "reject_reason": "target_not_visible"
+        },
+        {
+          "index": 20,
+          "text": "online job board (linkedin, indeed)",
+          "label_visible": true,
+          "for": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256740",
+          "hash_selector_error": "Error: Locator.count: SyntaxError: Failed to execute 'querySelectorAll' on 'Document': '#form-input--modal-form-4748852--custom",
+          "attr_selector_matches": 1,
+          "element_reachable_only_via_[id=...]": {
+            "tag": "input",
+            "id": "form-input--modal-form-4748852--customQuestionAnswers[349859][jobListingQuestionOptionId]--256740",
+            "name": null,
+            "type": "checkbox",
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "ariaLabelledbyResolved": null,
+            "ariaLabelledbyText": null,
+            "placeholder": null,
+            "autocomplete": null,
+            "role": null,
+            "dataTest": null,
+            "classHead": "styles-module_input__3Uic5 styles-module_warning__2IvXK",
+            "labelSource": "label[for]",
+            "labelFor": "Online job board (LinkedIn, Indeed)",
+            "labelForCount": 1,
+            "wrappingLabel": "How did you hear about Orb?*Online job board (LinkedIn, Indeed)RepvueBuiltInOrb ...",
+            "nearbyText": {
+              "tag": "span",
+              "text": "*",
+              "isLabelElement": false
+            },
+            "visible": false,
+            "opacity": "0",
+            "ariaHidden": null,
+            "disabled": false,
+            "readonly": false,
+            "required": false,
+            "hasValue": true,
+            "inDialog": true,
+            "dialog": "div.ReactModal__Content.ReactModal__Content--after-open",
+            "form": "form",
+            "container": "form",
+            "inShadowRoot": false,
+            "inTopFrame": true,
+            "pw_visible": false,
+            "pw_enabled": true,
+            "pw_editable": true
+          },
+          "nested_control_matches": 0,
+          "reject_reason": "no_target (for-selector matched nothing/raised AND no input/textarea nested in label)"
+        }
+      ]
+    },
+    "github": {
+      "field": "github",
+      "keywords": [
+        "github"
+      ],
+      "label_elements_in_main_frame": 27,
+      "label_elements_in_other_frames": {
+        "frame#1": 0
+      },
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "portfolio": {
+      "field": "portfolio",
+      "keywords": [
+        "portfolio",
+        "website"
+      ],
+      "label_elements_in_main_frame": 27,
+      "label_elements_in_other_frames": {
+        "frame#1": 0
+      },
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "resume": {
+      "field": "resume",
+      "keywords": [
+        "resume",
+        "cv"
+      ],
+      "label_elements_in_main_frame": 27,
+      "label_elements_in_other_frames": {
+        "frame#1": 0
+      },
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    }
+  },
+  "elapsed_seconds": 4.87
+}

@@ -1,0 +1,19 @@
+{
+  "candidate_id": 2,
+  "job_id": 37,
+  "match_created": true,
+  "match_id": 66,
+  "match_recommendation": "Apply",
+  "application_eligibility": "PASSED",
+  "wellfound_routing_reached": true,
+  "playwright_started": true,
+  "final_submit_clicked": false,
+  "application_status": "submitted",
+  "application_blocker": null,
+  "failure_step": null,
+  "failure_detail": null,
+  "application_submission_adapter": "wellfound",
+  "application_destination": "https://wellfound.com/jobs/4748883-staff-ai-engineer",
+  "application_message": "The Submit application button was clicked on Wellfound.",
+  "application_confirmed": false
+}

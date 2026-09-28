@@ -1,0 +1,114 @@
+15:38:25.260 [+   0.17s] ENV                        python='3.11.6' os='Windows-10-10.0.26200-SP0' os_tz=['India Standard Time', 'India Summer Time'] os_locale="('English_India', '1252')" cwd='C:\\Users\\kirthiga.r\\OneDrive - Kryptos\\Desktop\\ai_job_agent' app_imports_ok=True
+15:38:31.885 [+   6.80s] BROWSER                    playwright_version='1.63.0' browser_type='chromium' channel_requested='chrome' launch_kwargs={'headless': False, 'channel': 'chrome'} browser_version='152.0.7977.85' is_connected=True bundled_chromium_would_be='C:\\Users\\kirthiga.r\\AppData\\Local\\ms-playwright\\chromium-1243\\chrome-win64\\chrome.exe'
+15:38:32.644 [+   7.56s] PROCESS                    pid=23028 exe='C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' exe_is_system_google_chrome=True exe_is_playwright_bundled_chromium=False user_data_dir='C:\\Users\\kirthiga.r\\AppData\\Local\\Temp\\playwright_chromiumdev_profile-LH5Fb0' user_data_dir_is_temporary=True user_data_dir_exists=True user_data_dir_created='2026-09-21T15:38:31' enable_automation_switch=False remote_debugging_pipe=True
+15:38:32.644 [+   7.56s] PROCESS_SWITCHES           pid=23028 names_only=['--allow-pre-commit-input', '--disable-back-forward-cache', '--disable-background-networking', '--disable-background-timer-throttling', '--disable-backgrounding-occluded-windows', '--disable-breakpad', '--disable-client-side-phishing-detection', '--disable-component-extensions-with-background-pages', '--disable-component-update', '--disable-default-apps', '--disable-dev-shm-usage', '--disable-edgeupdater', '--disable-extensions', '--disable-features', '--disable-field-trial-config', '--disable-hang-monitor', '--disable-infobars', '--disable-ipc-flooding-protection', '--disable-popup-blocking', '--disable-prompt-on-repost', '--disable-renderer-backgrounding', '--disable-search-engine-choice-screen', '--disable-sync', '--disable-updater-scheduler', '--edge-skip-compat-layer-relaunch', '--enable-features', '--enable-unsafe-swiftshader', '--export-tagged-pdf', '--force-color-profile', '--metrics-recording-only', '--no-default-browser-check', '--no-first-run', '--no-sandbox', '--no-service-autorun', '--no-startup-window', '--password-store', '--remote-debugging-pipe', '--unsafely-disable-devtools-self-xss-warnings', '--use-mock-keychain', '--user-data-dir']
+15:38:32.659 [+   7.58s] CONTEXT                    label='before-navigation' n_browser_contexts=1 n_pages_this_context=1 n_pages_all_contexts=1 context_is_persistent=False page_urls=['about:blank'] cookie_count=0 cookie_domains={}
+15:38:32.699 [+   7.61s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/100ms/<id:36>/apply' resource_type='document'
+15:38:34.283 [+   9.20s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='jobs.lever.co/100ms/<id:36>/apply'
+15:38:34.289 [+   9.20s] NAV_MAIN_FRAME             n=1 url='jobs.lever.co/100ms/<id:36>/apply' same_url_as_previous=False phase='before-submit-post'
+15:39:02.675 diagnostic run failed
+Traceback (most recent call last):
+  File "C:\Users\kirthiga.r\OneDrive - Kryptos\Desktop\ai_job_agent\diagnostics\lever_runtime_diagnostic.py", line 1249, in main
+    page.goto(args.url, wait_until="domcontentloaded", timeout=30000)
+  File "C:\Users\kirthiga.r\OneDrive - Kryptos\Desktop\ai_job_agent\.venv\Lib\site-packages\playwright\sync_api\_generated.py", line 9903, in goto
+    self._sync(
+  File "C:\Users\kirthiga.r\OneDrive - Kryptos\Desktop\ai_job_agent\.venv\Lib\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "C:\Users\kirthiga.r\OneDrive - Kryptos\Desktop\ai_job_agent\.venv\Lib\site-packages\playwright\_impl\_page.py", line 562, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kirthiga.r\OneDrive - Kryptos\Desktop\ai_job_agent\.venv\Lib\site-packages\playwright\_impl\_frame.py", line 157, in goto
+    await self._channel.send(
+  File "C:\Users\kirthiga.r\OneDrive - Kryptos\Desktop\ai_job_agent\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kirthiga.r\OneDrive - Kryptos\Desktop\ai_job_agent\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://jobs.lever.co/100ms/4c9f19c7-4432-4394-ba93-167319c68adc/apply", waiting until "domcontentloaded"
+
+15:39:02.681 [+  37.59s] ========                   moment="FINAL REPORT (PLAYWRIGHT + channel='chrome' column)"
+15:39:02.681 [+  37.59s] REPORT                     browser_binary='C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+15:39:02.681 [+  37.59s] REPORT                     browser_binary_is_system_google_chrome=True
+15:39:02.683 [+  37.59s] REPORT                     browser_version='152.0.7977.85'
+15:39:02.683 [+  37.59s] REPORT                     playwright_version='1.63.0'
+15:39:02.683 [+  37.59s] REPORT                     user_agent=None
+15:39:02.683 [+  37.59s] REPORT                     ua_brands=None
+15:39:02.685 [+  37.59s] REPORT                     navigator.webdriver=None
+15:39:02.685 [+  37.59s] REPORT                     enable_automation_switch=False
+15:39:02.685 [+  37.59s] REPORT                     viewport_playwright=None
+15:39:02.685 [+  37.59s] REPORT                     window_inner_outer_screen={'innerWidth': None, 'innerHeight': None, 'outerWidth': None, 'outerHeight': None, 'screenWidth': None, 'screenHeight': None, 'devicePixelRatio': None}
+15:39:02.687 [+  37.59s] REPORT                     profile_user_data_dir='C:\\Users\\kirthiga.r\\AppData\\Local\\Temp\\playwright_chromiumdev_profile-LH5Fb0'
+15:39:02.687 [+  37.61s] REPORT                     profile_is_temporary=True
+15:39:02.687 [+  37.61s] REPORT                     cookies_at_first_load={'count': None, 'domains': None}
+15:39:02.687 [+  37.61s] REPORT                     cookies_before_navigation=0
+15:39:02.687 [+  37.61s] REPORT                     context_is_persistent=None
+15:39:02.687 [+  37.61s] REPORT                     n_browser_contexts=None
+15:39:02.687 [+  37.61s] REPORT                     locale={'language': None, 'languages': None, 'intl': None}
+15:39:02.687 [+  37.61s] REPORT                     timezone=None
+15:39:02.687 [+  37.61s] REPORT                     plugins_length=None
+15:39:02.687 [+  37.61s] REPORT                     hardware_concurrency=None
+15:39:02.692 [+  37.61s] REPORT                     submit_button_visible_and_enabled_at_load=None
+15:39:02.692 [+  37.61s] REPORT                     submit_selector_match_counts_at_load=None
+15:39:02.693 [+  37.61s] REPORT                     captcha_initial=None
+15:39:02.693 [+  37.61s] REPORT                     captcha_before_first_hcaptcha_challenge_request=None
+15:39:02.695 [+  37.61s] REPORT                     captcha_before_submit_post=None
+15:39:02.695 [+  37.61s] REPORT                     captcha_after_error=None
+15:39:02.695 [+  37.61s] REPORT                     navigations_main_frame={'total': 1, 'before_submit_post': 1, 'after_submit_post': 0}
+15:39:02.695 [+  37.61s] REPORT                     same_url_renavigations=0
+15:39:02.695 [+  37.61s] REPORT                     document_replacements_detected=0
+15:39:02.695 [+  37.61s] REPORT                     popups_or_new_pages=[]
+15:39:02.695 [+  37.61s] REPORT                     submit_related_signals_seen=[]
+15:39:02.695 [+  37.61s] REPORT                     error_banner_seen=False
+15:39:02.695 [+  37.61s] REPORT                     confirmation_seen=False
+15:39:02.695 [+  37.61s] REPORT                     other_hosts_contacted_counts_hostnames_only={'jobs.lever.co': 1}
+15:39:02.695 [+  37.61s] REPORT                     ended_because='error: TimeoutError(\'Page.goto: Timeout 30000ms exceeded.\\nCall log:\\n  - navigating to "https://jobs.lever.co/100ms/4c9f19c7-4432-4394-ba93-167319c68adc/apply", waiting until "domcontentloaded"\\n\')'
+15:39:02.695 [+  37.61s] REPORT                     env={'python': '3.11.6', 'os': 'Windows-10-10.0.26200-SP0', 'os_tz': ['India Standard Time', 'India Summer Time'], 'os_locale': "('English_India', '1252')", 'cwd': 'C:\\Users\\kirthiga.r\\OneDrive - Kryptos\\Desktop\\ai_job_agent', 'app_imports_ok': True}
+15:43:41.926 [+ 316.84s] NET_REQ                    phase='before-submit-post' method='GET' target='js.hcaptcha.com/1/secure-api.js' resource_type='script'
+15:43:41.930 [+ 316.84s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='js.hcaptcha.com/1/secure-api.js'
+15:43:41.932 [+ 316.84s] NET_REQ                    phase='before-submit-post' method='GET' target='cdn.lever.co/fonts/Lato2/Lato-Regular.ttf' resource_type='font'
+15:43:41.934 [+ 316.84s] NET_REQ                    phase='before-submit-post' method='GET' target='cdn.lever.co/fonts/Lato2/Lato-Bold.ttf' resource_type='font'
+15:43:41.936 [+ 316.86s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/img/lever-logo-refresh.svg' resource_type='image'
+15:43:41.941 [+ 316.86s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/js/bug-snag.js' resource_type='script'
+15:43:41.946 [+ 316.86s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/js/jquery-3.6.1.min.js' resource_type='script'
+15:43:41.951 [+ 316.86s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/js/parseResume.js' resource_type='script'
+15:43:41.954 [+ 316.88s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/js/application.js' resource_type='script'
+15:43:41.956 [+ 316.88s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/js/debounce.min.js' resource_type='script'
+15:43:41.960 [+ 316.88s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/js/retrieveLocations.js' resource_type='script'
+15:43:41.969 [+ 316.89s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='jobs.lever.co/img/lever-logo-refresh.svg'
+15:43:41.974 [+ 316.89s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='jobs.lever.co/js/application.js'
+15:43:41.979 [+ 316.89s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='jobs.lever.co/js/bug-snag.js'
+15:43:41.985 [+ 316.91s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='jobs.lever.co/js/parseResume.js'
+15:43:41.987 [+ 316.91s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='jobs.lever.co/js/retrieveLocations.js'
+15:43:41.991 [+ 316.91s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='jobs.lever.co/js/debounce.min.js'
+15:43:41.996 [+ 316.91s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='jobs.lever.co/js/jquery-3.6.1.min.js'
+15:43:42.003 [+ 316.92s] NET_REQ                    phase='before-submit-post' method='GET' target='newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html' resource_type='document'
+15:43:42.007 [+ 316.92s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/cdn-cgi/challenge-platform/scripts/jsd/main.js' resource_type='script'
+15:43:42.013 [+ 316.92s] NET_REQ                    phase='before-submit-post' method='GET' target='newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html' resource_type='document'
+15:43:42.018 [+ 316.94s] NET_RESP                   phase='before-submit-post' status=302 method='GET' target='jobs.lever.co/cdn-cgi/challenge-platform/scripts/jsd/main.js'
+15:43:42.020 [+ 316.94s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/cdn-cgi/challenge-platform/h/g/scripts/jsd/330e41bb475c/main.js' resource_type='script'
+15:43:42.025 [+ 316.94s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='jobs.lever.co/cdn-cgi/challenge-platform/h/g/scripts/jsd/330e41bb475c/main.js'
+15:43:42.030 [+ 316.95s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html'
+15:43:42.035 [+ 316.95s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html'
+15:43:42.037 [+ 316.95s] NET_REQ                    phase='before-submit-post' method='POST' target='jobs.lever.co/cdn-cgi/challenge-platform/h/g/jsd/oneshot/330e41bb475c/0.23995839664334617:1789981829:QL8sSLg5VWkn7IjWQOEHkAS3I6V12mXhibAySonqE6Q/a3e844ecee79637b' resource_type='xhr'
+15:43:42.039 [+ 316.95s] NET_RESP                   phase='after-submit-post' status=200 method='GET' target='cdn.lever.co/fonts/Lato2/Lato-Bold.ttf'
+15:43:42.041 [+ 316.95s] NET_RESP                   phase='after-submit-post' status=200 method='GET' target='cdn.lever.co/fonts/Lato2/Lato-Regular.ttf'
+15:43:42.498 [+ 317.41s] NET_RESP                   phase='after-submit-post' status=200 method='POST' target='jobs.lever.co/cdn-cgi/challenge-platform/h/g/jsd/oneshot/330e41bb475c/0.23995839664334617:1789981829:QL8sSLg5VWkn7IjWQOEHkAS3I6V12mXhibAySonqE6Q/a3e844ecee79637b'
+15:43:42.498 [+ 317.41s] NET_REQ                    phase='after-submit-post' method='POST' target='jobs.lever.co/parseResume' resource_type='xhr'
+15:43:42.498 [+ 317.41s] NET_RESP                   phase='after-submit-post' status=200 method='POST' target='jobs.lever.co/parseResume'
+15:43:42.500 [+ 317.42s] NET_FAILED                 phase='after-submit-post' method='GET' target='newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html' failure='net::ERR_ABORTED'
+15:43:42.500 [+ 317.42s] NET_FAILED                 phase='after-submit-post' method='GET' target='newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html' failure='net::ERR_ABORTED'
+15:43:42.502 [+ 317.42s] LOAD_EVENT                 n=1 phase='after-submit-post'
+15:43:42.507 [+ 317.42s] NET_REQ                    phase='after-submit-post' method='GET' target='jobs.lever.co/100ms/<id:36>/apply' resource_type='document'
+15:43:42.508 [+ 317.42s] NET_RESP                   phase='after-submit-post' status=200 method='GET' target='jobs.lever.co/100ms/<id:36>/apply'
+15:43:42.510 [+ 317.42s] NAV_MAIN_FRAME             n=2 url='jobs.lever.co/100ms/<id:36>/apply' same_url_as_previous=True phase='after-submit-post'
+15:43:42.510 [+ 317.42s] NET_REQ                    phase='after-submit-post' method='GET' target='js.hcaptcha.com/1/secure-api.js' resource_type='script'
+15:43:42.512 [+ 317.42s] NET_RESP                   phase='after-submit-post' status=200 method='GET' target='js.hcaptcha.com/1/secure-api.js'
+15:43:42.515 [+ 317.44s] NET_REQ                    phase='after-submit-post' method='GET' target='cdn.lever.co/fonts/Lato2/Lato-Bold.ttf' resource_type='font'
+15:43:42.515 [+ 317.44s] NET_RESP                   phase='after-submit-post' status=200 method='GET' target='cdn.lever.co/fonts/Lato2/Lato-Bold.ttf'
+15:43:42.517 [+ 317.44s] NET_REQ                    phase='after-submit-post' method='GET' target='cdn.lever.co/fonts/Lato2/Lato-Regular.ttf' resource_type='font'
+15:43:42.517 [+ 317.44s] NET_RESP                   phase='after-submit-post' status=200 method='GET' target='cdn.lever.co/fonts/Lato2/Lato-Regular.ttf'
+15:43:42.518 [+ 317.44s] NET_REQ                    phase='after-submit-post' method='GET' target='jobs.lever.co/img/lever-logo-refresh.svg' resource_type='image'
+15:43:42.520 [+ 317.44s] PAGE_CLOSED                

@@ -1,0 +1,15 @@
+{
+  "candidate_id": 9,
+  "job_id": 39,
+  "match_created": true,
+  "match_id": 175,
+  "match_recommendation": "Skip",
+  "application_eligibility": "INELIGIBLE (recommendation=Skip)",
+  "wellfound_routing_reached": false,
+  "playwright_started": false,
+  "final_submit_clicked": false,
+  "application_status": null,
+  "application_blocker": null,
+  "failure_step": "eligibility:recommendation_skip",
+  "failure_detail": "Matching completed but recommendation is 'Skip' -- ApplicationService._check_eligible() would raise IneligibleForApplicationError. Not calling apply() further; this script does not override Phase 3's own decision."
+}

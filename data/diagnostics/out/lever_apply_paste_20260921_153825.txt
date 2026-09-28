@@ -1,0 +1,6 @@
+# lever apply-POST diagnostic (redacted) -- review before sharing
+# playwright=1.63.0 chrome=<phone> webdriver=None ended_because='error: TimeoutError(\'Page.goto: Timeout 30000ms exceeded.\\nCall log:\\n  - navigating to "https://jobs.lever.co/100ms/4c9f19c7-4432-4394-ba93-167319c68adc/apply", waiting until "domcontentloaded"\\n\')'
+# apply_posts_captured=0 redact_terms_used=0
+[+   7.61s] NET_REQ                    phase='before-submit-post' method='GET' target='jobs.lever.co/100ms/<id:36>/apply' resource_type='document'
+[+   9.20s] NET_RESP                   phase='before-submit-post' status=200 method='GET' target='jobs.lever.co/100ms/<id:36>/apply'
+[+   9.20s] NAV_MAIN_FRAME             n=1 url='jobs.lever.co/100ms/<id:36>/apply' same_url_as_previous=False phase='before-submit-post'

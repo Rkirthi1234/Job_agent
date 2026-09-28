@@ -1,0 +1,19 @@
+{
+  "candidate_id": 9,
+  "job_id": 60,
+  "match_created": true,
+  "match_id": 176,
+  "match_recommendation": "Review",
+  "application_eligibility": "PASSED",
+  "wellfound_routing_reached": true,
+  "playwright_started": true,
+  "final_submit_clicked": false,
+  "application_status": "manual_review",
+  "application_blocker": "required_application_question_unanswered",
+  "failure_step": null,
+  "failure_detail": null,
+  "application_submission_adapter": "wellfound",
+  "application_destination": "https://wellfound.com/jobs/4757024-software-development-engineer-new-grad-entry-level",
+  "application_message": "A required Wellfound application question could not be answered from the candidate profile. Manual review is required.",
+  "application_confirmed": false
+}

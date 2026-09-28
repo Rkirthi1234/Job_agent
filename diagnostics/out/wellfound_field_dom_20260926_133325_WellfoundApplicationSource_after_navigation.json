@@ -1,0 +1,55 @@
+{
+  "stage": "WellfoundApplicationSource.after_navigation",
+  "mode": "brief",
+  "timestamp": "2026-09-26 13:33:25",
+  "page": "https://wellfound.com/jobs/4757024-software-development-engineer-new-grad-entry-level",
+  "frames": [
+    {
+      "frame": "main",
+      "name": "",
+      "url": "https://wellfound.com/jobs/4757024-software-development-engineer-new-grad-entry-level",
+      "detached": false
+    }
+  ],
+  "structure": {
+    "main": {
+      "readyState": "complete",
+      "msSinceNavStart": 16440,
+      "isTopFrame": true,
+      "labelElementCount": 9,
+      "shadowHosts": [],
+      "iframes": [],
+      "dialogs": [
+        {
+          "tag": "div",
+          "id": null,
+          "role": "dialog",
+          "ariaModal": "true",
+          "openAttr": false,
+          "ariaLabel": "",
+          "visible": true,
+          "fieldCount": 7
+        }
+      ],
+      "forms": [
+        {
+          "id": null,
+          "name": null,
+          "action": null,
+          "method": null,
+          "visible": true,
+          "fieldCount": 1
+        },
+        {
+          "id": null,
+          "name": null,
+          "action": null,
+          "method": null,
+          "visible": true,
+          "fieldCount": 7
+        }
+      ]
+    }
+  },
+  "elapsed_seconds": 0.04
+}

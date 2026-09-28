@@ -1,0 +1,19 @@
+{
+  "candidate_id": 9,
+  "job_id": 32,
+  "match_created": true,
+  "match_id": 173,
+  "match_recommendation": "Apply",
+  "application_eligibility": "PASSED",
+  "wellfound_routing_reached": true,
+  "playwright_started": true,
+  "final_submit_clicked": false,
+  "application_status": "manual_review",
+  "application_blocker": "not_direct_apply_form",
+  "failure_step": null,
+  "failure_detail": null,
+  "application_submission_adapter": "wellfound",
+  "application_destination": "https://wellfound.com/jobs/3990111-ai-engineer",
+  "application_message": "This Wellfound page does not look like a direct application form (no resume upload or contact fields were found). Not submitted.",
+  "application_confirmed": false
+}

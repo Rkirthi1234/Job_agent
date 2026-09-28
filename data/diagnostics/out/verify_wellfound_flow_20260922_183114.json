@@ -1,0 +1,19 @@
+{
+  "candidate_id": 2,
+  "job_id": 37,
+  "match_created": true,
+  "match_id": 65,
+  "match_recommendation": "Apply",
+  "application_eligibility": "PASSED",
+  "wellfound_routing_reached": true,
+  "playwright_started": true,
+  "final_submit_clicked": false,
+  "application_status": "manual_review",
+  "application_blocker": "wellfound_manual_submission_required",
+  "failure_step": null,
+  "failure_detail": null,
+  "application_submission_adapter": "wellfound",
+  "application_destination": "https://wellfound.com/jobs/4748883-staff-ai-engineer",
+  "application_message": "The Wellfound application form is fully prepared (resume uploaded, fields filled, required questions verified). Review it and click Apply/Send Application yourself at https://wellfound.com/jobs/4748883-staff-ai-engineer?autoOpenApplication=true -- this app does not submit Wellfound applications automatically.",
+  "application_confirmed": false
+}

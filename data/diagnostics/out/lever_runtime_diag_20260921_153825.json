@@ -1,0 +1,71 @@
+{
+  "browser_binary": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "browser_binary_is_system_google_chrome": true,
+  "browser_version": "152.0.7977.85",
+  "playwright_version": "1.63.0",
+  "user_agent": null,
+  "ua_brands": null,
+  "navigator.webdriver": null,
+  "enable_automation_switch": false,
+  "viewport_playwright": null,
+  "window_inner_outer_screen": {
+    "innerWidth": null,
+    "innerHeight": null,
+    "outerWidth": null,
+    "outerHeight": null,
+    "screenWidth": null,
+    "screenHeight": null,
+    "devicePixelRatio": null
+  },
+  "profile_user_data_dir": "C:\\Users\\kirthiga.r\\AppData\\Local\\Temp\\playwright_chromiumdev_profile-LH5Fb0",
+  "profile_is_temporary": true,
+  "cookies_at_first_load": {
+    "count": null,
+    "domains": null
+  },
+  "cookies_before_navigation": 0,
+  "context_is_persistent": null,
+  "n_browser_contexts": null,
+  "locale": {
+    "language": null,
+    "languages": null,
+    "intl": null
+  },
+  "timezone": null,
+  "plugins_length": null,
+  "hardware_concurrency": null,
+  "submit_button_visible_and_enabled_at_load": null,
+  "submit_selector_match_counts_at_load": null,
+  "captcha_initial": null,
+  "captcha_before_first_hcaptcha_challenge_request": null,
+  "captcha_before_submit_post": null,
+  "captcha_after_error": null,
+  "navigations_main_frame": {
+    "total": 1,
+    "before_submit_post": 1,
+    "after_submit_post": 0
+  },
+  "same_url_renavigations": 0,
+  "document_replacements_detected": 0,
+  "popups_or_new_pages": [],
+  "submit_related_signals_seen": [],
+  "error_banner_seen": false,
+  "confirmation_seen": false,
+  "other_hosts_contacted_counts_hostnames_only": {
+    "jobs.lever.co": 1
+  },
+  "final_apply_post": null,
+  "lever_apply_posts": [],
+  "ended_because": "error: TimeoutError('Page.goto: Timeout 30000ms exceeded.\\nCall log:\\n  - navigating to \"https://jobs.lever.co/100ms/4c9f19c7-4432-4394-ba93-167319c68adc/apply\", waiting until \"domcontentloaded\"\\n')",
+  "env": {
+    "python": "3.11.6",
+    "os": "Windows-10-10.0.26200-SP0",
+    "os_tz": [
+      "India Standard Time",
+      "India Summer Time"
+    ],
+    "os_locale": "('English_India', '1252')",
+    "cwd": "C:\\Users\\kirthiga.r\\OneDrive - Kryptos\\Desktop\\ai_job_agent",
+    "app_imports_ok": true
+  }
+}

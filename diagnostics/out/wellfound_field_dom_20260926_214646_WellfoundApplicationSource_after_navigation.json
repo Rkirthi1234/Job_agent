@@ -1,0 +1,18 @@
+{
+  "stage": "WellfoundApplicationSource.after_navigation",
+  "mode": "brief",
+  "timestamp": "2026-09-26 21:46:46",
+  "page": "https://wellfound.com/jobs/2-engineer",
+  "frames": [
+    {
+      "frame": "main",
+      "name": null,
+      "url": "https://wellfound.com/jobs/2-engineer",
+      "detached": null
+    }
+  ],
+  "structure": {
+    "main": {}
+  },
+  "elapsed_seconds": 0.0
+}

@@ -1,0 +1,23 @@
+{
+  "stage": "WellfoundApplicationSource.after_navigation",
+  "mode": "brief",
+  "timestamp": "2026-09-27 14:16:53",
+  "page": "https://wellfound.com/jobs/12-confirmation-analyst",
+  "frames": [
+    {
+      "frame": "main",
+      "name": null,
+      "url": "https://wellfound.com/jobs/12-confirmation-analyst",
+      "detached": null
+    }
+  ],
+  "structure": {
+    "main": {}
+  },
+  "dynamic": {
+    "previous_stage": "WellfoundApplicationSource.after_navigation",
+    "added": [],
+    "removed": []
+  },
+  "elapsed_seconds": 0.0
+}

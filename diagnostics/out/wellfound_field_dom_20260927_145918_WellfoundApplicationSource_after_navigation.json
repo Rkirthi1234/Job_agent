@@ -1,0 +1,89 @@
+{
+  "stage": "WellfoundApplicationSource.after_navigation",
+  "mode": "brief",
+  "timestamp": "2026-09-27 14:59:18",
+  "page": "https://wellfound.com/jobs/4748852-staff-software-engineer-infrastructure-san-francisco-hq",
+  "frames": [
+    {
+      "frame": "main",
+      "name": "",
+      "url": "https://wellfound.com/jobs/4748852-staff-software-engineer-infrastructure-san-francisco-hq",
+      "detached": false
+    },
+    {
+      "frame": "frame#1",
+      "name": "",
+      "url": "about:blank",
+      "detached": false
+    }
+  ],
+  "structure": {
+    "main": {
+      "readyState": "complete",
+      "msSinceNavStart": 16518,
+      "isTopFrame": true,
+      "labelElementCount": 27,
+      "shadowHosts": [],
+      "iframes": [
+        {
+          "id": null,
+          "name": null,
+          "title": "Help Scout Beacon - Open",
+          "src": null,
+          "visible": true
+        }
+      ],
+      "dialogs": [
+        {
+          "tag": "div",
+          "id": null,
+          "role": "dialog",
+          "ariaModal": null,
+          "openAttr": false,
+          "ariaLabel": "Help Scout Beacon",
+          "visible": false,
+          "fieldCount": 0
+        },
+        {
+          "tag": "div",
+          "id": null,
+          "role": "dialog",
+          "ariaModal": "true",
+          "openAttr": false,
+          "ariaLabel": "",
+          "visible": true,
+          "fieldCount": 21
+        }
+      ],
+      "forms": [
+        {
+          "id": null,
+          "name": null,
+          "action": null,
+          "method": null,
+          "visible": true,
+          "fieldCount": 1
+        },
+        {
+          "id": null,
+          "name": null,
+          "action": null,
+          "method": null,
+          "visible": true,
+          "fieldCount": 21
+        }
+      ]
+    },
+    "frame#1": {
+      "readyState": "complete",
+      "msSinceNavStart": 13516,
+      "isTopFrame": false,
+      "labelElementCount": 0,
+      "shadowHosts": [],
+      "iframes": [],
+      "dialogs": [],
+      "forms": []
+    }
+  },
+  "elapsed_seconds": 0.07
+}

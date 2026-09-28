@@ -1,0 +1,1214 @@
+{
+  "stage": "WellfoundApplicationSource._fill_common_fields:before_any_fill",
+  "mode": "full",
+  "timestamp": "2026-09-26 21:46:04",
+  "page": "https://wellfound.com/jobs/1-engineer",
+  "frames": [
+    {
+      "frame": "main",
+      "name": null,
+      "url": "https://wellfound.com/jobs/1-engineer",
+      "detached": null
+    }
+  ],
+  "structure": {
+    "main": {}
+  },
+  "dynamic": {
+    "previous_stage": "WellfoundApplicationSource.after_navigation",
+    "added": [],
+    "removed": []
+  },
+  "inventory": [],
+  "fields": {
+    "name": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[autocomplete='name']",
+        "matches": 1,
+        "text_element": false,
+        "elements": [
+          {
+            "describe_error": "TypeError: _FakeElement.evaluate() got an unexpected keyword argument 'timeout'",
+            "pw_visible": true,
+            "pw_enabled": "error:TypeError",
+            "pw_editable": "error:AttributeError"
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[aria-label*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[aria-label*='full name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--name",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--userPreferredName",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--preferredName",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='name']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='fullName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='applicantName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='full_name']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='userPreferredName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='preferredName']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='name' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "name",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "full name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "full name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "full name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "full name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "full name",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "full name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "preferred name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "preferred name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "preferred name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "preferred name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "preferred name",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "preferred name",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      }
+    ],
+    "email": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[type='email']",
+        "matches": 1,
+        "text_element": false,
+        "elements": [
+          {
+            "describe_error": "TypeError: _FakeElement.evaluate() got an unexpected keyword argument 'timeout'",
+            "pw_visible": true,
+            "pw_enabled": "error:TypeError",
+            "pw_editable": "error:AttributeError"
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[autocomplete='email']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[aria-label*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--email",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='email']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='applicationEmail']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='applicantEmail']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='email' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "email",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "email",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "email",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "email",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "email",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "email",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      }
+    ],
+    "phone": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[type='tel']",
+        "matches": 1,
+        "text_element": false,
+        "elements": [
+          {
+            "describe_error": "TypeError: _FakeElement.evaluate() got an unexpected keyword argument 'timeout'",
+            "pw_visible": true,
+            "pw_enabled": "error:TypeError",
+            "pw_editable": "error:AttributeError"
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[autocomplete='tel']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[aria-label*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[aria-label*='telephone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--phone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--userPhone",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='phone']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='phoneNumber']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='userPhone']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='applicantPhone']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='phone' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "phone",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "phone",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "phone",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "phone",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "phone",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "phone",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "phone number",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "phone number",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "phone number",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "phone number",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "phone number",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "phone number",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "telephone",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "telephone",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "telephone",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "telephone",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "telephone",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "telephone",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      }
+    ],
+    "location": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#downshift-0-input",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='location']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='San Francisco']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='location']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='location' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[autocomplete*='address' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "location",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "location",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "location",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "location",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "location",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "location",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "city",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "city",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "city",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "city",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "city",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "city",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      }
+    ],
+    "linkedin": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='linkedin' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='linkedin' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='linkedin' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[type='url']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "linkedin",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "linkedin",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "linkedin",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "linkedin",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "linkedin",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "linkedin",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      }
+    ],
+    "github": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='github' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='github' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='github' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "github",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "github",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "github",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "github",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "github",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "github",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      }
+    ],
+    "portfolio": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='portfolio' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='portfolio' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='portfolio' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name*='website' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='website' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[placeholder*='website' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "portfolio",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "portfolio",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "portfolio",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "portfolio",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "portfolio",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "portfolio",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "website",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "website",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:textbox",
+        "arg": "website",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_role:combobox",
+        "arg": "website",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_role'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "website",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "website",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      }
+    ],
+    "resume": [
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "#form-input--resume",
+        "matches": 1,
+        "text_element": false,
+        "elements": [
+          {
+            "describe_error": "TypeError: _FakeElement.evaluate() got an unexpected keyword argument 'timeout'",
+            "pw_visible": true,
+            "pw_enabled": "error:TypeError",
+            "pw_editable": "error:AttributeError"
+          }
+        ]
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='resume']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[name='cv']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[type='file']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[id*='resume' i]",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "css",
+        "arg": "input[accept*='pdf']",
+        "matches": 0,
+        "text_element": false
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "resume",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "resume",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "resume",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "resume",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_label",
+        "arg": "cv",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_label'"
+      },
+      {
+        "frame": "main",
+        "strategy": "get_by_placeholder",
+        "arg": "cv",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_placeholder'"
+      },
+      {
+        "frame": "main",
+        "strategy": "label_element_text",
+        "arg": "cv",
+        "matches": null,
+        "error": "TypeError: FakePage.locator() got an unexpected keyword argument 'has_text'"
+      },
+      {
+        "frame": "main",
+        "strategy": "any_element_text",
+        "arg": "cv",
+        "matches": null,
+        "error": "AttributeError: 'FakePage' object has no attribute 'get_by_text'"
+      }
+    ]
+  },
+  "label_scans": {
+    "name": {
+      "field": "name",
+      "keywords": [
+        "name",
+        "full name",
+        "preferred name"
+      ],
+      "label_elements_in_main_frame": 0,
+      "label_elements_in_other_frames": {},
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "email": {
+      "field": "email",
+      "keywords": [
+        "email"
+      ],
+      "label_elements_in_main_frame": 0,
+      "label_elements_in_other_frames": {},
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "phone": {
+      "field": "phone",
+      "keywords": [
+        "phone",
+        "phone number",
+        "telephone"
+      ],
+      "label_elements_in_main_frame": 0,
+      "label_elements_in_other_frames": {},
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "location": {
+      "field": "location",
+      "keywords": [
+        "location",
+        "city"
+      ],
+      "label_elements_in_main_frame": 0,
+      "label_elements_in_other_frames": {},
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "linkedin": {
+      "field": "linkedin",
+      "keywords": [
+        "linkedin"
+      ],
+      "label_elements_in_main_frame": 0,
+      "label_elements_in_other_frames": {},
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "github": {
+      "field": "github",
+      "keywords": [
+        "github"
+      ],
+      "label_elements_in_main_frame": 0,
+      "label_elements_in_other_frames": {},
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "portfolio": {
+      "field": "portfolio",
+      "keywords": [
+        "portfolio",
+        "website"
+      ],
+      "label_elements_in_main_frame": 0,
+      "label_elements_in_other_frames": {},
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    },
+    "resume": {
+      "field": "resume",
+      "keywords": [
+        "resume",
+        "cv"
+      ],
+      "label_elements_in_main_frame": 0,
+      "label_elements_in_other_frames": {},
+      "label_read_errors": 0,
+      "matched_labels": [],
+      "note": "no <label> element's text contains any keyword"
+    }
+  },
+  "elapsed_seconds": 0.02
+}

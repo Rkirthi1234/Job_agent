@@ -1,0 +1,24 @@
+{
+  "stage": "WellfoundApplicationSource._fill_common_fields:after_all_fills",
+  "mode": "inventory",
+  "timestamp": "2026-09-26 11:40:44",
+  "page": "https://wellfound.com/jobs/1-engineer",
+  "frames": [
+    {
+      "frame": "main",
+      "name": null,
+      "url": "https://wellfound.com/jobs/1-engineer",
+      "detached": null
+    }
+  ],
+  "structure": {
+    "main": {}
+  },
+  "dynamic": {
+    "previous_stage": "WellfoundApplicationSource._fill_common_fields:before_any_fill",
+    "added": [],
+    "removed": []
+  },
+  "inventory": [],
+  "elapsed_seconds": 0.0
+}

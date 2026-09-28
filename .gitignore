@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment
+.env
+
+# Database
+*.db
+
+# Uploads (keep the folder, ignore its contents)
+uploads/*
+!uploads/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+
+# Pytest
+.pytest_cache/
+
+# Wellfound session credentials (never commit)
+wellfound_cookies.json
+wellfound_profile/

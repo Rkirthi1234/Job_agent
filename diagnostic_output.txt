@@ -1,0 +1,115 @@
+===== Wellfound DOM diagnostic -- 2026-09-26 19:32:13 =====
+Test URL: https://wellfound.com/jobs/4481110-senior-software-engineer-full-stack
+
+[session] Using persistent Chromium profile: wellfound_profile
+[session] session_kind=persistent_profile
+Navigating to https://wellfound.com/jobs/4481110-senior-software-engineer-full-stack ...
+[info] networkidle timeout (continuing anyway): Timeout 8000ms exceeded.
+=========================== logs ===========================
+"load" event fired
+============================================================
+Final URL after navigation/redirects: https://wellfound.com/jobs/4481110-senior-software-engineer-full-stack
+HTTP status: 200
+Page title: 'Senior Software Engineer (Full Stack) at Rec • San Francisco • Remote (Work from Home) | Wellfound'
+
+===== 'About the job' HEADINGS found: 0 =====
+
+===== Elements whose text CONTAINS 'about the job': 0 (tightest-first) =====
+
+===== Candidate selector matches (data-test/data-testid/article/main/section/class): 2 =====
+  [0] matched_selector='section'
+      tag=<section> attrs: class="styles_component__tr5x6" data-test="Masthead"
+      size: 1009x170  text_length=104
+      text_sample: 'Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage'
+  [1] matched_selector="[class*='description' i]"
+      tag=<div> attrs: class="styles_description__36q7q"
+      size: 369x3517  text_length=4929
+      text_sample: 'About Rec Think about the last time you tried to book a tennis court. Or sign your kid up for a swim lesson. Or find an open rec league that actually fits your schedule. You probably ended up on a web...(4919 chars total)'
+
+===== Substantial generic text blocks (400-20000 chars, <=40 children): 20 =====
+      tag=<div> attrs: class="styles_list__LNHUm"
+      size: 609x1206  text_length=1307
+      text_sample: 'Trunk DevEx in a box Senior Developer Advocate View more jobs at Trunk Kick Health The Online Performance Medicine Clinic for Energizing Sleep and Confident Presentations Lead Product-Focused Fullstac...(1307 chars total)'
+
+      tag=<div> attrs: class="styles_component__Exium"
+      size: 641x1294  text_length=1368
+      text_sample: 'Similar jobs to Senior Software Engineer (Full Stack) at Rec Trunk DevEx in a box Senior Developer Advocate View more jobs at Trunk Kick Health The Online Performance Medicine Clinic for Energizing Sl...(1368 chars total)'
+
+      tag=<div> attrs: class="styles_similarJobs__fvv2H"
+      size: 641x1294  text_length=1368
+      text_sample: 'Similar jobs to Senior Software Engineer (Full Stack) at Rec Trunk DevEx in a box Senior Developer Advocate View more jobs at Trunk Kick Health The Online Performance Medicine Clinic for Energizing Sl...(1368 chars total)'
+
+      tag=<div> attrs: class="styles_description__36q7q"
+      size: 369x3517  text_length=4929
+      text_sample: 'About Rec Think about the last time you tried to book a tennis court. Or sign your kid up for a swim lesson. Or find an open rec league that actually fits your schedule. You probably ended up on a web...(4919 chars total)'
+
+      tag=<div> attrs: class="styles_content__iLhPF"
+      size: 417x3611  text_length=4939
+      text_sample: 'About Rec Think about the last time you tried to book a tennis court. Or sign your kid up for a swim lesson. Or find an open rec league that actually fits your schedule. You probably ended up on a web...(4929 chars total)'
+
+      tag=<div> attrs: class="styles_body__k1Fvd"
+      size: 641x3611  text_length=5067
+      text_sample: 'About Rec Think about the last time you tried to book a tennis court. Or sign your kid up for a swim lesson. Or find an open rec league that actually fits your schedule. You probably ended up on a web...(5057 chars total)'
+
+      tag=<div> attrs: class="styles_component__4MnBs"
+      size: 641x3754  text_length=5182
+      text_sample: 'Senior Software Engineer (Full Stack) at Rec $150k – $200k RECRUITER RECENTLY ACTIVE POSTED 1 MONTH AGO Save Apply About Rec Think about the last time you tried to book a tennis court. Or sign your ki...(5172 chars total)'
+
+      tag=<div> attrs: class="styles_profile__r_OKH"
+      size: 705x5416  text_length=6831
+      text_sample: 'Senior Software Engineer (Full Stack) at Rec $150k – $200k RECRUITER RECENTLY ACTIVE POSTED 1 MONTH AGO Save Apply About Rec Think about the last time you tried to book a tennis court. Or sign your ki...(6815 chars total)'
+
+      tag=<div> attrs: class="styles_component__isJPO" data-test="JobDetail"
+      size: 705x5416  text_length=6831
+      text_sample: 'Senior Software Engineer (Full Stack) at Rec $150k – $200k RECRUITER RECENTLY ACTIVE POSTED 1 MONTH AGO Save Apply About Rec Think about the last time you tried to book a tennis court. Or sign your ki...(6815 chars total)'
+
+      tag=<div> attrs: class="w-full"
+      size: 705x5455  text_length=6899
+      text_sample: 'Share ⋮ Follow Overview People Culture and benefits Funding Jobs 7 Senior Software Engineer (Full Stack) at Rec $150k – $200k RECRUITER RECENTLY ACTIVE POSTED 1 MONTH AGO Save Apply About Rec Think ab...(6882 chars total)'
+
+      tag=<div> attrs: class="styles_main__EGHwE"
+      size: 1009x5455  text_length=7190
+      text_sample: 'Share ⋮ Follow Overview People Culture and benefits Funding Jobs 7 Senior Software Engineer (Full Stack) at Rec $150k – $200k RECRUITER RECENTLY ACTIVE POSTED 1 MONTH AGO Save Apply About Rec Think ab...(7173 chars total)'
+
+      tag=<div> attrs: class="styles_content__pKhb0"
+      size: 1009x5693  text_length=7300
+      text_sample: 'Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage Share ⋮ Follow Overview People Culture and benefits Funding Jobs 7 Senior Software Engineer (Fu...(7283 chars total)'
+
+      tag=<div> attrs: class="styles_content__gWQp_ styles_layoutContent__T1Cc5"
+      size: 1009x5781  text_length=7320
+      text_sample: 'DiscoverStartupsRec Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage Share ⋮ Follow Overview People Culture and benefits Funding Jobs 7 Senior S...(7303 chars total)'
+
+      tag=<div> attrs: class="styles_component__PNq1k styles_candidateLayout__nqkjP"
+      size: 1009x5733  text_length=7320
+      text_sample: 'DiscoverStartupsRec Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage Share ⋮ Follow Overview People Culture and benefits Funding Jobs 7 Senior S...(7303 chars total)'
+
+      tag=<div> attrs: class="styles_wrapper__J5pNi"
+      size: 1009x5733  text_length=7320
+      text_sample: 'DiscoverStartupsRec Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage Share ⋮ Follow Overview People Culture and benefits Funding Jobs 7 Senior S...(7303 chars total)'
+
+      tag=<div> attrs: class="styles_box___OsDD"
+      size: 1009x5733  text_length=7320
+      text_sample: 'DiscoverStartupsRec Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage Share ⋮ Follow Overview People Culture and benefits Funding Jobs 7 Senior S...(7303 chars total)'
+
+      tag=<div> attrs: class="styles_frame__9S86c"
+      size: 1265x5845  text_length=7383
+      text_sample: 'Home Profile Jobs Applied Messages Refer a friend Earn $200 DiscoverStartupsRec Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage Share ⋮ Follow ...(7363 chars total)'
+
+      tag=<div> attrs: id="__next" data-reactroot=""
+      size: 1265x5912  text_length=7398
+      text_sample: 'Open to offers Home Profile Jobs Applied Messages Refer a friend Earn $200 DiscoverStartupsRec Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage ...(7378 chars total)'
+
+      tag=<div> attrs: id="main"
+      size: 1265x5912  text_length=7398
+      text_sample: 'Open to offers Home Profile Jobs Applied Messages Refer a friend Earn $200 DiscoverStartupsRec Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage ...(7378 chars total)'
+
+      tag=<div> attrs: class="styles_component__VRc0I styles_white__Nexe6"
+      size: 1265x5912  text_length=7398
+      text_sample: 'Open to offers Home Profile Jobs Applied Messages Refer a friend Earn $200 DiscoverStartupsRec Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage ...(7378 chars total)'
+
+===== SAMPLE extracted description text (best current guess, NOT a final selector) =====
+Rec Actively Hiring Empowering the entire recreation community to thrive 11-50 Employees B2C Early Stage
+
+===== END OF DIAGNOSTIC =====
+REMINDER: no selector here has been chosen or hardcoded as a fix.
+This script only investigates; app/integrations/job_sources/wellfound.py is untouched.

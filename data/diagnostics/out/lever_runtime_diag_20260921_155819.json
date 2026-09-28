@@ -1,0 +1,530 @@
+{
+  "browser_binary": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "browser_binary_is_system_google_chrome": true,
+  "browser_version": "152.0.7977.85",
+  "playwright_version": "1.63.0",
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "ua_brands": [
+    "Chromium/152",
+    "Not?A_Brand/24",
+    "Google Chrome/152"
+  ],
+  "navigator.webdriver": true,
+  "enable_automation_switch": false,
+  "viewport_playwright": {
+    "width": 1280,
+    "height": 720
+  },
+  "window_inner_outer_screen": {
+    "innerWidth": 1280,
+    "innerHeight": 720,
+    "outerWidth": 1298,
+    "outerHeight": 810,
+    "screenWidth": 1280,
+    "screenHeight": 720,
+    "devicePixelRatio": 1.0000000149011612
+  },
+  "profile_user_data_dir": "C:\\Users\\kirthiga.r\\AppData\\Local\\Temp\\playwright_chromiumdev_profile-WeQe4T",
+  "profile_is_temporary": true,
+  "cookies_at_first_load": {
+    "count": 3,
+    "domains": {
+      ".hcaptcha.com": 1,
+      ".lever.co": 2
+    }
+  },
+  "cookies_before_navigation": 0,
+  "context_is_persistent": false,
+  "n_browser_contexts": 1,
+  "locale": {
+    "language": "en-GB",
+    "languages": [
+      "en-GB",
+      "en-US",
+      "en"
+    ],
+    "intl": "en-GB"
+  },
+  "timezone": "Asia/Calcutta",
+  "plugins_length": 5,
+  "hardware_concurrency": 8,
+  "submit_button_visible_and_enabled_at_load": true,
+  "submit_selector_match_counts_at_load": {
+    "button:has-text('Submit application')": 1,
+    "button[type='submit']": 1
+  },
+  "captcha_initial": {
+    "bframe[count,visible]": [
+      0,
+      0
+    ],
+    "challenge_title[count,visible]": [
+      0,
+      0
+    ],
+    "hcaptcha_iframe[count,visible]": [
+      2,
+      0
+    ],
+    "hcaptcha_frames_in_page": [
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html"
+    ],
+    "body_has_not_a_robot": false,
+    "body_has_hcaptcha": false,
+    "error_banner_text_present": false,
+    "confirmation_text_or_thanks_url": false,
+    "app_detect_captcha_verdict": false
+  },
+  "captcha_before_first_hcaptcha_challenge_request": {
+    "bframe[count,visible]": [
+      0,
+      0
+    ],
+    "challenge_title[count,visible]": [
+      0,
+      0
+    ],
+    "hcaptcha_iframe[count,visible]": [
+      2,
+      0
+    ],
+    "hcaptcha_frames_in_page": [
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html"
+    ],
+    "body_has_not_a_robot": false,
+    "body_has_hcaptcha": false,
+    "error_banner_text_present": false,
+    "confirmation_text_or_thanks_url": false
+  },
+  "captcha_before_submit_post": null,
+  "captcha_after_error": {
+    "bframe[count,visible]": [
+      0,
+      0
+    ],
+    "challenge_title[count,visible]": [
+      0,
+      0
+    ],
+    "hcaptcha_iframe[count,visible]": [
+      2,
+      0
+    ],
+    "hcaptcha_frames_in_page": [
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha-enclave.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html",
+      "newassets.hcaptcha.com/captcha/v1/<id:40>/static/hcaptcha.html"
+    ],
+    "body_has_not_a_robot": false,
+    "body_has_hcaptcha": false,
+    "error_banner_text_present": true,
+    "confirmation_text_or_thanks_url": false,
+    "app_detect_captcha_verdict": false
+  },
+  "navigations_main_frame": {
+    "total": 2,
+    "before_submit_post": 1,
+    "after_submit_post": 1
+  },
+  "same_url_renavigations": 1,
+  "document_replacements_detected": 1,
+  "popups_or_new_pages": [],
+  "submit_related_signals_seen": [
+    "hcaptcha_challenge",
+    "lever_post"
+  ],
+  "error_banner_seen": true,
+  "confirmation_seen": false,
+  "other_hosts_contacted_counts_hostnames_only": {
+    "jobs.lever.co": 20,
+    "newassets.hcaptcha.com": 17,
+    "imgs3.hcaptcha.com": 10,
+    "js.hcaptcha.com": 6,
+    "api.hcaptcha.com": 6,
+    "cdn.lever.co": 4,
+    "www.googletagmanager.com": 2,
+    "e51790d843ee.w.hcaptcha.com": 1,
+    "96e3f17edfe5.w.hcaptcha.com": 1,
+    "331514275d84.w.hcaptcha.com": 1,
+    "b6c164c9e1b8.w.hcaptcha.com": 1,
+    "dd99f50c50b3.w.hcaptcha.com": 1,
+    "6da3baf02b49.w.hcaptcha.com": 1,
+    "f57a35853d75.w.hcaptcha.com": 1,
+    "14c7b05d614d.w.hcaptcha.com": 1
+  },
+  "final_apply_post": {
+    "request": {
+      "n": 1,
+      "method": "POST",
+      "target": "jobs.lever.co/100ms/<id:36>/apply",
+      "resource_type": "document",
+      "is_navigation_request": true,
+      "content_type": "multipart/form-data; boundary=<boundary>",
+      "post_data_bytes": null,
+      "header_names_only": [
+        ":authority",
+        ":method",
+        ":path",
+        ":scheme",
+        "accept",
+        "accept-encoding",
+        "accept-language",
+        "cache-control",
+        "content-length",
+        "content-type",
+        "cookie",
+        "origin",
+        "priority",
+        "referer",
+        "sec-ch-ua",
+        "sec-ch-ua-mobile",
+        "sec-ch-ua-platform",
+        "sec-fetch-dest",
+        "sec-fetch-mode",
+        "sec-fetch-site",
+        "sec-fetch-user",
+        "upgrade-insecure-requests",
+        "user-agent"
+      ],
+      "safe_header_values": {
+        "origin": "jobs.lever.co",
+        "referer": "jobs.lever.co/100ms/<id:36>/apply",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-dest": "document",
+        "sec-fetch-user": "?1",
+        "upgrade-insecure-requests": "1",
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exch",
+        "content-length": "11285"
+      },
+      "body_format": "unavailable",
+      "field_names": [],
+      "file_field_names": [],
+      "n_fields": 0,
+      "dom_form_controls_last_snapshot": [
+        {
+          "method": "post",
+          "enctype": "multipart/form-data",
+          "action_path": "/100ms/<id>/apply",
+          "controls": [
+            {
+              "name": "resume",
+              "type": "file",
+              "has_file": true
+            },
+            {
+              "name": "name",
+              "type": "text"
+            },
+            {
+              "name": "email",
+              "type": "email"
+            },
+            {
+              "name": "phone",
+              "type": "text"
+            },
+            {
+              "name": "location",
+              "type": "text"
+            },
+            {
+              "name": "selectedLocation",
+              "type": "hidden"
+            },
+            {
+              "name": "org",
+              "type": "text"
+            },
+            {
+              "name": "urls[LinkedIn]",
+              "type": "text"
+            },
+            {
+              "name": "urls[Twitter]",
+              "type": "text"
+            },
+            {
+              "name": "urls[GitHub]",
+              "type": "text"
+            },
+            {
+              "name": "urls[Portfolio]",
+              "type": "text"
+            },
+            {
+              "name": "urls[Other]",
+              "type": "text"
+            },
+            {
+              "name": "accountId",
+              "type": "hidden"
+            },
+            {
+              "name": "linkedInData",
+              "type": "hidden"
+            },
+            {
+              "name": "origin",
+              "type": "hidden"
+            },
+            {
+              "name": "referer",
+              "type": "hidden"
+            },
+            {
+              "name": "timezone",
+              "type": "hidden"
+            },
+            {
+              "name": "socialReferralKey",
+              "type": "hidden"
+            },
+            {
+              "name": "socialSource",
+              "type": "hidden"
+            },
+            {
+              "name": "resumeStorageId",
+              "type": "hidden"
+            },
+            {
+              "name": "h-captcha-response",
+              "type": "hidden"
+            },
+            {
+              "name": "source",
+              "type": "hidden"
+            }
+          ]
+        }
+      ],
+      "last_hcaptcha_checkcaptcha_status": 200,
+      "secs_since_last_checkcaptcha_response": 0.47
+    },
+    "response": {
+      "n": 1,
+      "status": 400,
+      "status_text": "",
+      "content_type": "text/html; charset=utf-8",
+      "content_length_header": null,
+      "safe_headers": {
+        "content-type": "text/html; charset=utf-8",
+        "date": "Mon, 21 Sep 2026 10:29:43 GMT",
+        "server": "cloudflare",
+        "cf-ray": "a3e863ef38787e83-MAA",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "body_bytes": 718644,
+      "html_title": "100MS - AI Engineer \u2013 AI Agents (Healthcare)",
+      "body_kind": "html",
+      "body_redacted_first_2000": "100MS - AI Engineer \u2013 AI Agents (Healthcare) @font-face {font-family: 'Meta';src: url(\"https:<tok:54>\") format('woff');font-weight: 600;font-style: normal;}@font-face {font-family: 'Meta';src: url(\"https:<tok:54>\") format('woff');font-weight: 400;font-style: normal;}@font-face {font-family: 'Meta';src: url(\"https:<tok:62>\") format('woff');font-weight: 400;font-style: italic;}@font-face {font-family: 'Meta';src: url(\"https:<tok:60>\") format('woff');font-weight: 600;font-style: italic;}@font-face {font-family: 'Meta-Caps';src: url(\"https:<tok:46>\");src: url(\"https:<tok:47>\") format('woff');font-weight: 400;font-style: normal;}@font-face {font-family: 'Avenir';src: url(\"https:<tok:55>\");src: url(\"https:<tok:56>\") format('woff');src: url(\"https:<tok:55>\") format('truetype');font-weight: normal;font-style: normal;}.caps-label,.classic-table th,h4,h6,th,.btn,.submit,.btn-large,.submit-large,.btn-large-secondary,.dark-button,.toggle-label,.gated-feature:before,.gated-feature-inline:before,.gated-feature-inline-enterprise:before,.gated-feature-inline-professional:before,.gated-feature-inline-starter:before,.gated-feature-block:before,.gated-feature-block-pro:before,.cc-btn {font: 14px/1.4em 'Meta-Caps', sans-serif;text-transform: lowercase;letter-spacing: 1px;}.label,body,input,select,textarea,.btn-no-style,.application-question input,.application-additional input,.application-question textarea,.application-additional textarea,.application-question select,.application-additional select,.eeo-light-text,h5.eeo-paragraph-heading,.list .filter-popup {font: 400 14px/1.4em Meta, sans-serif;text-transform: none;letter-spacing: 0;}p.larger,.large-input,.large-input.dark,.message-banner {font: 400 16px/1.4em Meta, sans-serif;}h1,h2,h3,h5 {font: 600 16px/1.4em Meta, sans-serif;-webkit-font-smoothing: antialiased;}h1,h2,h3,h5 {color: #222326;}.gated-feature:after,.gated-feature-inline:after,.gated-feature-inline-enterprise:after,.gated-feature-inline-professional:after,.gated-feature-",
+      "body_truncated": true,
+      "error_keyword_lines": [
+        "100MS - AI Engineer \u2013 AI Agents (Healthcare) @font-face {font-family: 'Meta';src: url(\"https:<tok:54>\") format('woff');font-weight: 600;font-style: normal;}@font-face {font-family: 'Meta';src: url(\"https:<tok:54>\") format('woff');font-weight: 400;font-style: normal;}@font-face {font-family: 'Meta';s"
+      ],
+      "error_lines_beyond_generic_phrase": []
+    }
+  },
+  "lever_apply_posts": [
+    {
+      "request": {
+        "n": 1,
+        "method": "POST",
+        "target": "jobs.lever.co/100ms/<id:36>/apply",
+        "resource_type": "document",
+        "is_navigation_request": true,
+        "content_type": "multipart/form-data; boundary=<boundary>",
+        "post_data_bytes": null,
+        "header_names_only": [
+          ":authority",
+          ":method",
+          ":path",
+          ":scheme",
+          "accept",
+          "accept-encoding",
+          "accept-language",
+          "cache-control",
+          "content-length",
+          "content-type",
+          "cookie",
+          "origin",
+          "priority",
+          "referer",
+          "sec-ch-ua",
+          "sec-ch-ua-mobile",
+          "sec-ch-ua-platform",
+          "sec-fetch-dest",
+          "sec-fetch-mode",
+          "sec-fetch-site",
+          "sec-fetch-user",
+          "upgrade-insecure-requests",
+          "user-agent"
+        ],
+        "safe_header_values": {
+          "origin": "jobs.lever.co",
+          "referer": "jobs.lever.co/100ms/<id:36>/apply",
+          "sec-fetch-site": "same-origin",
+          "sec-fetch-mode": "navigate",
+          "sec-fetch-dest": "document",
+          "sec-fetch-user": "?1",
+          "upgrade-insecure-requests": "1",
+          "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exch",
+          "content-length": "11285"
+        },
+        "body_format": "unavailable",
+        "field_names": [],
+        "file_field_names": [],
+        "n_fields": 0,
+        "dom_form_controls_last_snapshot": [
+          {
+            "method": "post",
+            "enctype": "multipart/form-data",
+            "action_path": "/100ms/<id>/apply",
+            "controls": [
+              {
+                "name": "resume",
+                "type": "file",
+                "has_file": true
+              },
+              {
+                "name": "name",
+                "type": "text"
+              },
+              {
+                "name": "email",
+                "type": "email"
+              },
+              {
+                "name": "phone",
+                "type": "text"
+              },
+              {
+                "name": "location",
+                "type": "text"
+              },
+              {
+                "name": "selectedLocation",
+                "type": "hidden"
+              },
+              {
+                "name": "org",
+                "type": "text"
+              },
+              {
+                "name": "urls[LinkedIn]",
+                "type": "text"
+              },
+              {
+                "name": "urls[Twitter]",
+                "type": "text"
+              },
+              {
+                "name": "urls[GitHub]",
+                "type": "text"
+              },
+              {
+                "name": "urls[Portfolio]",
+                "type": "text"
+              },
+              {
+                "name": "urls[Other]",
+                "type": "text"
+              },
+              {
+                "name": "accountId",
+                "type": "hidden"
+              },
+              {
+                "name": "linkedInData",
+                "type": "hidden"
+              },
+              {
+                "name": "origin",
+                "type": "hidden"
+              },
+              {
+                "name": "referer",
+                "type": "hidden"
+              },
+              {
+                "name": "timezone",
+                "type": "hidden"
+              },
+              {
+                "name": "socialReferralKey",
+                "type": "hidden"
+              },
+              {
+                "name": "socialSource",
+                "type": "hidden"
+              },
+              {
+                "name": "resumeStorageId",
+                "type": "hidden"
+              },
+              {
+                "name": "h-captcha-response",
+                "type": "hidden"
+              },
+              {
+                "name": "source",
+                "type": "hidden"
+              }
+            ]
+          }
+        ],
+        "last_hcaptcha_checkcaptcha_status": 200,
+        "secs_since_last_checkcaptcha_response": 0.47
+      },
+      "response": {
+        "n": 1,
+        "status": 400,
+        "status_text": "",
+        "content_type": "text/html; charset=utf-8",
+        "content_length_header": null,
+        "safe_headers": {
+          "content-type": "text/html; charset=utf-8",
+          "date": "Mon, 21 Sep 2026 10:29:43 GMT",
+          "server": "cloudflare",
+          "cf-ray": "a3e863ef38787e83-MAA",
+          "cf-cache-status": "DYNAMIC"
+        },
+        "body_bytes": 718644,
+        "html_title": "100MS - AI Engineer \u2013 AI Agents (Healthcare)",
+        "body_kind": "html",
+        "body_redacted_first_2000": "100MS - AI Engineer \u2013 AI Agents (Healthcare) @font-face {font-family: 'Meta';src: url(\"https:<tok:54>\") format('woff');font-weight: 600;font-style: normal;}@font-face {font-family: 'Meta';src: url(\"https:<tok:54>\") format('woff');font-weight: 400;font-style: normal;}@font-face {font-family: 'Meta';src: url(\"https:<tok:62>\") format('woff');font-weight: 400;font-style: italic;}@font-face {font-family: 'Meta';src: url(\"https:<tok:60>\") format('woff');font-weight: 600;font-style: italic;}@font-face {font-family: 'Meta-Caps';src: url(\"https:<tok:46>\");src: url(\"https:<tok:47>\") format('woff');font-weight: 400;font-style: normal;}@font-face {font-family: 'Avenir';src: url(\"https:<tok:55>\");src: url(\"https:<tok:56>\") format('woff');src: url(\"https:<tok:55>\") format('truetype');font-weight: normal;font-style: normal;}.caps-label,.classic-table th,h4,h6,th,.btn,.submit,.btn-large,.submit-large,.btn-large-secondary,.dark-button,.toggle-label,.gated-feature:before,.gated-feature-inline:before,.gated-feature-inline-enterprise:before,.gated-feature-inline-professional:before,.gated-feature-inline-starter:before,.gated-feature-block:before,.gated-feature-block-pro:before,.cc-btn {font: 14px/1.4em 'Meta-Caps', sans-serif;text-transform: lowercase;letter-spacing: 1px;}.label,body,input,select,textarea,.btn-no-style,.application-question input,.application-additional input,.application-question textarea,.application-additional textarea,.application-question select,.application-additional select,.eeo-light-text,h5.eeo-paragraph-heading,.list .filter-popup {font: 400 14px/1.4em Meta, sans-serif;text-transform: none;letter-spacing: 0;}p.larger,.large-input,.large-input.dark,.message-banner {font: 400 16px/1.4em Meta, sans-serif;}h1,h2,h3,h5 {font: 600 16px/1.4em Meta, sans-serif;-webkit-font-smoothing: antialiased;}h1,h2,h3,h5 {color: #222326;}.gated-feature:after,.gated-feature-inline:after,.gated-feature-inline-enterprise:after,.gated-feature-inline-professional:after,.gated-feature-",
+        "body_truncated": true,
+        "error_keyword_lines": [
+          "100MS - AI Engineer \u2013 AI Agents (Healthcare) @font-face {font-family: 'Meta';src: url(\"https:<tok:54>\") format('woff');font-weight: 600;font-style: normal;}@font-face {font-family: 'Meta';src: url(\"https:<tok:54>\") format('woff');font-weight: 400;font-style: normal;}@font-face {font-family: 'Meta';s"
+        ],
+        "error_lines_beyond_generic_phrase": []
+      }
+    }
+  ],
+  "ended_because": "Lever verification error banner appeared",
+  "env": {
+    "python": "3.11.6",
+    "os": "Windows-10-10.0.26200-SP0",
+    "os_tz": [
+      "India Standard Time",
+      "India Summer Time"
+    ],
+    "os_locale": "('English_India', '1252')",
+    "cwd": "C:\\Users\\kirthiga.r\\OneDrive - Kryptos\\Desktop\\ai_job_agent",
+    "app_imports_ok": true
+  }
+}
