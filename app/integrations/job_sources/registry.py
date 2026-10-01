@@ -8,6 +8,7 @@ changes.
 from app.integrations.job_sources.base import BaseJobSource
 from app.integrations.job_sources.jooble import JoobleJobSource
 from app.integrations.job_sources.mock import MockJobSource
+from app.integrations.job_sources.monster import MonsterJobSource
 from app.integrations.job_sources.wellfound import WellfoundJobSource
 
 
@@ -19,6 +20,7 @@ JOB_SOURCE_REGISTRY: dict[str, type[BaseJobSource]] = {
     "mock": MockJobSource,
     "jooble": JoobleJobSource,
     "wellfound": WellfoundJobSource,
+    "monster": MonsterJobSource,
     # "naukri": NaukriJobSource,      # future
     # "linkedin": LinkedInJobSource,  # future
     # "indeed": IndeedJobSource,      # future

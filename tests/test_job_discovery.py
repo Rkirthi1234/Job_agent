@@ -158,7 +158,7 @@ def test_registry_rejects_unknown_source():
         get_job_source("linkedin")
 
 
-def test_registry_only_has_mock_jooble_and_wellfound_sources_registered():
+def test_registry_only_has_mock_jooble_wellfound_and_monster_sources_registered():
     # Phase 4B registered "jooble" alongside "mock"; this Wellfound
     # job-discovery change adds "wellfound" the same way -- this
     # assertion is intentionally updated here (see
@@ -167,7 +167,7 @@ def test_registry_only_has_mock_jooble_and_wellfound_sources_registered():
     # separately has its own "wellfound" entry for applying to a
     # discovered job -- see app/integrations/job_sources/wellfound.py's
     # module docstring for how the two stay separate.
-    assert set(JOB_SOURCE_REGISTRY.keys()) == {"mock", "jooble", "wellfound"}
+    assert set(JOB_SOURCE_REGISTRY.keys()) == {"mock", "jooble", "wellfound", "monster"}
 
 
 def test_job_discovery_service_rejects_unknown_source():

@@ -38,6 +38,12 @@ class Settings(BaseSettings):
     wellfound_user_data_dir: str = ""
     wellfound_cookies_path: str = ""
     wellfound_use_browser_use: bool = False
+    # Monster JOB DISCOVERY (app/integrations/job_sources/monster.py), driven
+    # by Browser Use. MONSTER_USER_DATA_DIR is the persistent Chrome profile
+    # reused across runs (relative paths resolve against the project root).
+    # MONSTER_HEADLESS defaults to false so a real, visible browser is used.
+    monster_user_data_dir: str = "monster_profile"
+    monster_headless: bool = False
     # EXPLICIT OPT-IN Wellfound automatic login. Off by default: unless
     # WELLFOUND_AUTO_LOGIN is set to true, the adapter never types a
     # username/password anywhere and the manual-login flow (see

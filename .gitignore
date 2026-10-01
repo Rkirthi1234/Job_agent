@@ -24,3 +24,6 @@ uploads/*
 # Wellfound session credentials (never commit)
 wellfound_cookies.json
 wellfound_profile/
+
+# Monster persistent Browser Use profile (cookies/session -- never commit)
+monster_profile/

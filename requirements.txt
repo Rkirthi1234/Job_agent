@@ -12,3 +12,4 @@ pytest
 httpx
 fpdf2
 playwright
+browser-use==0.13.10
