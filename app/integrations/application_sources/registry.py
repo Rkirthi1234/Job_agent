@@ -22,6 +22,7 @@ from app.integrations.application_sources.greenhouse import GreenhouseApplicatio
 from app.integrations.application_sources.jooble import JoobleApplicationSource
 from app.integrations.application_sources.lever import LeverApplicationSource
 from app.integrations.application_sources.mock import MockApplicationSource
+from app.integrations.application_sources.monster import MonsterApplicationSource
 from app.integrations.application_sources.real import RealApplicationSource
 from app.integrations.application_sources.wellfound import WellfoundApplicationSource
 
@@ -50,6 +51,11 @@ APPLICATION_SOURCE_REGISTRY: dict[str, type[BaseApplicationSource]] = {
     # a Wellfound domain -- see wellfound.py's module docstring and
     # is_wellfound_destination(). Mirrors the Jooble entry above exactly.
     "wellfound": WellfoundApplicationSource,
+    # Monster: Browser Use apply-entry (click Apply, classify the landing) then
+    # Playwright over CDP for Monster's own form, or hand-off to the existing
+    # Greenhouse/Lever/Wellfound adapter. Selected by ApplicationService only
+    # when the job URL is on monster.com -- see monster.py's module docstring.
+    "monster": MonsterApplicationSource,
 }
 
 

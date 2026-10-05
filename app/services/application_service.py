@@ -57,6 +57,7 @@ from app.integrations.application_sources.exceptions import (
     ApplicationSourceResponseError,
 )
 from app.integrations.application_sources.jooble import is_jooble_destination
+from app.integrations.application_sources.monster_entry import is_monster_destination
 from app.integrations.application_sources.playwright_support import (
     BLOCKER_CAPTCHA,
     BLOCKER_HUMAN_SUBMISSION_REQUIRED,
@@ -649,6 +650,19 @@ class ApplicationService:
                 candidate, job, payload, application_url, application_url, "wellfound"
             )
 
+        # Monster: routed straight to the Monster adapter BEFORE the plain
+        # httpx probe below, which Monster answers with HTTP 403 (that is what
+        # used to end the request as blocker="destination_refused" without a
+        # browser ever seeing the page). MonsterApplicationSource opens the
+        # stored job URL with Browser Use, clicks Apply, and decides itself
+        # whether the result is Monster's own form, an external ATS (handed to
+        # the existing adapter) or a blocker (CAPTCHA/verification -> stops as
+        # manual_review, never worked around).
+        if is_monster_destination(application_url):
+            return self._apply_via_ats_adapter(
+                candidate, job, payload, application_url, application_url, "monster"
+            )
+
         try:
             resolution = adapter.resolve_destination(application_url)
         except ApplicationDestinationRefusedError as exc:
@@ -799,16 +813,27 @@ class ApplicationService:
             )
             raise
 
+        # Monster may hand the application to an existing adapter
+        # (Greenhouse/Lever/Wellfound). Record THAT adapter and the real
+        # destination, so later /resume-captcha, /check-submission and
+        # /manual-answer calls find the adapter that owns the live session.
+        audit = outcome.field_fill_audit or {}
+        recorded_adapter = ats_name
+        recorded_destination = destination_url
+        if ats_name == "monster":
+            recorded_adapter = audit.get("delegated_to") or ats_name
+            recorded_destination = audit.get("entry_destination_url") or destination_url
+
         record = self._save_result(
             candidate.id,
             job.id,
             job_source=job.source,
-            submission_adapter=ats_name,
+            submission_adapter=recorded_adapter,
             application_url=application_url,
             resume_used=candidate.stored_filename,
             status=outcome.status,
             message=outcome.message,
-            application_destination=destination_url,
+            application_destination=recorded_destination,
             confirmed=outcome.confirmed,
             blocker=outcome.blocker,
             field_fill_audit=outcome.field_fill_audit,

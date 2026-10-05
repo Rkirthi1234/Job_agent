@@ -643,7 +643,9 @@ def test_secret_never_leaks_through_settings_or_the_flow_repr():
 def test_the_secret_is_unwrapped_in_exactly_one_module():
     app_dir = Path(__file__).resolve().parents[1] / "app"
     users = sorted(p.name for p in app_dir.rglob("*.py") if "get_secret_value" in p.read_text(encoding="utf-8"))
-    assert users == ["wellfound_auth.py"]
+    # Only the dedicated *_auth.py modules may unwrap a password (at the moment it is typed).
+    # Adapters (wellfound.py, monster.py, ...) must never call get_secret_value().
+    assert users == ["monster_auth.py", "wellfound_auth.py"]
 
 
 def test_other_adapters_have_no_login_audit():

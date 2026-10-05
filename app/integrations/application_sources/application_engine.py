@@ -200,9 +200,13 @@ class ApplicationEngine(BaseApplicationSource):
         with sync_playwright() as pw:
             page, close_session = self._open_session_internal(pw)
             try:
-                # Navigate to the application form
-                page.goto(destination_url, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(500)
+                # Navigate to the application form -- unless the adapter's own
+                # open_session() already returned a page that IS at the
+                # destination (e.g. a form opened by an earlier browser step
+                # that a reload would destroy). Default: always navigate.
+                if not self.session_preloaded():
+                    page.goto(destination_url, wait_until="domcontentloaded", timeout=30000)
+                    page.wait_for_timeout(500)
                 self.after_navigation(page)
                 page.screenshot(path=pre_path, full_page=True)
 
@@ -307,6 +311,12 @@ class ApplicationEngine(BaseApplicationSource):
         Example: ("thank you for applying", "application submitted")
         """
         raise NotImplementedError
+
+    def session_preloaded(self) -> bool:
+        """True if open_session() already returned a page positioned at the
+        destination, so the engine must NOT navigate again. Default: False
+        (every existing adapter navigates exactly as before)."""
+        return False
 
     def detect_captcha_site_specific(self, page) -> bool:
         """Override if this site has special CAPTCHA detection beyond generic helpers.

@@ -44,6 +44,31 @@ class Settings(BaseSettings):
     # MONSTER_HEADLESS defaults to false so a real, visible browser is used.
     monster_user_data_dir: str = "monster_profile"
     monster_headless: bool = False
+    # Monster APPLICATION adapter (application_sources/monster.py). It reuses
+    # the two settings above (same persistent, hand-signed-in Chrome profile;
+    # this app never types Monster credentials). MONSTER_AUTO_SUBMIT defaults
+    # to false: unless it is explicitly true the adapter prepares the form
+    # and stops for a human, and SAFE TEST MODE (test_application_skip_submit)
+    # always wins over it.
+    monster_auto_submit: bool = False
+    # How long (seconds) a Monster -> external (hitayu.live) application waits,
+    # in the SAME browser run, for the user to finish signing in BY HAND when
+    # the external site asks for authentication (Hitayu login / Microsoft
+    # sign-in). This app never types credentials or presses sign-in controls;
+    # it only watches the page. 0 disables the wait: the run then stops at the
+    # sign-in page (blocker external_authentication_required). Configurable via
+    # MONSTER_EXTERNAL_AUTH_TIMEOUT_SECONDS.
+    monster_external_auth_timeout_seconds: float = 600.0
+    # EXPLICIT OPT-IN Monster automatic login. Off by default: unless
+    # MONSTER_AUTO_LOGIN is set to true, the adapter never types a
+    # username/password and relies on the persistent Chrome profile being
+    # already signed in. MONSTER_EMAIL / MONSTER_PASSWORD are the candidate's
+    # own Monster account credentials, read only from the environment/.env.
+    # The password is a SecretStr so repr()/str()/logging can never reveal it.
+    monster_auto_login: bool = False
+    monster_email: str = ""
+    monster_password: SecretStr = SecretStr("")
+
     # EXPLICIT OPT-IN Wellfound automatic login. Off by default: unless
     # WELLFOUND_AUTO_LOGIN is set to true, the adapter never types a
     # username/password anywhere and the manual-login flow (see

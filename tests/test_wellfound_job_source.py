@@ -236,7 +236,7 @@ def test_registry_returns_wellfound_job_source():
 
 
 def test_wellfound_registered_alongside_mock_and_jooble():
-    assert set(JOB_SOURCE_REGISTRY.keys()) == {"mock", "jooble", "wellfound"}
+    assert set(JOB_SOURCE_REGISTRY.keys()) == {"mock", "jooble", "wellfound", "monster"}
 
 
 def test_wellfound_job_source_is_distinct_from_application_adapter():
