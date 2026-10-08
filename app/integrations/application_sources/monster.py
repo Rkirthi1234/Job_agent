@@ -111,6 +111,7 @@ from app.integrations.application_sources.monster_entry import (
     APPLY_ENTRY_RE as _APPLY_ENTRY_RE,
 )
 from app.integrations.application_sources.monster_entry import (
+    BLOCKER_ALREADY_APPLIED,
     BLOCKER_APPLICATION_FORM_NOT_FOUND,
     BLOCKER_APPLY_CONTROL_NOT_FOUND,
     BLOCKER_BOT_PROTECTION,
@@ -123,6 +124,7 @@ from app.integrations.application_sources.monster_entry import (
     BLOCKER_JOB_MISMATCH,
     BLOCKER_JOB_UNAVAILABLE,
     BLOCKER_LOGIN_REQUIRED,
+    BLOCKER_RESUME_NOT_SELECTED,
     BLOCKER_SUBMISSION_UNCONFIRMED,
     CONFIRMATION_PHRASES,
     DEST_EXTERNAL_AUTH,
@@ -132,15 +134,20 @@ from app.integrations.application_sources.monster_entry import (
     DEST_WELLFOUND,
     FORM_PROBE_JS as _FORM_PROBE_JS,
     LOGIN_PHRASES,
+    OUTCOME_ALREADY_APPLIED,
+    OUTCOME_APPLIED,
     OUTCOME_EXTERNAL,
     OUTCOME_EXTERNAL_FORM,
     OUTCOME_MONSTER_FORM,
     EntryResult,
     MonsterApplyEntry,
+    apply_complete_matches_job,
     classify_page,
+    is_apply_complete_url,
     is_external_application_domain,
     is_external_auth_host,
     is_monster_destination,
+    is_resume_selection_page,
     safe_url,
     strip_url,
 )
@@ -433,6 +440,8 @@ class SubmissionVerification:
 EVIDENCE_APPLIED_STATE = "monster_applied_state"
 EVIDENCE_SUCCESS_MESSAGE_SAME_JOB = "monster_success_message_same_job"
 EVIDENCE_NONE = "none"
+EVIDENCE_APPLY_COMPLETE_URL = "monster_apply_complete_url"
+EVIDENCE_APPLICATION_SENT_BANNER = "monster_application_sent_banner"
 
 _ENTRY_MESSAGES = {
     BLOCKER_BOT_PROTECTION: "Monster showed a bot-protection / verification page",
@@ -444,6 +453,10 @@ _ENTRY_MESSAGES = {
         "in the persistent browser profile (scripts/monster_apply_diagnostic.py --login)"
     ),
     BLOCKER_JOB_MISMATCH: "The opened Monster page is not the stored job",
+    BLOCKER_RESUME_NOT_SELECTED: (
+        "Monster's resume-selection page is open but no resume is selected. This app never picks a resume "
+        "on Monster: select one by hand there, then run the application again"
+    ),
     BLOCKER_APPLY_CONTROL_NOT_FOUND: "No Apply / Quick Apply / Instant Apply control was found on the job page",
     BLOCKER_APPLICATION_FORM_NOT_FOUND: "Apply was clicked but no application form appeared",
     BLOCKER_SUBMISSION_UNCONFIRMED: (
@@ -595,6 +608,8 @@ class MonsterApplicationSource(ApplicationEngine):
         audit.setdefault("submission_verification", "not_attempted")
         if result.status == "submitted" and result.confirmed:
             status = "submitted"
+        elif result.status == "already_applied":
+            status = "already_applied"
         elif audit["final_submit_confirmation"] == "declined":
             status = "declined_by_user"
         elif audit["submit_clicked"] == "true":
@@ -620,6 +635,14 @@ class MonsterApplicationSource(ApplicationEngine):
         entry = self._entry_factory()
         entry_result = entry.run(destination_url, expected_title=getattr(payload.job, "title", None))
         outcome.audit.update(entry_result.audit())
+
+        if entry_result.outcome == OUTCOME_APPLIED:
+            # (entry.run() already closed the browser: nothing is left to prepare)
+            return self._result_applied(entry_result, outcome)
+
+        if entry_result.outcome == OUTCOME_ALREADY_APPLIED:
+            # (entry.run() already closed the browser; nothing was clicked)
+            return self._result_already_applied(entry_result, outcome)
 
         if entry_result.outcome not in (OUTCOME_MONSTER_FORM, OUTCOME_EXTERNAL_FORM):
             # (entry.run() already closed the browser for every other outcome,
@@ -671,6 +694,52 @@ class MonsterApplicationSource(ApplicationEngine):
     def _is_application_url(self, url: str | None) -> bool:
         return is_monster_destination(url or "") or (self._external_flow and is_external_application_domain(url))
 
+    def _result_applied(self, entry_result: EntryResult, outcome: FillOutcome) -> ApplicationSubmissionResult:
+        """Monster's own Quick Apply / Instant Apply finished with the Apply click and Monster
+        itself reported it for THIS job: /jobs/apply-complete with applyResult=apply_completed (see
+        is_apply_complete_url -- host, path and result value must all match, and a jobId naming
+        another job is rejected), or a visible "Application sent!" heading on the stored job's
+        page. That explicit state is the evidence; anything less never reaches here."""
+        evidence = (
+            EVIDENCE_APPLICATION_SENT_BANNER
+            if entry_result.extra.get("entry_completion_evidence") == "application_sent_banner"
+            else EVIDENCE_APPLY_COMPLETE_URL
+        )
+        outcome.mark("submit_clicked", _flag(entry_result.submit_capable))
+        outcome.mark("submission_verification_attempted", "true")
+        outcome.mark("submission_verification", "confirmed")
+        outcome.mark("submission_verification_evidence", evidence)
+        outcome.mark("confirmation_status", "confirmed")
+        outcome.mark("confirmed", "true")
+        return ApplicationSubmissionResult(
+            status="submitted",
+            message=f"Application submitted on Monster (verified: {evidence}).",
+            confirmed=True,
+            field_fill_audit=outcome.audit,
+        )
+
+    def _result_already_applied(
+        self, entry_result: EntryResult, outcome: FillOutcome
+    ) -> ApplicationSubmissionResult:
+        """The Monster job page already shows THIS job as Applied. Not a submission by this run:
+        nothing was clicked, so status is "already_applied" (never "submitted"), confirmed stays
+        False (that flag is reserved for a confirmation this run observed), submitted_at stays unset,
+        and the blocker records why. ApplicationService treats this status as blocking, so the job
+        is never applied to a second time."""
+        outcome.mark("submit_clicked", "false")
+        outcome.mark("submission_verification", "not_attempted")
+        outcome.mark("confirmation_status", "already_applied")
+        return ApplicationSubmissionResult(
+            status="already_applied",
+            message=(
+                "Monster already shows this job as Applied. No application was started and nothing "
+                "was submitted by this run."
+            ),
+            confirmed=False,
+            blocker=BLOCKER_ALREADY_APPLIED,
+            field_fill_audit=outcome.audit,
+        )
+
     def _result_without_form(
         self, entry_result: EntryResult, payload: ApplicationPayload, outcome: FillOutcome
     ) -> ApplicationSubmissionResult:
@@ -692,10 +761,19 @@ class MonsterApplicationSource(ApplicationEngine):
                     if entry_result.browser_left_open
                     else "Sign in by hand in the persistent browser profile, then run the application again"
                 )
+                waited = entry_result.extra.get("external_auth_wait") == "timed_out"
+                page_closed = entry_result.extra.get("external_auth_page_closed") == "true"
+                timing = (
+                    "Manual authentication was not completed within "
+                    f"{entry_result.extra.get('external_auth_wait_seconds', '?')}s"
+                    f"{', so the sign-in page was closed' if page_closed else ''}. "
+                    if waited
+                    else ""
+                )
                 return self._manual_review(
                     BLOCKER_EXTERNAL_AUTH_REQUIRED,
                     (
-                        f"This Monster listing leads to an external application ({site}) that requires "
+                        f"{timing}This Monster listing leads to an external application ({site}) that requires "
                         "authentication (Microsoft / identity-provider sign-in). Manual authentication is "
                         "required: this app never automates or bypasses authentication. "
                         f"{follow_up}"
@@ -1040,6 +1118,12 @@ class MonsterApplicationSource(ApplicationEngine):
         return try_fill_first(page, selectors, value, name, outcome)
 
     def _fill_common_fields(self, page, payload: ApplicationPayload, outcome: FillOutcome) -> None:
+        # Monster's resume-selection step (/profile/apply/resumes, "Apply with this resume") has no
+        # contact fields at all, so every selector below would match 0 elements and only produce
+        # try_fill_first DIAGNOSTIC noise. Nothing to fill here: record it and move on.
+        if is_resume_selection_page(getattr(page, "url", "") or "", self._body_text(page)):
+            outcome.mark("contact_fields", "not_on_this_step")
+            return
         selectors = self.get_selectors()
         candidate = payload.candidate
         # Try selector-based fill first; Monster sometimes pre-renders contact fields from
@@ -1394,7 +1478,7 @@ class MonsterApplicationSource(ApplicationEngine):
             url = getattr(page, "url", "") or ""
             path = url.split("?")[0].rstrip("/")
             on_contact_info = "contact-info" in url or "contact_info" in url
-            on_review_url = path.endswith(("/resume", "/review", "/review-application"))
+            on_review_url = path.endswith(("/resume", "/resumes", "/review", "/review-application"))
             if not on_review_url:
                 # SPA case: contact-info URL on step 1 is NOT the final review.
                 if on_contact_info and self._fill_step_index <= 1:
@@ -1438,7 +1522,7 @@ class MonsterApplicationSource(ApplicationEngine):
             url = getattr(page, "url", "") or ""
             path = url.split("?")[0].rstrip("/")
             # Explicit final-review URL paths (non-SPA flows).
-            if path.endswith(("/resume", "/review", "/review-application")):
+            if path.endswith(("/resume", "/resumes", "/review", "/review-application")):
                 return True
             # SPA: /contact-info is the URL for ALL steps. Only exclude it on
             # step 1 -- on step 2+ the same URL IS the final review page.
@@ -2310,6 +2394,14 @@ class MonsterApplicationSource(ApplicationEngine):
         self, page, job_page_url: str | None, job=None, submit_button=None, evidence_screenshot_path: str | None = None
     ) -> SubmissionVerification:
         weak: list[str] = []
+        # Monster's own explicit completion page: the strongest evidence there is. Read BEFORE
+        # _check_applied_state() navigates the page away to the job URL.
+        if is_apply_complete_url(getattr(page, "url", None)) and apply_complete_matches_job(
+            getattr(page, "url", None), job_page_url or self._application_url
+        ):
+            return SubmissionVerification(
+                True, EVIDENCE_APPLY_COMPLETE_URL, "strong", (), False, evidence_screenshot_path
+            )
         form_remained_open = self._is_visible(submit_button)
         body = self._body_text(page)
         success_message = any(phrase in body for phrase in self.get_confirmation_phrases())

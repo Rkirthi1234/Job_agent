@@ -106,6 +106,9 @@ _CANDIDATE_JSON_FIELDS = (
 # "prepared", "test_ready_before_submit", or any future status -- keeps
 # blocking (fail-safe). "skipped" is only ever a response-level status for a
 # blocked duplicate; it is never persisted, so it is listed for completeness.
+# "already_applied" (the destination itself shows the job as applied, nothing was
+# submitted by this app) is deliberately NOT listed: it keeps blocking, so a job
+# Monster already shows as Applied is never applied to a second time.
 _NON_BLOCKING_DUPLICATE_STATUSES = frozenset({"unsupported", "failed", "manual_review", "skipped"})
 
 # The blocker WellfoundApplicationSource reports while it has genuinely

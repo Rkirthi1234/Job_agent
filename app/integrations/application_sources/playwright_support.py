@@ -418,6 +418,291 @@ def try_fill_autocomplete_by_label(
         return False
 
 
+# ---------------------------------------------------------------------------
+# Dropdown / react-select support (Greenhouse "Country" and similar).
+#
+# Greenhouse's newer job-boards forms render dropdowns as react-select
+# comboboxes, not native <select> elements. The visible choice lives in a
+# sibling "single-value" node while the <input> itself stays empty, and a
+# plain .fill() never selects anything. These helpers click, type to
+# filter, click the EXACT matching option, and verify the choice shows.
+# They never guess: no exact option match -> nothing is selected.
+# ---------------------------------------------------------------------------
+
+# Short forms people store in a profile -> every spelling a dropdown might
+# list. A value is only ever matched against an option if both belong to the
+# same group (or are literally equal) -- this is a spelling map, not a guess.
+_COUNTRY_NAME_GROUPS: list[set[str]] = [
+    {"us", "usa", "u.s.", "u.s.a.", "united states", "united states of america"},
+    {"uk", "u.k.", "united kingdom"},
+    {"uae", "united arab emirates"},
+]
+
+_DROPDOWN_OPTION_SELECTORS = "[role='option'], [class*='select__option']"
+
+
+def country_from_location(location: str | None) -> str | None:
+    """The candidate profile stores one free-text `location` (e.g.
+    "Chennai, Tamil Nadu, India") and no separate country. By the usual
+    "City, State, Country" convention the country is the last
+    comma-separated segment. Returns None for an empty location. The
+    result is only ever USED if it exactly matches an option the form
+    itself offers (see match_dropdown_option), so a bare city like
+    "Chennai" simply fails to match and is left for a human -- it is
+    never turned into a made-up country."""
+    if not location:
+        return None
+    parts = [p.strip() for p in location.split(",") if p.strip()]
+    return parts[-1] if parts else None
+
+
+def _norm_option_text(text: str | None) -> str:
+    import re
+
+    return re.sub(r"\s+", " ", (text or "")).strip().lower()
+
+
+def _accepted_names(value: str) -> set[str]:
+    wanted = _norm_option_text(value)
+    for group in _COUNTRY_NAME_GROUPS:
+        if wanted in group:
+            return set(group)
+    return {wanted}
+
+
+def match_dropdown_option(value: str | None, options: list[str]) -> str | None:
+    """Return the option whose text EXACTLY equals `value` (case- and
+    whitespace-insensitive, honouring the country spelling groups above),
+    or None. Deliberately no substring matching: "India" must never match
+    "British Indian Ocean Territory". A trailing parenthetical such as
+    "India (+91)" is ignored for the comparison."""
+    import re
+
+    if not value:
+        return None
+    accepted = _accepted_names(value)
+    for opt in options:
+        norm = _norm_option_text(opt)
+        if norm in accepted or re.sub(r"\s*\(.*?\)\s*$", "", norm) in accepted:
+            return opt
+    return None
+
+
+def _visible_dropdown_options(page) -> list[tuple[str, int]]:
+    """(text, index) of every currently visible dropdown option."""
+    found: list[tuple[str, int]] = []
+    loc = page.locator(_DROPDOWN_OPTION_SELECTORS)
+    for i in range(loc.count()):
+        try:
+            el = loc.nth(i)
+            if el.is_visible():
+                found.append(((el.inner_text() or "").strip(), i))
+        except Exception:
+            continue
+    return found
+
+
+def try_select_dropdown_by_label(
+    page,
+    label_keywords: list[str],
+    value: str | None,
+    field_name: str,
+    outcome: FillOutcome,
+    option_wait_ms: int = 2000,
+) -> bool:
+    """Select `value` in a dropdown found by label text -- native <select>
+    or a react-select-style combobox. Marks the audit "filled" only when
+    the chosen option is verifiably displayed afterward; otherwise
+    "skipped_not_found" (no matching field/option) or "skipped_no_data"
+    (nothing to select). Never picks an option that does not exactly match."""
+    if not value:
+        outcome.mark(field_name, "skipped_no_data")
+        return False
+    target = _find_target_by_label(page, label_keywords)
+    if target is None:
+        outcome.mark(field_name, "skipped_not_found")
+        return False
+
+    try:
+        tag = (target.evaluate("el => el.tagName.toLowerCase()") or "").lower()
+        if tag == "select":
+            option_texts = target.evaluate(
+                "el => Array.from(el.options).map(o => (o.text || '').trim())"
+            ) or []
+            match = match_dropdown_option(value, option_texts)
+            if match is None:
+                outcome.mark(field_name, "skipped_not_found")
+                return False
+            target.select_option(label=match, timeout=3000)
+            outcome.mark(field_name, "filled")
+            return True
+
+        # react-select-style combobox: type to filter, then click the
+        # exact option. If the stored spelling (e.g. "USA") finds nothing,
+        # retry with the other accepted spellings ("United States").
+        search_terms = [value] + sorted(
+            n for n in _accepted_names(value) if n != _norm_option_text(value)
+        )
+        chosen: str | None = None
+        for term in search_terms:
+            target.click()
+            try:
+                target.fill("")
+            except Exception:
+                pass
+            if hasattr(target, "press_sequentially"):
+                target.press_sequentially(term, delay=30)
+            else:
+                target.type(term, delay=30)  # older Playwright versions
+            try:
+                page.wait_for_selector(
+                    _DROPDOWN_OPTION_SELECTORS, timeout=option_wait_ms, state="visible"
+                )
+            except Exception:
+                continue
+            options = _visible_dropdown_options(page)
+            match = match_dropdown_option(value, [text for text, _ in options])
+            if match is None:
+                continue
+            index = next(i for text, i in options if text == match)
+            page.locator(_DROPDOWN_OPTION_SELECTORS).nth(index).click()
+            chosen = match
+            break
+
+        if chosen is None:
+            try:
+                target.press("Escape")
+            except Exception:
+                pass
+            outcome.mark(field_name, "skipped_not_found")
+            return False
+
+        page.wait_for_timeout(300)
+        shown = target.evaluate(
+            """el => {
+                let node = el;
+                for (let i = 0; i < 6 && node; i++, node = node.parentElement) {
+                    const v = node.querySelector("[class*='single-value' i], [class*='singleValue' i]");
+                    if (v) return (v.innerText || '').trim();
+                }
+                return (el.value || '').trim();
+            }"""
+        ) or ""
+        verified = match_dropdown_option(chosen, [shown]) is not None
+        logger.info(
+            "try_select_dropdown_by_label field=%s option_clicked=%s selection_visible=%s",
+            field_name, bool(chosen), verified,
+        )
+        outcome.mark(field_name, "filled" if verified else "skipped_not_found")
+        return verified
+    except Exception:
+        logger.exception("try_select_dropdown_by_label failed for field=%s", field_name)
+        outcome.mark(field_name, "skipped_not_found")
+        return False
+
+
+# Shared JS used by the two page-level scans below.
+_FIELD_JS_HELPERS = r"""
+  const isVisible = el => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+  const clean = t => (t || '').replace(/\*/g, '').replace(/\s+/g, ' ').trim();
+  const labelOf = el => {
+    if (el.id) {
+      const l = document.querySelector('label[for="' + el.id.replace(/"/g, '\\"') + '"]');
+      if (l) return clean(l.innerText);
+    }
+    const by = el.getAttribute('aria-labelledby');
+    if (by) { const l = document.getElementById(by.split(' ')[0]); if (l) return clean(l.innerText); }
+    const al = el.getAttribute('aria-label');
+    if (al) return clean(al);
+    const wrap = el.closest('label');
+    if (wrap) return clean(wrap.innerText);
+    return clean(el.getAttribute('name') || el.getAttribute('placeholder') || 'unnamed field');
+  };
+"""
+
+_UNANSWERED_VISUAL_REQUIRED_JS = (
+    "() => {" + _FIELD_JS_HELPERS + r"""
+  const isFilled = el => {
+    const tag = el.tagName.toLowerCase(), type = (el.type || '').toLowerCase();
+    if (type === 'radio') {
+      if (!el.name) return el.checked;
+      return !!document.querySelector('input[type="radio"][name="' + el.name + '"]:checked');
+    }
+    if (type === 'checkbox') return el.checked;
+    if ((tag === 'input' || tag === 'textarea' || tag === 'select') && (el.value || '').trim()) return true;
+    let node = el;
+    for (let i = 0; i < 6 && node; i++, node = node.parentElement) {
+      if (node.querySelector("[class*='single-value' i], [class*='multi-value' i]")) return true;
+    }
+    return false;
+  };
+  const controls = new Set();
+  document.querySelectorAll("[aria-required='true']").forEach(el => controls.add(el));
+  document.querySelectorAll('label').forEach(l => {
+    if (!/\*\s*$/.test((l.innerText || '').trim())) return;
+    const c = (l.htmlFor && document.getElementById(l.htmlFor)) || l.querySelector('input, textarea, select');
+    if (c) controls.add(c);
+  });
+  const out = [], seen = new Set();
+  controls.forEach(el => {
+    const type = (el.type || '').toLowerCase();
+    if (type === 'file' || type === 'hidden' || el.disabled) return;
+    if (type !== 'radio' && type !== 'checkbox' && !isVisible(el)) return;
+    if (isFilled(el)) return;
+    const label = labelOf(el);
+    if (seen.has(label.toLowerCase())) return;
+    seen.add(label.toLowerCase());
+    out.push(label);
+  });
+  return out;
+}"""
+)
+
+_INVALID_FIELDS_JS = (
+    "() => {" + _FIELD_JS_HELPERS + r"""
+  const out = [], seen = new Set();
+  document.querySelectorAll("[aria-invalid='true']").forEach(el => {
+    if (!isVisible(el)) return;
+    const label = labelOf(el);
+    if (seen.has(label.toLowerCase())) return;
+    seen.add(label.toLowerCase());
+    out.push(label);
+  });
+  return out;
+}"""
+)
+
+
+def find_unanswered_visual_required(page) -> list[str]:
+    """Labels of required fields that are still empty, found WITHOUT relying
+    on the HTML `required` attribute (see find_required_unanswered's own
+    documented limitation): controls marked aria-required, and controls
+    whose label ends in a red-asterisk "*". A react-select dropdown counts
+    as answered when its chosen value is displayed, even though its
+    <input> is empty. File inputs are skipped on purpose -- resume policy
+    is the adapter's own (see resume_required()). Detection only: never
+    fills or invents anything. Returns [] if the page can't be scanned."""
+    try:
+        result = page.evaluate(_UNANSWERED_VISUAL_REQUIRED_JS)
+        return [str(x) for x in result] if isinstance(result, list) else []
+    except Exception:
+        logger.debug("find_unanswered_visual_required failed (ignored)", exc_info=True)
+        return []
+
+
+def find_invalid_fields(page) -> list[str]:
+    """Labels of visible fields the page itself currently flags invalid
+    (aria-invalid="true") -- i.e. the destination's own validation
+    rejected them. Used after Submit to tell "the form refused it" apart
+    from "result unknown". Returns [] if the page can't be scanned."""
+    try:
+        result = page.evaluate(_INVALID_FIELDS_JS)
+        return [str(x) for x in result] if isinstance(result, list) else []
+    except Exception:
+        logger.debug("find_invalid_fields failed (ignored)", exc_info=True)
+        return []
+
+
 def upload_resume(page, selectors: list[str], resume_path: str | None, outcome: FillOutcome) -> bool:
     if not resume_path or not os.path.isfile(resume_path):
         outcome.mark("resume", "skipped_no_data")

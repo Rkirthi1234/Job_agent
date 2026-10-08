@@ -57,8 +57,11 @@ class Settings(BaseSettings):
     # sign-in). This app never types credentials or presses sign-in controls;
     # it only watches the page. 0 disables the wait: the run then stops at the
     # sign-in page (blocker external_authentication_required). Configurable via
-    # MONSTER_EXTERNAL_AUTH_TIMEOUT_SECONDS.
-    monster_external_auth_timeout_seconds: float = 600.0
+    # MONSTER_EXTERNAL_AUTH_TIMEOUT_SECONDS. Default 60 (it used to be 600). The
+    # window applies ONLY to the known external application site's own sign-in
+    # flow (hitayu.live, or the identity provider it bounced to) and never in a
+    # headless browser; any other sign-in page is reported right away.
+    monster_external_auth_timeout_seconds: float = 60.0
     # EXPLICIT OPT-IN Monster automatic login. Off by default: unless
     # MONSTER_AUTO_LOGIN is set to true, the adapter never types a
     # username/password and relies on the persistent Chrome profile being

@@ -127,9 +127,13 @@ class ApplicationSubmissionResult(BaseModel):
         confirmation could be verified. NEVER silently promoted to
         "submitted".
       - "failed" -- the destination itself rejected the attempt.
+      - "already_applied" -- the destination itself already shows this job as
+        applied (Monster's "Applied" badge). The adapter started no application,
+        so this is NEVER "submitted" and confirmed stays False; blocker is
+        "already_applied".
     """
 
-    status: Literal["submitted", "failed", "manual_review", "unknown", "test_ready_before_submit"]
+    status: Literal["submitted", "failed", "manual_review", "unknown", "test_ready_before_submit", "already_applied"]
     message: str
     confirmed: bool = False
     blocker: str | None = None
@@ -191,6 +195,7 @@ class ApplicationResult(BaseModel):
         "unknown",
         "skipped",
         "test_ready_before_submit",
+        "already_applied",
     ]
     application_url: str | None = None
     application_destination: str | None = None

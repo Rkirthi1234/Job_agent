@@ -28,7 +28,9 @@ There is no LLM in this path -- the Apply control is found by accessible
 text/role with a deterministic in-page script, exactly like Monster job
 discovery.
 
-HANDOFF. When the landing is Monster's own form, the Browser Use Chrome is
+HANDOFF. When the landing is Monster's own form (including the resume-selection step
+/profile/apply/resumes, "Apply with this resume", when a resume is selected), the
+Browser Use Chrome is
 deliberately LEFT RUNNING and its CDP URL is returned, so Playwright can
 attach to the very same browser (connect_over_cdp) and continue on the page
 that already holds the form -- no second navigation, so a Quick Apply modal
@@ -46,11 +48,17 @@ settled page: application form (hand-off to Playwright, exactly like a Monster
 form), authentication required, CAPTCHA/bot challenge, or an unsupported
 destination. Microsoft authentication is NEVER automated or bypassed: if the
 flow stops at a sign-in page the run WAITS (read-only, up to
-MONSTER_EXTERNAL_AUTH_TIMEOUT_SECONDS, never in a headless browser) for the user to
+MONSTER_EXTERNAL_AUTH_TIMEOUT_SECONDS -- default 60s -- never in a headless browser, and only
+for the hitayu.live sign-in flow itself; any other sign-in page, e.g. a Microsoft page with no
+hitayu.live behind it, gets only a short pass-through check and is then reported, never waited
+on) for the user to
 sign in by hand in that same browser, then carries on to the application form. Only
-if the window runs out is the result blocker=external_authentication_required, with
-the browser deliberately left open; the persistent profile keeps the session, so the
-next run passes straight through.
+if the window runs out is the result blocker=external_authentication_required. For a
+Quick Apply / Instant Apply the sign-in page is then CLOSED (and the Browser Use Chrome
+with it, like any other blocker); a plain Apply keeps the browser deliberately open. If
+the user finishes the application inside the window and Monster lands on
+/jobs/apply-complete?applyResult=apply_completed, that is reported as OUTCOME_APPLIED.
+The persistent profile keeps the session, so the next run passes straight through.
 OAuth query strings (codes, state, tokens) are never logged or stored: only
 safe_url() -- origin + path -- is.
 
@@ -86,7 +94,7 @@ import threading
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse, urlsplit, urlunsplit
+from urllib.parse import parse_qs, urlparse, urlsplit, urlunsplit
 
 from app.integrations.application_sources.ats_detector import detect_ats
 from app.integrations.application_sources.wellfound import is_wellfound_destination
@@ -110,9 +118,16 @@ BLOCKER_EXTERNAL_AUTH_REQUIRED = "external_authentication_required"
 BLOCKER_HANDOFF_FAILED = "browser_handoff_failed"
 BLOCKER_ENTRY_FAILED = "apply_entry_failed"
 BLOCKER_SUBMISSION_UNCONFIRMED = "submission_confirmation_unknown"
+#: The job page itself shows this job as already applied (a visible, job-specific badge).
+BLOCKER_ALREADY_APPLIED = "already_applied"
+#: Monster's resume-selection page (/profile/apply/resumes) with no resume selected.
+BLOCKER_RESUME_NOT_SELECTED = "resume_not_selected"
 
 # -- destination types ----------------------------------------------------------
 DEST_MONSTER_FORM = "monster_form"
+DEST_MONSTER_COMPLETE = "monster_apply_complete"
+DEST_MONSTER_JOB = "monster_job_applied"
+DEST_MONSTER_RESUME = "monster_resume_select"
 DEST_GREENHOUSE = "greenhouse"
 DEST_LEVER = "lever"
 DEST_WELLFOUND = "wellfound"
@@ -128,6 +143,12 @@ OUTCOME_EXTERNAL_FORM = "external_form"
 OUTCOME_BLOCKED = "blocked"
 OUTCOME_NO_FORM = "no_form"
 OUTCOME_ERROR = "error"
+#: Monster itself reported the application as completed (Quick Apply / Instant Apply
+#: finished with the Apply click). See is_apply_complete_url().
+OUTCOME_APPLIED = "applied"
+#: The job page already shows THIS job as applied (see APPLIED_STATE_JS). Nothing is clicked;
+#: distinct from OUTCOME_APPLIED, which means this run's own application was confirmed.
+OUTCOME_ALREADY_APPLIED = "already_applied"
 
 # -- page-state phrases (lowercase; matched against title + body text) ----------------
 BOT_PROTECTION_PHRASES = (
@@ -221,6 +242,23 @@ FORM_PROBE_JS = r"""
       return true;
     }
   }
+  // Monster's resume-selection step (/profile/apply/resumes): "Apply with this resume" heading
+  // plus a continue/apply control, no contact fields. Tag the smallest ancestor of the heading
+  // that holds such a control -- never <body>, so the site header can never be in scope.
+  const heads = Array.from(document.querySelectorAll('h1, h2, h3, [role="heading"]'))
+    .filter(h => visible(h) && /apply with this resume/i.test(h.innerText || ''));
+  for (const h of heads) {
+    let n = h.parentElement;
+    for (let d = 0; n && n !== document.body && d < 6; d++, n = n.parentElement) {
+      if (n.querySelector('input[type="password"]')) break;
+      const hasAction = Array.from(n.querySelectorAll('button, input[type="submit"], [role="button"]')).some(b =>
+        visible(b) && /^\s*(apply|apply now|continue|next|submit)\b/i.test((b.innerText || b.value || '')));
+      if (hasAction) {
+        n.setAttribute('data-monster-apply-scope', '1');
+        return true;
+      }
+    }
+  }
   return false;
 }
 """
@@ -235,6 +273,14 @@ PAGE_STATE_JS = r"""
   captcha_frame: !!document.querySelector("iframe[src*='hcaptcha'], iframe[src*='recaptcha'], iframe[src*='captcha']"),
   password_field: !!document.querySelector('input[type="password"]'),
   h1: ((document.querySelector('h1') || {}).innerText || '').trim().slice(0, 200),
+  // a visible, specific "Application sent!" heading / status (not a body-text match)
+  sent_banner: Array.from(document.querySelectorAll(
+    'h1, h2, h3, h4, [role="alert"], [role="status"], [role="dialog"] p, [role="dialog"] span'
+  )).some(el => {
+    try { const r = el.getBoundingClientRect(); if (!(r.width > 0 && r.height > 0)) return false; }
+    catch (e) { return false; }
+    return /^\s*application sent!?\s*$/i.test(el.innerText || '');
+  }),
 })
 """
 
@@ -283,6 +329,82 @@ FIND_APPLY_JS = r"""
 }
 """
 
+# Is THIS job already applied? Looks for a visible "Applied" badge / control and keeps it ONLY if it
+# belongs to the current job: walking up from the badge, the first ancestor that contains another
+# job's /job-openings/ link (a recommendation / similar-job card) means "foreign"; the first
+# ancestor that contains the page's <h1> and no other job's link means "current"; anything else
+# is "unattributed" and never counts. Reads only; nothing is clicked.
+APPLIED_STATE_JS = r"""
+() => {
+  const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
+  const idOf = s => { const m = String(s || '').match(UUID); return m ? m[0].toLowerCase() : null; };
+  const current = idOf(location.pathname);
+  const vis = el => {
+    try { const r = el.getBoundingClientRect(); const s = getComputedStyle(el);
+          return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none'; }
+    catch (e) { return false; }
+  };
+  const label = el => (el.innerText || el.getAttribute('aria-label') || '').replace(/\s+/g, ' ').trim();
+  const re = /^\s*applied\s*[\u2713\u2714]?\s*$/i;
+  const out = {applied: false, current_job_id: current || '', badge_count: 0, foreign_count: 0,
+               unattributed_count: 0, signals: []};
+  const h1 = document.querySelector('h1');
+  if (!h1) return out;
+  const sel = 'button, a, span, div, p, li, [role="status"], [role="button"], [role="img"], [aria-label]';
+  for (const el of document.querySelectorAll(sel)) {
+    if (!vis(el) || el.closest('header, nav, footer')) continue;
+    if (!re.test(label(el))) continue;
+    if (Array.from(el.children).some(c => re.test(label(c)))) continue;  // innermost element only
+    out.badge_count++;
+    let verdict = 'unattributed';
+    let n = el;
+    for (let d = 0; n && n !== document.body && d < 10; d++, n = n.parentElement) {
+      const links = n.matches('a[href*="/job-openings/"]') ? [n] : Array.from(n.querySelectorAll('a[href*="/job-openings/"]'));
+      const foreign = links.some(a => { const id = idOf(a.getAttribute('href')); return !!id && id !== current; });
+      const hasH1 = n.contains(h1);
+      if (foreign && !hasH1) { verdict = 'foreign'; break; }
+      if (hasH1) { verdict = foreign ? 'unattributed' : 'current'; break; }
+    }
+    if (verdict === 'current') {
+      out.applied = true;
+      out.signals.push(re.test(el.getAttribute('aria-label') || '') ? 'aria_label' : 'badge_text');
+    } else if (verdict === 'foreign') {
+      out.foreign_count++;
+    } else {
+      out.unattributed_count++;
+    }
+  }
+  out.signals = Array.from(new Set(out.signals));
+  return out;
+}
+"""
+
+# Monster's resume-selection step: is a resume selected, and which control continues? Counts and the
+# continue label only -- never a resume's name. Run right after FORM_PROBE_JS has tagged the scope.
+RESUME_PAGE_JS = r"""
+() => {
+  const root = document.querySelector('[data-monster-apply-scope="1"]') || document.body;
+  const vis = el => {
+    try { const r = el.getBoundingClientRect(); const s = getComputedStyle(el);
+          return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none'; }
+    catch (e) { return false; }
+  };
+  const clean = t => (t || '').replace(/\s+/g, ' ').trim();
+  const controls = Array.from(root.querySelectorAll('input[type="radio"], input[type="checkbox"], [role="radio"], [role="option"]'));
+  const chosen = controls.filter(el => el.checked === true || el.getAttribute('aria-checked') === 'true' || el.getAttribute('aria-selected') === 'true');
+  const showsFile = /\.(pdf|docx?|rtf)\b/i.test(root.innerText || '');
+  const actions = Array.from(root.querySelectorAll('button, input[type="submit"], [role="button"]'))
+    .filter(b => vis(b) && !b.disabled && b.getAttribute('aria-disabled') !== 'true')
+    .map(b => clean(b.innerText || b.value || b.getAttribute('aria-label')));
+  const action = actions.find(t => /^(apply|apply now|continue|next|submit)\b/i.test(t)) || '';
+  return {
+    resume_controls: controls.length,
+    resume_selected: chosen.length > 0 || (controls.length === 0 && showsFile),
+    continue_label: action.slice(0, 40),
+  };
+}
+"""
+
 _CLICK_TARGET_SELECTOR = '[data-monster-apply-target="1"]'
 _CLICK_FALLBACK_JS = (
     "() => { const el = document.querySelector('[data-monster-apply-target=\"1\"]'); "
@@ -292,6 +414,11 @@ _CLICK_FALLBACK_JS = (
 #: Bounded waits (seconds).
 PAGE_READY_WAIT_S = 8.0
 APPLY_CONTROL_WAIT_S = 10.0
+#: After the Apply control is found, keep re-reading the Applied badge this long before clicking it.
+#: Monster renders the signed-in user's applied state client-side, so a page can show Apply first and
+#: flip to Applied a moment later; clicking in that window would apply a second time. Capped by
+#: APPLY_CONTROL_WAIT_S (so tests that shrink that wait shrink this too).
+APPLIED_SETTLE_WAIT_S = 2.0
 LANDING_WAIT_S = 14.0
 POLL_INTERVAL_S = 0.6
 ENTRY_TIMEOUT_S = 120.0
@@ -329,6 +456,56 @@ def strip_url(url: str | None) -> str:
 def job_uuid(url: str | None) -> str | None:
     match = _UUID_RE.search(urlsplit(url or "").path)
     return match.group(0).lower() if match else None
+
+
+def is_apply_complete_url(url: str | None) -> bool:
+    """True only for Monster's own explicit Quick Apply completion page:
+    monster.com /jobs/apply-complete with applyResult=apply_completed. Both the
+    host, the exact path and the exact result value must match: a bare
+    /jobs/apply-complete (no result, or any other result) is NOT completion."""
+    if not isinstance(url, str) or not is_monster_destination(url):
+        return False
+    parts = urlsplit(url)
+    if parts.path.rstrip("/") != "/jobs/apply-complete":
+        return False
+    return "apply_completed" in parse_qs(parts.query).get("applyResult", [])
+
+
+def apply_complete_job_id(url: str | None) -> str | None:
+    """The Monster job UUID carried by a completion URL's jobId query parameter, if it has one."""
+    try:
+        query = parse_qs(urlsplit(url or "").query)
+    except ValueError:
+        return None
+    for key, values in query.items():
+        if key.lower().replace("_", "") == "jobid":
+            for value in values:
+                match = _UUID_RE.search(value)
+                if match:
+                    return match.group(0).lower()
+    return None
+
+
+def apply_complete_matches_job(url: str | None, stored_url: str | None) -> bool:
+    """False only when the completion URL names a DIFFERENT job than the stored one. A URL that
+    carries no (comparable) job id is not contradicted: it is accepted because this run just
+    clicked Apply on the stored job."""
+    found, wanted = apply_complete_job_id(url), job_uuid(stored_url)
+    return not (found and wanted and found != wanted)
+
+
+_RESUME_SELECTION_PATH = "/profile/apply/resumes"
+
+
+def is_resume_selection_page(url: str | None, body: str = "") -> bool:
+    """Monster's resume-selection step: /profile/apply/resumes, or any /profile/apply/ page whose
+    text carries the "Apply with this resume" heading."""
+    if not isinstance(url, str) or not is_monster_destination(url):
+        return False
+    path = urlsplit(url).path.rstrip("/").lower()
+    if path.endswith(_RESUME_SELECTION_PATH):
+        return True
+    return "/profile/apply" in path and "apply with this resume" in (body or "").lower()
 
 
 #: External application sites the entry knows how to follow (same browser).
@@ -637,6 +814,9 @@ class MonsterApplyEntry:
         auth_wait_s: float | None = None,
     ) -> None:
         self._auth_wait_s = auth_wait_s
+        # The stored job this run is for (set by _enter): completion evidence must belong to it.
+        self._stored_url = ""
+        self._expected_title: str | None = None
         self._headless = headless
         self._user_data_dir = _resolve_profile_dir(user_data_dir)
         self._timeout_s = timeout_s
@@ -729,6 +909,7 @@ class MonsterApplyEntry:
             "captcha_frame": bool(data.get("captcha_frame")),
             "password_field": bool(data.get("password_field")),
             "h1": str(data.get("h1") or ""),
+            "sent_banner": bool(data.get("sent_banner")),
         }
 
     async def _form_open(self, page) -> bool:
@@ -746,22 +927,45 @@ class MonsterApplyEntry:
                 return state
             await asyncio.sleep(POLL_INTERVAL_S)
 
-    async def _find_apply(self, page) -> dict[str, Any]:
+    async def _find_apply_once(self, page) -> dict[str, Any]:
+        try:
+            data = self._parse(await page.evaluate(FIND_APPLY_JS))
+            if isinstance(data, dict):
+                return data
+        except Exception:
+            logger.debug("Monster entry: apply-control search failed", exc_info=True)
+        return {"found": False, "count": 0}
+
+    async def _wait_for_apply_or_applied(
+        self, page, url: str, state: dict[str, Any], applied: dict[str, Any]
+    ) -> tuple[dict[str, Any], dict[str, Any]]:
+        """Wait for THIS job's Apply control while ALSO re-reading the Applied badge on every poll.
+
+        The badge is user-specific and rendered client-side, so a single read taken as soon as the page
+        has some text can miss it; the page then has no Apply control and the run would end as
+        apply_control_not_found although the job is applied. Returns (apply, applied): `applied["applied"]`
+        True means stop (nothing is clicked). When an Apply control is found it is only returned after a
+        short settle window in which the badge is read again, because the page can still flip from Apply
+        to Applied."""
         loop = asyncio.get_running_loop()
         deadline = loop.time() + APPLY_CONTROL_WAIT_S
-        found: dict[str, Any] = {"found": False, "count": 0}
+        apply: dict[str, Any] = {"found": False, "count": 0}
         while True:
-            try:
-                data = self._parse(await page.evaluate(FIND_APPLY_JS))
-                if isinstance(data, dict):
-                    found = data
-                    if data.get("found"):
-                        return data
-            except Exception:
-                logger.debug("Monster entry: apply-control search failed", exc_info=True)
+            if applied["applied"]:
+                return apply, applied
+            apply = await self._find_apply_once(page)
+            if apply.get("found"):
+                settle_until = loop.time() + min(APPLIED_SETTLE_WAIT_S, APPLY_CONTROL_WAIT_S)
+                while loop.time() < settle_until:
+                    await asyncio.sleep(POLL_INTERVAL_S)
+                    applied = await self._applied_state(page, url, state)
+                    if applied["applied"]:
+                        return {"found": False, "count": 0}, applied
+                return apply, applied
             if loop.time() >= deadline:
-                return found
+                return apply, applied
             await asyncio.sleep(POLL_INTERVAL_S)
+            applied = await self._applied_state(page, url, state)
 
     async def _click_target(self, page) -> bool:
         """Trusted click via Browser Use's element API; in-page click as a
@@ -792,7 +996,20 @@ class MonsterApplyEntry:
     def _blocked(self, blocker: str, detail: str, **kw) -> EntryResult:
         return EntryResult(OUTCOME_BLOCKED, blocker=blocker, detail=detail, **kw)
 
+    @staticmethod
+    def _already_applied_result(url: str, applied: dict[str, Any]) -> EntryResult:
+        """The job page shows THIS job as Applied. Nothing is clicked; not a submission by this run."""
+        return EntryResult(
+            OUTCOME_ALREADY_APPLIED,
+            destination_type=DEST_MONSTER_JOB,
+            destination_url=url,
+            blocker=BLOCKER_ALREADY_APPLIED,
+            detail="the job page already shows this job as Applied",
+            extra=applied["extra"],
+        )
+
     async def _enter(self, url: str, expected_title: str | None) -> EntryResult:
+        self._stored_url, self._expected_title = url, expected_title
         session = self._create_session()
         self._session = session
         await session.start()
@@ -812,6 +1029,13 @@ class MonsterApplyEntry:
                 f"the opened page ({strip_url(state['url'])}) does not look like the stored job",
             )
 
+        # 2b. Already applied? Decided BEFORE any Apply control is looked for, from a visible badge
+        #     that belongs to THIS job (see APPLIED_STATE_JS). Nothing is clicked, and a missing Apply
+        #     button is then not a failure.
+        applied = await self._applied_state(page, url, state)
+        if applied["applied"]:
+            return self._already_applied_result(state["url"], applied)
+
         # 3. Find THIS job's Apply control.
         already_open = await self._form_open(page)
         if already_open:
@@ -823,11 +1047,19 @@ class MonsterApplyEntry:
                 detail="an application form was already open",
                 extra={"entry_click": "not_needed_form_already_open"},
             )
-        apply = await self._find_apply(page)
+        # The badge can render after the page text does: keep reading it while waiting for the Apply
+        # control (and once more just before clicking), instead of trusting the single read above.
+        apply, applied = await self._wait_for_apply_or_applied(page, url, state, applied)
+        if applied["applied"]:
+            return self._already_applied_result(state["url"], applied)
         if not apply.get("found"):
             if looks_like_login(state["body"], state["password_field"]):
                 return self._blocked(BLOCKER_LOGIN_REQUIRED, "the job page asks for sign-in and has no Apply control")
-            return self._blocked(BLOCKER_APPLY_CONTROL_NOT_FOUND, "no Apply / Quick Apply / Instant Apply control found")
+            return self._blocked(
+                BLOCKER_APPLY_CONTROL_NOT_FOUND,
+                "no Apply / Quick Apply / Instant Apply control found",
+                extra=applied["extra"],
+            )
         label = str(apply.get("label") or "")
         submit_capable = bool(apply.get("submit_capable"))
         candidates = int(apply.get("count") or 0)
@@ -835,6 +1067,10 @@ class MonsterApplyEntry:
         # 4. Click it (only that control), then follow where it goes.
         before_tabs = len(await self._snapshot(session))
         if not await self._click_target(page):
+            # A control that vanishes can mean the page just flipped to Applied: say so, don't fail.
+            applied = await self._applied_state(page, url, state)
+            if applied["applied"]:
+                return self._already_applied_result(state["url"], applied)
             return EntryResult(
                 OUTCOME_ERROR,
                 blocker=BLOCKER_ENTRY_FAILED,
@@ -844,7 +1080,92 @@ class MonsterApplyEntry:
                 apply_candidates=candidates,
             )
         result = await self._landing(session, page, before_tabs, label, submit_capable, candidates)
+        result = await self._inspect_resume_page(session, result)
         await self._attach_diagnostics(session, result)
+        return result
+
+    async def _applied_state(self, page, url: str, state: dict[str, Any]) -> dict[str, Any]:
+        """Read the job page's applied state. `applied` is True only for a visible badge attributed to
+        THIS job; badges seen on other jobs' cards or that cannot be attributed are only counted in
+        `extra` (audit), never acted on."""
+        try:
+            data = self._parse(await page.evaluate(APPLIED_STATE_JS))
+        except Exception:
+            data = {}
+        if not isinstance(data, dict):
+            data = {}
+        extra: dict[str, str] = {}
+        if int(data.get("badge_count") or 0):
+            extra["applied_badge_candidates"] = str(int(data.get("badge_count") or 0))
+            extra["applied_badge_other_jobs"] = str(int(data.get("foreign_count") or 0))
+            extra["applied_badge_ambiguous"] = str(int(data.get("unattributed_count") or 0))
+        applied = bool(data.get("applied"))
+        if applied:
+            signals = [str(s) for s in (data.get("signals") or [])]
+            stored_id = job_uuid(url)
+            if stored_id and stored_id == job_uuid(state["url"]):
+                signals.append("job_id_match")
+            extra["entry_applied_signals"] = ",".join(signals)
+        return {"applied": applied, "extra": extra}
+
+    def _completion_evidence(self, st: dict[str, Any]) -> str | None:
+        """Explicit Monster completion evidence for THE STORED JOB in this tab, else None:
+        the /jobs/apply-complete?applyResult=apply_completed URL (unless it names another job), or a
+        visible "Application sent!" heading on a Monster page that is the stored job. A generic
+        success wording is never enough."""
+        url = st["url"]
+        if is_apply_complete_url(url) and apply_complete_matches_job(url, self._stored_url):
+            return "apply_complete_url"
+        if (
+            st.get("sent_banner")
+            and is_monster_destination(url)
+            and job_matches(self._stored_url, url, self._expected_title, st["title"], st["h1"])
+        ):
+            return "application_sent_banner"
+        return None
+
+    async def _inspect_resume_page(self, session, result: EntryResult) -> EntryResult:
+        """If the Monster form the entry is about to hand over is the resume-selection step, read its
+        DOM (is a resume selected? which control continues?) and record it. With a resume selected the
+        run carries on through the normal Playwright hand-off; with none selected it stops safely
+        (this code never picks a resume)."""
+        if result.outcome != OUTCOME_MONSTER_FORM:
+            return result
+        for page, st in await self._snapshot(session):
+            if st["url"] != result.destination_url or not is_resume_selection_page(st["url"], st["body"]):
+                continue
+            await self._form_open(page)  # re-tag the scope RESUME_PAGE_JS reads
+            try:
+                info = self._parse(await page.evaluate(RESUME_PAGE_JS))
+            except Exception:
+                info = {}
+            if not isinstance(info, dict):
+                info = {}
+            selected = bool(info.get("resume_selected"))
+            result.extra.update(
+                {
+                    "resume_page_detected": "true",
+                    "resume_selected": "true" if selected else "false",
+                    "resume_controls": str(int(info.get("resume_controls") or 0)),
+                    "resume_continue_label": str(info.get("continue_label") or "")[:40],
+                }
+            )
+            if selected:
+                logger.info("Monster resume-selection page: a resume is selected; continuing")
+                return result
+            logger.info("Monster resume-selection page: no resume is selected; stopping")
+            return EntryResult(
+                OUTCOME_BLOCKED,
+                destination_type=DEST_MONSTER_RESUME,
+                destination_url=result.destination_url,
+                blocker=BLOCKER_RESUME_NOT_SELECTED,
+                detail="Monster's resume-selection page is open but no resume is selected",
+                clicked_label=result.clicked_label,
+                submit_capable=result.submit_capable,
+                apply_candidates=result.apply_candidates,
+                new_tab=result.new_tab,
+                extra=result.extra,
+            )
         return result
 
     async def _external_candidate(self, session) -> tuple[Any, dict[str, Any]] | None:
@@ -903,6 +1224,31 @@ class MonsterApplyEntry:
         except Exception:
             logger.debug("Monster entry: page diagnostics failed (ignored)", exc_info=True)
 
+    async def _close_external_tabs(self, session) -> int:
+        """Close the open hitayu.live / identity-provider tabs (best effort; returns how many
+        were closed). Never touches a Monster tab or any other site, and never raises."""
+        closed = 0
+        try:
+            snapshot = await self._snapshot(session)
+        except Exception:
+            return 0
+        for page, st in snapshot:
+            url = st["url"]
+            if not (is_external_application_domain(url) or is_external_auth_host(url)):
+                continue
+            try:
+                await page.close()
+                closed += 1
+            except Exception:
+                try:
+                    await session.close_page(page)
+                    closed += 1
+                except Exception:
+                    logger.debug("Monster entry: could not close %s (ignored)", safe_url(url), exc_info=True)
+        if closed:
+            logger.info("Closed %d external sign-in page(s)", closed)
+        return closed
+
     async def _follow_external(
         self, session, new_tab: bool, common: dict[str, Any], seed_url: str
     ) -> EntryResult:
@@ -915,6 +1261,16 @@ class MonsterApplyEntry:
         app_domain: str | None = _host(seed_url) if is_external_application_domain(seed_url) else None
         saw_auth = is_external_auth_host(seed_url)
         auth_wait = self._auth_wait()
+        # Quick Apply / Instant Apply: the sign-in window ends by CLOSING the page (see
+        # auth_required_result); a plain Apply keeps the browser open as before.
+        quick_apply = bool(common.get("submit_capable"))
+
+        def is_manual() -> bool:
+            """A person can only sign in by hand during a window, and only the known external
+            application site's own sign-in flow (hitayu.live, or the identity provider it
+            bounced to) is worth waiting for. No window in a headless browser or when the
+            setting is 0, and none for a sign-in page with no hitayu.live behind it."""
+            return auth_wait > 0 and app_domain is not None
         logger.info("Monster external application detected (%s)", safe_url(seed_url))
         last_hint = 0.0
         auth_since: float | None = None
@@ -930,22 +1286,49 @@ class MonsterApplyEntry:
                 "external_form_detected": form,
             }
 
-        def auth_required_result() -> EntryResult:
+        async def auth_required_result() -> EntryResult:
             logger.info("Monster entry: authentication not completed in time (%s)", safe_url(final_url))
+            extra = {
+                "external_auth_wait": "timed_out" if is_manual() else "not_waited",
+                "external_auth_wait_seconds": f"{auth_wait:g}" if is_manual() else "0",
+            }
+            if quick_apply:
+                # The window is over and nothing was applied: close the sign-in page(s). With
+                # browser_left_open False, run() then closes the Browser Use Chrome as it does
+                # for every other blocker, so no page is left behind.
+                await self._close_external_tabs(session)
+                extra["external_auth_page_closed"] = "true"
             return EntryResult(
                 OUTCOME_EXTERNAL,
                 destination_type=DEST_EXTERNAL_AUTH,
                 destination_url=final_url,
                 blocker=BLOCKER_EXTERNAL_AUTH_REQUIRED,
                 detail="the external application requires authentication",
+                extra=extra,
                 new_tab=new_tab,
-                browser_left_open=True,
+                browser_left_open=not quick_apply,
                 **common,
                 **ext(auth_required=True),
             )
 
         while True:
             snapshot = await self._snapshot(session)
+            # Monster's explicit completion page in ANY tab: the user finished the application
+            # by hand inside the window. Checked first -- it is a success, not a form.
+            for _p, st in snapshot:
+                evidence = self._completion_evidence(st)
+                if evidence:
+                    logger.info("Monster reported the application as completed during the external wait")
+                    return EntryResult(
+                        OUTCOME_APPLIED,
+                        destination_type=DEST_MONSTER_COMPLETE,
+                        destination_url=st["url"],
+                        new_tab=new_tab,
+                        detail="Monster reported the application as completed (" + evidence + ")",
+                        extra={"entry_completion_evidence": evidence},
+                        **common,
+                        **ext(auth_completed=saw_auth),
+                    )
             monster_form = await self._monster_form_page(snapshot)
             if monster_form is not None:
                 # Monster's own form is usable: an external sign-in tab does not end the run.
@@ -1010,29 +1393,39 @@ class MonsterApplyEntry:
                         **ext(auth_completed=saw_auth),
                     )
                 if kind in (EXT_AUTH_PROVIDER, EXT_LOGIN_PAGE):
+                    # The whole window (not window + grace). Without a manual window only the
+                    # short pass-through check applies: a signed-in profile bounces through the
+                    # identity provider in a second or two, anything longer is reported.
+                    window = auth_wait if is_manual() else EXTERNAL_AUTH_GRACE_S
                     if auth_since is None:
                         auth_since = loop.time()
                         last_hint = auth_since
                         logger.info("External authentication required (%s)", safe_url(final_url))
-                        if auth_wait > 0:
+                        if is_manual():
                             logger.info(
                                 "Waiting for manual authentication... sign in by hand in the open browser "
-                                "(up to %.0fs)", auth_wait,
+                                "(up to %.0fs)", window,
+                            )
+                        else:
+                            logger.info(
+                                "Not waiting for manual authentication (%s)",
+                                "headless browser or the wait is disabled" if auth_wait <= 0
+                                else "not part of the supported hitayu.live sign-in flow",
                             )
                         # never cut the person's sign-in window short
-                        deadline = max(deadline, auth_since + auth_wait + EXTERNAL_AUTH_GRACE_S)
-                    elif auth_wait > 0 and loop.time() - last_hint >= 30:
+                        deadline = max(deadline, auth_since + window)
+                    elif is_manual() and loop.time() - last_hint >= 30:
                         last_hint = loop.time()
-                        left = auth_since + auth_wait + EXTERNAL_AUTH_GRACE_S - last_hint
+                        left = auth_since + window - last_hint
                         logger.info("Waiting for manual authentication... %.0fs left", max(left, 0))
-                    if loop.time() - auth_since >= EXTERNAL_AUTH_GRACE_S + auth_wait:
-                        return auth_required_result()
+                    if loop.time() - auth_since >= window:
+                        return await auth_required_result()
             if loop.time() >= deadline:
                 break
             await asyncio.sleep(POLL_INTERVAL_S)
 
         if kind in (EXT_AUTH_PROVIDER, EXT_LOGIN_PAGE):
-            return auth_required_result()
+            return await auth_required_result()
         return EntryResult(
             OUTCOME_NO_FORM,
             destination_type=DEST_HITAYU if app_domain else DEST_EXTERNAL_OTHER,
@@ -1067,6 +1460,21 @@ class MonsterApplyEntry:
                 blocker = classify_page(st["title"], st["body"], captcha_frame=st["captcha_frame"])
                 if blocker:
                     return self._blocked(*blocker, new_tab=new_tab, destination_url=st["url"], **common)
+            # a1) Monster's own explicit "application complete" page (a Quick Apply / Instant
+            #     Apply that finished with the single click): a SUCCESS reported as
+            #     OUTCOME_APPLIED -- not a form to prepare and not "unconfirmed".
+            for _page, st in snapshot:
+                evidence = self._completion_evidence(st)
+                if evidence:
+                    return EntryResult(
+                        OUTCOME_APPLIED,
+                        destination_type=DEST_MONSTER_COMPLETE,
+                        destination_url=st["url"],
+                        new_tab=new_tab,
+                        detail="Monster reported the application as completed (" + evidence + ")",
+                        extra={"entry_completion_evidence": evidence},
+                        **common,
+                    )
             # a2) Monster's own application form WINS over any external tab: a hitayu.live
             #     sign-in page must not end a run whose Monster form is still usable
             for page, st in snapshot:
