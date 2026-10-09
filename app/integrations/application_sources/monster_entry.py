@@ -560,6 +560,16 @@ def looks_like_login_url(url: str | None) -> bool:
     return bool(_LOGIN_PATH_RE.search(urlsplit(url or "").path))
 
 
+def is_monster_login_wall_url(url: str | None) -> bool:
+    """A Monster sign-in / create-account page (identity.monster.com/oneiam/account/...). Monster opens
+    it when the profile is signed out. Detected from the URL only (never a password field, which can
+    sit hidden on an ordinary job page)."""
+    if not is_monster_destination(url or ""):
+        return False
+    path = urlsplit(url or "").path.lower()
+    return _host(url).startswith("identity.") or "/oneiam/account/" in path or looks_like_login_url(url)
+
+
 def external_destination_type(url: str) -> str:
     """greenhouse / lever / wellfound for the ATSs we already have adapters
     for (the existing detectors, unchanged); hitayu for hitayu.live;
@@ -880,6 +890,25 @@ class MonsterApplyEntry:
             logger.debug("Monster entry: browser cleanup failed (ignored)", exc_info=True)
         finally:
             loop.stop()
+
+    def open_browser(self, url: str, *, timeout_s: float = 60.0) -> str | None:
+        """Start the persistent Chrome at `url` and LEAVE IT RUNNING; return its CDP URL (None on
+        failure). Used only so the adapter can sign in with MONSTER_AUTO_LOGIN when the entry stopped at
+        a login wall. Nothing is clicked or typed here. The caller must call close()."""
+        self._loop = _LoopThread()
+        try:
+            return self._loop.call(self._start_at(url), timeout=timeout_s)
+        except Exception:
+            logger.exception("Monster entry: could not open the browser for sign-in")
+            self.close()
+            return None
+
+    async def _start_at(self, url: str) -> str | None:
+        session = self._create_session()
+        self._session = session
+        await session.start()
+        await session.navigate_to(url)
+        return getattr(session, "cdp_url", None)
 
     # -- async implementation ---------------------------------------------------
 
@@ -1342,6 +1371,15 @@ class MonsterApplyEntry:
                     detail="Monster application form is open alongside an external page",
                     **common,
                 )
+            # Monster's own sign-in / create-account page open beside the external tab: the profile is
+            # signed out, so waiting for the external site is pointless. Report login_required.
+            for _p, st in snapshot:
+                if is_monster_login_wall_url(st["url"]):
+                    logger.info("Monster sign-in page opened alongside the external page; the profile is signed out")
+                    return self._blocked(
+                        BLOCKER_LOGIN_REQUIRED, "Apply led to a Monster sign-in / create-account page",
+                        new_tab=new_tab, destination_url=st["url"], **common,
+                    )
             found = self._first_external(snapshot)
             if found is not None:
                 page, st = found
@@ -1492,6 +1530,15 @@ class MonsterApplyEntry:
                         new_tab=new_tab,
                         detail="Monster application form is open",
                         **common,
+                    )
+            # a3) Monster's own sign-in / create-account page (identity.monster.com) means this profile
+            #     is SIGNED OUT. That wins over an external tab Apply opened beside it: report
+            #     login_required so the adapter can sign in (MONSTER_AUTO_LOGIN) and retry.
+            for _page, st in snapshot:
+                if is_monster_login_wall_url(st["url"]):
+                    return self._blocked(
+                        BLOCKER_LOGIN_REQUIRED, "Apply led to a Monster sign-in / create-account page",
+                        new_tab=new_tab, destination_url=st["url"], **common,
                     )
             # b) an external destination (hitayu.live / identity-provider pages
             #    are FOLLOWED; everything else is classified and reported)

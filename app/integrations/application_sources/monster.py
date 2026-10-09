@@ -147,6 +147,7 @@ from app.integrations.application_sources.monster_entry import (
     is_external_application_domain,
     is_external_auth_host,
     is_monster_destination,
+    is_monster_login_wall_url,
     is_resume_selection_page,
     safe_url,
     strip_url,
@@ -636,6 +637,14 @@ class MonsterApplicationSource(ApplicationEngine):
         entry_result = entry.run(destination_url, expected_title=getattr(payload.job, "title", None))
         outcome.audit.update(entry_result.audit())
 
+        # The entry stopped at a Monster login wall (a fresh / signed-out profile). With the explicit
+        # MONSTER_AUTO_LOGIN opt-in, sign in ONCE with the .env account in the same persistent profile,
+        # then re-run the entry ONCE. Never loops: a second login wall is reported as before.
+        if entry_result.blocker == BLOCKER_LOGIN_REQUIRED and self._auto_login_for_entry(entry, outcome, destination_url):
+            entry_result = entry.run(destination_url, expected_title=getattr(payload.job, "title", None))
+            outcome.audit.update(entry_result.audit())
+            outcome.mark("monster_auto_login_retry", "true")
+
         if entry_result.outcome == OUTCOME_APPLIED:
             # (entry.run() already closed the browser: nothing is left to prepare)
             return self._result_applied(entry_result, outcome)
@@ -672,6 +681,116 @@ class MonsterApplicationSource(ApplicationEngine):
             )
         finally:
             entry.close()
+
+    def _auto_login_for_entry(self, entry, outcome: FillOutcome, job_url: str | None = None) -> bool:
+        """Sign in to Monster with the MONSTER_EMAIL / MONSTER_PASSWORD from .env, in the SAME persistent
+        Chrome profile the entry uses, so the session is saved there for later runs. Only when
+        MONSTER_AUTO_LOGIN=true. Returns True when it is worth re-running the entry. Never raises.
+        The credential is only passed to monster_auth.attempt_monster_login (the one place it is typed)."""
+        settings = get_settings()
+        if not settings.monster_auto_login:
+            return False
+        email = (settings.monster_email or "").strip()
+        password = settings.monster_password
+        if not email or not password.get_secret_value():
+            logger.info("Monster auto-login: enabled but MONSTER_EMAIL / MONSTER_PASSWORD are not set in .env")
+            outcome.mark("monster_auto_login", "credentials_missing")
+            return False
+        if getattr(entry, "open_browser", None) is None:
+            return False
+
+        import time
+
+        from app.integrations.application_sources.monster_auth import _MONSTER_LOGIN_URL, attempt_monster_login
+
+        logger.info("Monster auto-login: the entry stopped at a login wall; signing in with the .env account")
+        time.sleep(2)  # let the previous Chrome release the profile
+        result = "error"
+        try:
+            cdp_url = entry.open_browser(job_url or _MONSTER_LOGIN_URL)
+            if not cdp_url:
+                result = "browser_unavailable"
+            else:
+                from playwright.sync_api import sync_playwright
+
+                with sync_playwright() as pw:
+                    browser = pw.chromium.connect_over_cdp(cdp_url)
+                    try:
+                        pages = [p for ctx in browser.contexts for p in ctx.pages]
+                        page = next((p for p in pages if is_monster_destination(getattr(p, "url", "") or "")), None)
+                        if page is None:
+                            page = browser.contexts[0].new_page()
+                        result = None
+                        # Signed-out job page: click the header "Log in" button first. No such button
+                        # means the page already shows a signed-in account, so nothing is typed.
+                        if not is_monster_login_wall_url(getattr(page, "url", "") or ""):
+                            if not self._click_login_control(page):
+                                result = "already_logged_in"
+                        if result is None:
+                            if self._reach_sign_in_form(page):
+                                result = attempt_monster_login(page, email, password)
+                            else:
+                                result = "register_page_only"
+                                logger.warning(
+                                    "Monster auto-login: only a create-account page is showing; nothing was typed"
+                                )
+                        if result in ("logged_in", "already_logged_in"):
+                            page.wait_for_timeout(4000)  # let Chrome write the session to the profile
+                    finally:
+                        self._safe_disconnect(browser)
+        except Exception as exc:
+            logger.warning("Monster auto-login failed (%s)", type(exc).__name__)
+            result = "error"
+        finally:
+            entry.close()
+        logger.info("Monster auto-login: result=%s", result)
+        outcome.mark("monster_auto_login", result)
+        return result in ("logged_in", "already_logged_in")
+
+    @staticmethod
+    def _click_login_control(page) -> bool:
+        """On a signed-out Monster page, click the visible "Log in" button/link (the header one). False when
+        there is none, which normally means the page is already signed in."""
+        label = re.compile(r"^\s*log\s*in\s*$", re.IGNORECASE)
+        for role in ("button", "link"):
+            try:
+                matches = page.get_by_role(role, name=label)
+                for i in range(min(matches.count(), 4)):
+                    element = matches.nth(i)
+                    if element.is_visible():
+                        logger.info("Monster auto-login: clicking the Log in control")
+                        element.click()
+                        page.wait_for_timeout(2500)
+                        return True
+            except Exception:
+                continue
+        return False
+
+    @staticmethod
+    def _reach_sign_in_form(page) -> bool:
+        """Never type credentials into a CREATE-ACCOUNT page: its submit button would REGISTER an account.
+        If Monster is showing its register page, follow Monster's own "Sign in" / "Log in" link first.
+        True only when the page is no longer a register page."""
+
+        def on_register() -> bool:
+            try:
+                return "/register" in (getattr(page, "url", "") or "").lower()
+            except Exception:
+                return False
+
+        if not on_register():
+            return True
+        label = re.compile(r"^\s*(?:sign\s*in|log\s*in)\s*$", re.IGNORECASE)
+        for role in ("link", "button"):
+            try:
+                target = page.get_by_role(role, name=label).first
+                if target.count() > 0 and target.is_visible():
+                    target.click()
+                    page.wait_for_timeout(2500)
+                    break
+            except Exception:
+                continue
+        return not on_register()
 
     @property
     def has_open_browser(self) -> bool:
