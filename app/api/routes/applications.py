@@ -61,7 +61,12 @@ from app.integrations.application_sources.exceptions import (
 )
 from app.integrations.application_sources.registry import UnknownApplicationSourceError
 from app.models.database import get_db
-from app.schemas.application import ApplicationCreateResponse, ApplicationRequest, ManualAnswerRequest
+from app.schemas.application import (
+    ApplicationCreateResponse,
+    ApplicationCreateSummaryResponse,
+    ApplicationRequest,
+    ManualAnswerRequest,
+)
 from app.services.application_service import (
     ApplicationNotAwaitingApprovalError,
     ApplicationNotFoundError,
@@ -113,18 +118,25 @@ def _handle_adapter_and_source_errors(exc: Exception):
     raise exc
 
 
-@router.post("", response_model=ApplicationCreateResponse)
+@router.post("", response_model=ApplicationCreateSummaryResponse)
 def create_application(
     payload: ApplicationRequest,
     db: Session = Depends(get_db),
-) -> ApplicationCreateResponse:
+) -> ApplicationCreateSummaryResponse:
     """Prepare and (via the selected adapter) submit or resolve an
     application for a candidate against a job that has already passed
-    Phase 3 matching."""
+    Phase 3 matching.
+
+    Returns a lean response: adapter diagnostics (the full
+    field_fill_audit and screenshot paths) are stored on the Application
+    row but not echoed here -- only the pending-question keys a client
+    needs for /manual-answer are kept."""
     service = ApplicationService(db)
 
     try:
-        return service.apply(payload.candidate_id, payload.job_id, payload.source)
+        return ApplicationCreateSummaryResponse.from_response(
+            service.apply(payload.candidate_id, payload.job_id, payload.source)
+        )
     except CandidateNotFoundError as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
     except JobNotFoundError as exc:

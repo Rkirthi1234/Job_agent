@@ -212,3 +212,66 @@ class ApplicationResult(BaseModel):
 class ApplicationCreateResponse(BaseModel):
     message: str
     application: ApplicationResult
+
+
+# The only field_fill_audit keys a client of POST /api/applications actually
+# needs: POST /api/applications/{id}/manual-answer requires the caller to echo
+# back `pending_question_id` (and shows `pending_question_text` to the human).
+# Everything else in field_fill_audit is adapter debugging detail -- it is
+# still persisted on the Application row, just not echoed on create.
+CREATE_RESPONSE_AUDIT_KEYS = ("pending_question_id", "pending_question_text")
+
+# Reuse ApplicationResult's own status Literal so the two can never drift apart.
+ApplicationStatus = ApplicationResult.model_fields["status"].annotation
+
+
+class ApplicationCreateItem(BaseModel):
+    """Lean view of an Application for the POST /api/applications response.
+
+    Same as ApplicationResult minus the noisy field_fill_audit dump (trimmed
+    to CREATE_RESPONSE_AUDIT_KEYS). The audit stays stored in the database;
+    this only affects what the create endpoint returns. Screenshot paths are
+    kept. The approve / resume-captcha /
+    check-submission / manual-answer endpoints still return ApplicationResult.
+    """
+
+    id: int
+    candidate_id: int
+    job_id: int
+    job_source: str | None = None
+    submission_adapter: str
+    status: ApplicationStatus
+    application_url: str | None = None
+    application_destination: str | None = None
+    resume_used: str | None = None
+    message: str | None = None
+    confirmed: bool = False
+    blocker: str | None = None
+    field_fill_audit: dict[str, str] = Field(default_factory=dict)
+    screenshot_pre_path: str | None = None
+    screenshot_post_path: str | None = None
+    submitted_at: datetime | None = None
+
+    @classmethod
+    def from_result(cls, result: ApplicationResult) -> "ApplicationCreateItem":
+        data = result.model_dump()
+        data["field_fill_audit"] = {
+            key: value
+            for key, value in result.field_fill_audit.items()
+            if key in CREATE_RESPONSE_AUDIT_KEYS
+        }
+        return cls(**data)
+
+
+class ApplicationCreateSummaryResponse(BaseModel):
+    """Response body for POST /api/applications."""
+
+    message: str
+    application: ApplicationCreateItem
+
+    @classmethod
+    def from_response(cls, response: ApplicationCreateResponse) -> "ApplicationCreateSummaryResponse":
+        return cls(
+            message=response.message,
+            application=ApplicationCreateItem.from_result(response.application),
+        )
