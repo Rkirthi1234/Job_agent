@@ -1275,7 +1275,15 @@ def test_service_selects_greenhouse_adapter_for_greenhouse_destination(real_clie
     assert app_data["status"] == "submitted"
     assert app_data["submission_adapter"] == "greenhouse"
     assert app_data["confirmed"] is True
-    assert app_data["field_fill_audit"]["linkedin"] == "skipped_no_data"
+    # POST /api/applications deliberately trims field_fill_audit to CREATE_RESPONSE_AUDIT_KEYS
+    # (see app/schemas/application.py); the full audit is still persisted on the row.
+    assert "linkedin" not in app_data["field_fill_audit"]
+    db = _db_session()
+    try:
+        stored = json.loads(db.get(Application, app_data["id"]).field_fill_audit)
+    finally:
+        db.close()
+    assert stored["linkedin"] == "skipped_no_data"
     assert app_data["application_destination"] == "https://boards.greenhouse.io/acme/jobs/1"
     # No approval step needed -- already "submitted" straight from apply().
     assert app_data["submitted_at"] is not None
@@ -1870,26 +1878,33 @@ def test_wellfound_auto_submit_without_confirmation_is_manual_review(fake_playwr
         get_settings.cache_clear()
 
 
-def test_wellfound_submit_button_not_found(fake_playwright, tmp_path):
-    resume_path = tmp_path / "resume.pdf"
-    resume_path.write_bytes(b"%PDF-1.4 dummy")
-    payload = ApplicationPayload(
-        candidate=_PAYLOAD.candidate,
-        job=_PAYLOAD.job,
-        resume=ResumeApplicationInfo(path=str(resume_path)),
-        answers={},
-    )
+def test_wellfound_submit_button_not_found(fake_playwright, tmp_path, monkeypatch):
+    # Not SAFE TEST MODE, regardless of the developer's own .env (SAFE MODE stops with
+    # test_ready_before_submit before the Submit button is ever looked for).
+    monkeypatch.setenv("TEST_APPLICATION_SKIP_SUBMIT", "false")
+    get_settings.cache_clear()
+    try:
+        resume_path = tmp_path / "resume.pdf"
+        resume_path.write_bytes(b"%PDF-1.4 dummy")
+        payload = ApplicationPayload(
+            candidate=_PAYLOAD.candidate,
+            job=_PAYLOAD.job,
+            resume=ResumeApplicationInfo(path=str(resume_path)),
+            answers={},
+        )
 
-    selector_map = _wellfound_full_selector_map()
-    del selector_map[WELLFOUND_SUBMIT[0]]
-    fake_playwright(FakePage(selector_map, url="https://wellfound.com/jobs/1-engineer"))
+        selector_map = _wellfound_full_selector_map()
+        del selector_map[WELLFOUND_SUBMIT[0]]
+        fake_playwright(FakePage(selector_map, url="https://wellfound.com/jobs/1-engineer"))
 
-    result = WellfoundApplicationSource().submit_application(
-        payload, destination_url="https://wellfound.com/jobs/1-engineer"
-    )
+        result = WellfoundApplicationSource().submit_application(
+            payload, destination_url="https://wellfound.com/jobs/1-engineer"
+        )
 
-    assert result.status == "manual_review"
-    assert result.blocker == "submit_button_not_found"
+        assert result.status == "manual_review"
+        assert result.blocker == "submit_button_not_found"
+    finally:
+        get_settings.cache_clear()
 
 
 def test_wellfound_skip_submit_test_mode_never_reaches_manual_submission_blocker(

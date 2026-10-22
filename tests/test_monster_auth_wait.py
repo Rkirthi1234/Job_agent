@@ -74,6 +74,9 @@ def _enter_virtual(monkeypatch, session, entry):
     monkeypatch.setattr(me, "LANDING_WAIT_S", 14.0)
     monkeypatch.setattr(me, "EXTERNAL_SETTLE_WAIT_S", 20.0)
     monkeypatch.setattr(me, "EXTERNAL_AUTH_GRACE_S", 6.0)
+    # The applied-state settle window (2s of polling after the Apply control is found) is not part of
+    # what these tests measure: they bound the EXTERNAL wait, so take that fixed prefix out of the clock.
+    monkeypatch.setattr(me, "APPLIED_SETTLE_WAIT_S", 0.0)
     monkeypatch.setattr(entry, "_create_session", lambda: session)
     try:
         result = loop.run_until_complete(entry._enter(_JOB_URL, "Python Developer"))

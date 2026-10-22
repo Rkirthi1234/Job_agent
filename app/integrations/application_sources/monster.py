@@ -101,7 +101,7 @@ import os
 import re
 import sys
 from dataclasses import dataclass
-from typing import Callable
+from typing import Any, Callable
 
 from app.config import get_settings
 from app.integrations.application_sources import monster_diagnostics as mdiag
@@ -115,6 +115,7 @@ from app.integrations.application_sources.monster_entry import (
     BLOCKER_APPLICATION_FORM_NOT_FOUND,
     BLOCKER_APPLY_CONTROL_NOT_FOUND,
     BLOCKER_BOT_PROTECTION,
+    BLOCKER_BROWSER_SESSION_ACTIVE,
     BLOCKER_CAPTCHA,
     BLOCKER_DESTINATION_REFUSED,
     BLOCKER_ENTRY_FAILED,
@@ -139,6 +140,7 @@ from app.integrations.application_sources.monster_entry import (
     OUTCOME_EXTERNAL,
     OUTCOME_EXTERNAL_FORM,
     OUTCOME_MONSTER_FORM,
+    EXTERNAL_BROWSERS,
     EntryResult,
     MonsterApplyEntry,
     apply_complete_matches_job,
@@ -171,6 +173,9 @@ BLOCKER_SUBMIT_BUTTON_NOT_FOUND = "submit_button_not_found"
 BLOCKER_MANUAL_SUBMISSION_REQUIRED = "monster_manual_submission_required"
 BLOCKER_SUBMISSION_FAILED = "submission_failed"
 BLOCKER_RESUME_UPLOAD_FAILED = "resume_upload_failed"
+# A saved-recipe replay on the external career page started and stopped safely (a person takes over).
+# Same value as monster_recipe_replay.BLOCKER_RECIPE_REPLAY_STOPPED.
+BLOCKER_RECIPE_REPLAY_STOPPED = "recipe_replay_stopped"
 
 #: Greenhouse / Lever / Wellfound destinations are handed to the existing adapters.
 _DELEGATED_DESTINATIONS = (DEST_GREENHOUSE, DEST_LEVER, DEST_WELLFOUND)
@@ -446,6 +451,10 @@ EVIDENCE_APPLICATION_SENT_BANNER = "monster_application_sent_banner"
 
 _ENTRY_MESSAGES = {
     BLOCKER_BOT_PROTECTION: "Monster showed a bot-protection / verification page",
+    BLOCKER_BROWSER_SESSION_ACTIVE: (
+        "A browser from an earlier external application is still open and may still be in use. It was not "
+        "closed: finish or close it (closing the window is enough), then run the application again"
+    ),
     BLOCKER_CAPTCHA: "Monster showed a CAPTCHA",
     BLOCKER_DESTINATION_REFUSED: "Monster refused automated access",
     BLOCKER_JOB_UNAVAILABLE: "This Monster job is no longer available",
@@ -483,6 +492,8 @@ class MonsterApplicationSource(ApplicationEngine):
         self,
         entry_factory: Callable[[], MonsterApplyEntry] | None = None,
         confirm_submit: Callable[[str], str | None] | None = None,
+        *,
+        external_page_bridge: Any = None,
     ) -> None:
         super().__init__()  # _headless, _artifacts_dir
         settings = get_settings()
@@ -495,6 +506,9 @@ class MonsterApplicationSource(ApplicationEngine):
         )
         self._questions = MonsterQuestionHandler()
         self._confirm_submit = confirm_submit or console_confirm
+        # ExternalPageRecipeBridge (APPLICATION_RECIPE_REPLAY): built lazily, only when an external
+        # career page was left open -- see _replay_external_career_page().
+        self._external_page_bridge = external_page_bridge
         # Per-run state (a new adapter instance is created per request).
         self._application_url: str | None = None
         self._job = None
@@ -633,6 +647,14 @@ class MonsterApplicationSource(ApplicationEngine):
         outcome.mark("application_url", strip_url(destination_url))
         outcome.mark("safe_mode", _flag(self._skip_submit))
 
+        # A browser left open by an earlier external application may still be in use, and it holds
+        # the persistent profile. Never close it silently: ask (default No), else stop clearly.
+        active = EXTERNAL_BROWSERS.active()
+        if active is not None:
+            stopped = self._resolve_active_external_session(active, outcome)
+            if stopped is not None:
+                return stopped
+
         entry = self._entry_factory()
         entry_result = entry.run(destination_url, expected_title=getattr(payload.job, "title", None))
         outcome.audit.update(entry_result.audit())
@@ -645,6 +667,10 @@ class MonsterApplicationSource(ApplicationEngine):
             outcome.audit.update(entry_result.audit())
             outcome.mark("monster_auto_login_retry", "true")
 
+        logger.info(
+            "Monster entry result: outcome=%s browser_left_open=%s destination_type=%s",
+            entry_result.outcome, entry_result.browser_left_open, entry_result.destination_type,
+        )
         if entry_result.outcome == OUTCOME_APPLIED:
             # (entry.run() already closed the browser: nothing is left to prepare)
             return self._result_applied(entry_result, outcome)
@@ -659,6 +685,14 @@ class MonsterApplicationSource(ApplicationEngine):
             # to authenticate by hand -- see close_open_browser())
             if entry_result.browser_left_open:
                 self._left_open_entry = entry
+                if self._is_external_career_page_stop(entry_result):
+                    # The bridge replays a compatible saved recipe, else runs the existing recording
+                    # path as its fallback. None = the page was not touched: report as before.
+                    replayed = self._replay_external_career_page(entry_result, payload, outcome, entry)
+                    if replayed is not None:
+                        return replayed
+                else:
+                    self._start_recipe_recording(entry_result, outcome)
             return self._result_without_form(entry_result, payload, outcome)
 
         self._external_flow = entry_result.outcome == OUTCOME_EXTERNAL_FORM
@@ -682,6 +716,29 @@ class MonsterApplicationSource(ApplicationEngine):
         finally:
             entry.close()
 
+    def _resolve_active_external_session(
+        self, active, outcome: FillOutcome
+    ) -> ApplicationSubmissionResult | None:
+        """An earlier external application left a browser open and it is still alive. Returns None
+        only when the person explicitly chose (y/yes, asked NOW, default No) to close it and carry
+        on; otherwise the run stops with browser_session_active and the browser is left untouched."""
+        shown = active.page_url or "an external page"
+        outcome.mark("previous_external_browser", "active")
+        prompt = (
+            f"\n[Monster] A browser from an earlier external application is still open at {shown}.\n"
+            "Close it and start this application? [y/N]: "
+        )
+        if _is_yes(self._confirm_submit(prompt)):
+            EXTERNAL_BROWSERS.close("replaced_by_user_choice")
+            outcome.mark("previous_external_browser", "closed_by_user_choice")
+            return None
+        outcome.mark("previous_external_browser", "kept")
+        return self._manual_review(
+            BLOCKER_BROWSER_SESSION_ACTIVE,
+            f"{_ENTRY_MESSAGES[BLOCKER_BROWSER_SESSION_ACTIVE]} (still open at {shown})",
+            outcome,
+        )
+
     def _auto_login_for_entry(self, entry, outcome: FillOutcome, job_url: str | None = None) -> bool:
         """Sign in to Monster with the MONSTER_EMAIL / MONSTER_PASSWORD from .env, in the SAME persistent
         Chrome profile the entry uses, so the session is saved there for later runs. Only when
@@ -692,7 +749,9 @@ class MonsterApplicationSource(ApplicationEngine):
             return False
         email = (settings.monster_email or "").strip()
         password = settings.monster_password
-        if not email or not password.get_secret_value():
+        # len(SecretStr) is the length of the secret, so an empty password is falsy without unwrapping
+        # it here: only the dedicated *_auth.py modules ever unwrap a password.
+        if not email or not password:
             logger.info("Monster auto-login: enabled but MONSTER_EMAIL / MONSTER_PASSWORD are not set in .env")
             outcome.mark("monster_auto_login", "credentials_missing")
             return False
@@ -797,11 +856,182 @@ class MonsterApplicationSource(ApplicationEngine):
         """True while a Chrome was deliberately left open for manual authentication."""
         return self._left_open_entry is not None
 
+    def _start_recipe_recording(self, entry_result: EntryResult, outcome: FillOutcome) -> None:
+        """OPT-IN (APPLICATION_RECIPE_RECORDING=true): the entry left a browser open for the person
+        to finish an external application by hand -- record the SHAPE of what they do there (see
+        recipe_recorder.py). Never fills, clicks or submits anything, never raises, and does
+        nothing for Quick Apply (which keeps no browser open, so never reaches this)."""
+        try:
+            enabled = bool(get_settings().application_recipe_recording)
+            logger.info(
+                "Recipe recording hook reached: APPLICATION_RECIPE_RECORDING=%s outcome=%s cwd=%s",
+                enabled, entry_result.outcome, os.getcwd(),
+            )
+            if not enabled:
+                return
+            from app.integrations.application_sources.recipe_recorder import (
+                DEFAULT_INACTIVITY_TIMEOUT_S,
+                DEFAULT_MAX_DURATION_S,
+                start_recording,
+            )
+            from app.integrations.application_sources.recipe_store import RecipeStore, resolve_recipes_dir
+
+            settings = get_settings()
+            store = RecipeStore(resolve_recipes_dir(settings.application_recipes_dir))
+            session = start_recording(
+                entry_result.cdp_url,
+                on_finished=self._recorder_finished_callback(self._left_open_entry),
+                store=store,
+                inactivity_timeout_s=getattr(
+                    settings, "application_recipe_inactivity_timeout_seconds", DEFAULT_INACTIVITY_TIMEOUT_S
+                ),
+                max_duration_s=getattr(
+                    settings, "application_recipe_max_duration_seconds", DEFAULT_MAX_DURATION_S
+                ),
+            )
+            if session is None:
+                logger.warning("Recipe recording not started: the entry exposed no loopback CDP URL (cdp_url set: %s)", bool(entry_result.cdp_url))
+            outcome.mark("recipe_recording", "started" if session is not None else "not_started")
+        except Exception:
+            logger.exception("Monster: recipe recording could not be started (ignored)")
+            outcome.mark("recipe_recording", "failed_to_start")
+
+    # -- external career page: replay a saved recipe, else the existing recording / manual path -------------
+
+    @staticmethod
+    def _is_external_career_page_stop(entry_result: EntryResult) -> bool:
+        """True when Apply landed on the employer's own page (not a Hitayu / Microsoft sign-in stop) and the
+        browser was left open there. A sign-in stop keeps its existing recording-only behaviour: the person has
+        to authenticate by hand first, so there is no career-page tab to replay on yet."""
+        return (
+            entry_result.outcome == OUTCOME_EXTERNAL
+            and bool(entry_result.browser_left_open)
+            and not entry_result.external_auth_required
+            and entry_result.blocker != BLOCKER_EXTERNAL_AUTH_REQUIRED
+            and entry_result.destination_type != DEST_EXTERNAL_AUTH
+        )
+
+    def _get_external_page_bridge(self):
+        if self._external_page_bridge is None:
+            from app.integrations.application_sources import external_page_recipe_bridge as bridge_module
+
+            self._external_page_bridge = bridge_module.ExternalPageRecipeBridge()
+        return self._external_page_bridge
+
+    def _replay_external_career_page(
+        self, entry_result: EntryResult, payload: ApplicationPayload, outcome: FillOutcome, entry
+    ) -> ApplicationSubmissionResult | None:
+        """OPT-IN (APPLICATION_RECIPE_REPLAY=true): replay a compatible saved recipe on the employer's career-page
+        tab of the browser Apply left open, using the CURRENT candidate and resume. Never presses the final
+        Submit, never marks anything submitted, never closes the browser (the entry stays in _left_open_entry /
+        EXTERNAL_BROWSERS, so close_open_browser() and the normal cleanup still work).
+
+        Returns None when the page was NOT touched (flag off, no career tab, sign-in / CAPTCHA, no compatible
+        recipe): the bridge has then already run the existing recording path as its fallback, and the caller
+        reports the existing "left open" result. Otherwise returns the result for the replay."""
+        recording = lambda: self._start_recipe_recording(entry_result, outcome)  # noqa: E731  (late-bound on purpose)
+        try:
+            bridge = self._get_external_page_bridge()
+        except Exception:
+            logger.warning("Monster: external recipe bridge unavailable; using the existing flow", exc_info=True)
+            recording()
+            return None
+        try:
+            result = bridge.run(payload, entry_result.cdp_url, entry=entry, fallback=recording)
+        except Exception as exc:
+            # The page may be half filled: stop here and leave the browser open for the person.
+            logger.warning("Monster: external recipe replay failed (%s); stopped for manual completion", type(exc).__name__)
+            outcome.mark("external_recipe_replay", "stopped")
+            outcome.mark("external_recipe_stop_reason", "replay_error")
+            outcome.mark("external_page_left_open", "true")
+            outcome.mark("submit_clicked", "false")
+            return self._replay_stopped_result("replay_error", outcome)
+
+        outcome.audit.update(result.audit())
+        if not result.page_touched:
+            return None
+        outcome.mark("external_page_left_open", "true")
+        outcome.mark("submit_action_performed", "false")
+        outcome.mark("submit_clicked", "false")
+        if not result.ready_for_review:
+            return self._replay_stopped_result(result.reason or "stopped", outcome)
+        if self._skip_submit:
+            outcome.mark("confirmation_status", "not_submitted_safe_mode")
+            return ApplicationSubmissionResult(
+                status="test_ready_before_submit",
+                message=(
+                    "SAFE TEST MODE (test_application_skip_submit) is enabled -- the external form was filled "
+                    "from a saved recipe but Submit was never clicked, so no real application was created."
+                ),
+                confirmed=False,
+                field_fill_audit=outcome.audit,
+            )
+        outcome.mark("confirmation_status", "not_submitted_manual")
+        shown = result.page_url or safe_url(entry_result.destination_url)
+        return ApplicationSubmissionResult(
+            status="manual_review",
+            message=(
+                "The external application form was filled from a saved recipe and Submit was NOT pressed. "
+                f"Review it and submit it yourself at {shown} -- this app does not submit external applications."
+            ),
+            confirmed=False,
+            blocker=BLOCKER_MANUAL_SUBMISSION_REQUIRED,
+            field_fill_audit=outcome.audit,
+        )
+
+    def _replay_stopped_result(self, reason: str, outcome: FillOutcome) -> ApplicationSubmissionResult:
+        return self._manual_review(
+            BLOCKER_RECIPE_REPLAY_STOPPED,
+            f"Recipe replay stopped ({reason}); the browser is left open so you can finish this application by hand",
+            outcome,
+        )
+
     def close_open_browser(self) -> None:
         """Close the Chrome left open for manual authentication. Idempotent."""
         entry, self._left_open_entry = self._left_open_entry, None
         if entry is not None:
-            entry.close()
+            # Release it from the process-wide registry too (which closes it); an entry the
+            # registry does not know is closed directly.
+            if not EXTERNAL_BROWSERS.close_entry(entry, "closed_by_adapter"):
+                entry.close()
+
+    def _recorder_finished_callback(self, entry):
+        """The recorder calls this once it has stopped, disconnected Playwright and saved."""
+
+        def on_finished(recorder) -> None:
+            self._close_browser_after_recorded_success(entry, recorder)
+
+        return on_finished
+
+    def _close_browser_after_recorded_success(self, entry, recorder) -> bool:
+        """Close the Chrome THIS flow left open -- only after a confirmed application success whose
+        recording has stopped and saved, or after the page said this job was ALREADY applied for
+        (STOP_ALREADY_APPLIED: terminal, needs no saved recipe, and is never reported as a submission).
+        Anything else (timeout, manual stop, closed browser, a failed or intermediate page, nothing saved)
+        leaves it open. Only this flow's own registered session is closed (never another Chrome), and not
+        when another task shares the browser. Never raises."""
+        try:
+            from app.integrations.application_sources.recipe_recorder import STOP_ALREADY_APPLIED, STOP_SUCCESS
+
+            if entry is None or self._left_open_entry is not entry:
+                return False  # not (or no longer) this flow's open browser
+            already_applied = recorder.stop_reason == STOP_ALREADY_APPLIED
+            if not already_applied and (recorder.stop_reason != STOP_SUCCESS or recorder.saved_path is None):
+                return False
+            if getattr(recorder, "holders", 1) > 1 or EXTERNAL_BROWSERS.is_shared(entry):
+                logger.info("Application succeeded but the browser is shared with another task; left open")
+                return False
+            if not EXTERNAL_BROWSERS.close_entry(entry, STOP_ALREADY_APPLIED if already_applied else "application_success"):
+                return False  # already released (closed by the user or replaced)
+            self._left_open_entry = None
+            if already_applied:
+                logger.info("Job already applied for; closed this flow's browser")
+            else:
+                logger.info("Application success confirmed and recipe saved; closed this flow's browser")
+            return True
+        except Exception:
+            logger.exception("Monster: closing the browser after a successful application failed (ignored)")
+            return False
 
     def _site_label(self) -> str:
         return "external" if self._external_flow else "Monster"
@@ -899,12 +1129,20 @@ class MonsterApplicationSource(ApplicationEngine):
                     ),
                     outcome,
                 )
+            left_open = entry_result.browser_left_open
+            if left_open:
+                outcome.mark("external_page_left_open", "true")
             return self._manual_review(
                 BLOCKER_EXTERNAL_REDIRECT,
                 (
                     "This Monster listing leads to an external application destination "
                     f"({safe_url(entry_result.destination_url)}, type {entry_result.destination_type or DEST_EXTERNAL_OTHER}) "
-                    "that has no adapter. Apply directly at that destination"
+                    "that has no adapter. "
+                    + (
+                        "The browser has been left open on that page; nothing was filled, clicked or submitted there"
+                        if left_open
+                        else "Apply directly at that destination"
+                    )
                 ),
                 outcome,
             )

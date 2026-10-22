@@ -91,6 +91,8 @@ import json
 import logging
 import re
 import threading
+import time
+import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -122,6 +124,8 @@ BLOCKER_SUBMISSION_UNCONFIRMED = "submission_confirmation_unknown"
 BLOCKER_ALREADY_APPLIED = "already_applied"
 #: Monster's resume-selection page (/profile/apply/resumes) with no resume selected.
 BLOCKER_RESUME_NOT_SELECTED = "resume_not_selected"
+#: A browser left open by an earlier external application is still alive (and may be in use).
+BLOCKER_BROWSER_SESSION_ACTIVE = "browser_session_active"
 
 # -- destination types ----------------------------------------------------------
 DEST_MONSTER_FORM = "monster_form"
@@ -427,6 +431,10 @@ ENTRY_TIMEOUT_S = 120.0
 #: required" (a signed-in profile passes through Microsoft in a second or two).
 EXTERNAL_SETTLE_WAIT_S = 20.0
 EXTERNAL_AUTH_GRACE_S = 6.0
+#: An UNFAMILIAR external destination (neither hitayu.live, an identity provider nor a supported
+#: ATS): at most this long is spent letting its redirect chain settle on the tab that will be kept
+#: open. Two consecutive polls on the same URL end the wait early.
+EXTERNAL_REDIRECT_SETTLE_WAIT_S = 4.0
 
 #: Settled state of an external page (see external_page_kind()).
 EXT_AUTH_PROVIDER = "auth_provider"
@@ -779,6 +787,163 @@ class _LoopThread:
 # =====================================================================
 
 
+# =====================================================================
+# Process-wide registry of the browser left open for an external page
+# =====================================================================
+
+_LOCAL_CDP_HOSTS = ("127.0.0.1", "localhost", "::1")
+
+
+def cdp_endpoint_alive(cdp_url: str | None, timeout_s: float = 1.5) -> bool:
+    """True if a LOCAL Chrome DevTools endpoint answers. A non-local host is never probed, and
+    system proxies are bypassed. Read-only: GET /json/version."""
+    try:
+        parts = urlsplit(cdp_url or "")
+        host = (parts.hostname or "").lower()
+        if host not in _LOCAL_CDP_HOSTS or not parts.port:
+            return False
+        shown = f"[{host}]" if ":" in host else host
+        opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+        with opener.open(f"http://{shown}:{parts.port}/json/version", timeout=timeout_s) as response:
+            return getattr(response, "status", 200) == 200
+    except Exception:
+        return False
+
+
+@dataclass
+class ExternalBrowserSession:
+    """One browser deliberately left open for an external application page."""
+
+    entry: Any
+    cdp_url: str | None
+    #: origin + path of the external tab (never a query string: it may hold OAuth values)
+    page_url: str
+    created_at: float
+    status: str = "active"
+    close_reason: str | None = None
+
+
+class ExternalBrowserRegistry:
+    """Who owns a Chrome left open for an external application page.
+
+    A MonsterApplyEntry that keeps its browser open registers here (with its CDP URL and the
+    external tab), so that:
+      * a later Monster run can DETECT it instead of colliding with it (the persistent profile is
+        locked while it runs) -- nothing is closed automatically while it may still be in use;
+      * it is cleaned up when the user closes it, when the application finishes or is cancelled
+        (close / close_entry), or at process exit, so no Chrome is orphaned.
+
+    A session counts as alive only while its entry still owns a browser AND, when a CDP URL is known,
+    that local DevTools endpoint still answers -- so a window the user closed by hand is noticed and
+    cleaned up the next time the registry is consulted."""
+
+    def __init__(self, probe=cdp_endpoint_alive, clock=time.time) -> None:
+        self._probe = probe
+        self._clock = clock
+        self._lock = threading.RLock()
+        self._sessions: list[ExternalBrowserSession] = []
+
+    def register(self, entry: Any, cdp_url: str | None, page_url: str | None) -> ExternalBrowserSession:
+        session = ExternalBrowserSession(entry, cdp_url, safe_url(page_url), self._clock())
+        with self._lock:
+            self._sessions = [s for s in self._sessions if s.entry is not entry]
+            self._sessions.append(session)
+        logger.info("External browser session registered (%s)", session.page_url or "no page yet")
+        return session
+
+    @staticmethod
+    def _entry_open(entry: Any) -> bool:
+        return getattr(entry, "_session", None) is not None
+
+    def _alive(self, session: ExternalBrowserSession) -> bool:
+        if not self._entry_open(session.entry):
+            return False
+        return bool(self._probe(session.cdp_url)) if session.cdp_url else True
+
+    @staticmethod
+    def _refresh_page(session: ExternalBrowserSession) -> None:
+        """Best effort: follow the tab the user is on now (redirects, popups, navigation)."""
+        reader = getattr(session.entry, "current_external_url", None)
+        if reader is None:
+            return
+        try:
+            current = reader()
+        except Exception:
+            return
+        if current:
+            session.page_url = current
+
+    def _finish(self, session: ExternalBrowserSession, reason: str) -> None:
+        session.status = "closed"
+        session.close_reason = reason
+        try:
+            session.entry.close()  # idempotent: stops the loop thread and kills any lingering Chrome
+        except Exception:
+            logger.debug("External browser cleanup failed (ignored)", exc_info=True)
+        logger.info("External browser session closed (%s)", reason)
+
+    def active(self) -> ExternalBrowserSession | None:
+        """The live session, if any. Sessions whose browser is gone are cleaned up on the way."""
+        with self._lock:
+            alive: list[ExternalBrowserSession] = []
+            for session in list(self._sessions):
+                if self._alive(session):
+                    self._refresh_page(session)
+                    alive.append(session)
+                else:
+                    self._finish(session, "browser_gone")
+            self._sessions = alive
+            return alive[0] if alive else None
+
+    def status(self) -> dict[str, str] | None:
+        """Audit-safe summary of the live session (no URL query, no values), or None."""
+        session = self.active()
+        if session is None:
+            return None
+        return {
+            "status": session.status,
+            "page_url": session.page_url,
+            "age_seconds": str(int(max(self._clock() - session.created_at, 0))),
+        }
+
+    def close_entry(self, entry: Any, reason: str) -> bool:
+        """Close and forget the session owned by `entry`. False if `entry` is not registered."""
+        with self._lock:
+            owned = [s for s in self._sessions if s.entry is entry]
+            if not owned:
+                return False
+            self._sessions = [s for s in self._sessions if s.entry is not entry]
+        for session in owned:
+            self._finish(session, reason)
+        return True
+
+    def close(self, reason: str = "closed") -> bool:
+        """Close every registered session (explicit close, cancel, or process exit).
+        True if there was anything to close. Idempotent."""
+        with self._lock:
+            sessions, self._sessions = self._sessions, []
+        for session in sessions:
+            self._finish(session, reason)
+        return bool(sessions)
+
+    def is_shared(self, entry: Any) -> bool:
+        """True when ANOTHER registered session points at the same browser (same CDP URL) as `entry`'s.
+        Used before an automatic close: a browser another task also relies on is left open."""
+        with self._lock:
+            mine = {s.cdp_url for s in self._sessions if s.entry is entry and s.cdp_url}
+            return any(s.entry is not entry and s.cdp_url in mine for s in self._sessions)
+
+    def forget_all(self) -> None:
+        """Drop every session WITHOUT closing it (test isolation only)."""
+        with self._lock:
+            self._sessions = []
+
+
+#: The one registry for this process (the app is a single local server).
+EXTERNAL_BROWSERS = ExternalBrowserRegistry()
+atexit.register(EXTERNAL_BROWSERS.close, "process_exit")  # never leak a left-open Chrome past the process
+
+
 def _resolve_profile_dir(value: str | None) -> Path | None:
     value = (value or "").strip()
     if not value:
@@ -852,7 +1017,19 @@ class MonsterApplyEntry:
         Keeps the browser running ONLY for a form hand-off (monster_form /
         external_form: the caller attaches via result.cdp_url and must call
         close()) or an external sign-in stop (browser_left_open: the user signs
-        in by hand; closed on request or at process exit)."""
+        in by hand; closed on request or at process exit).
+
+        If an EARLIER external application left a browser open and it is still alive, nothing is
+        started or closed here: the run stops with browser_session_active so the browser the user
+        may still be using is never closed under them (see EXTERNAL_BROWSERS)."""
+        active = EXTERNAL_BROWSERS.active()
+        if active is not None and active.entry is not self:
+            return EntryResult(
+                OUTCOME_BLOCKED,
+                blocker=BLOCKER_BROWSER_SESSION_ACTIVE,
+                detail=f"a browser from an earlier external application is still open at {active.page_url or 'an external page'}",
+                extra={"active_external_page": active.page_url},
+            )
         try:
             import browser_use  # noqa: F401
         except ImportError:
@@ -873,8 +1050,22 @@ class MonsterApplyEntry:
         if not result.keeps_browser:
             self.close()
         elif result.browser_left_open:
-            atexit.register(self.close)  # never leak the left-open Chrome past the process
+            # Owned by the process-wide registry: found by a later run, closed on request / at exit.
+            EXTERNAL_BROWSERS.register(self, result.cdp_url, result.destination_url)
         return result
+
+    def current_external_url(self, timeout_s: float = 5.0) -> str | None:
+        """origin + path of the newest open external tab, read through the live session (so a
+        redirect, popup or the user's own navigation is followed). None if the browser is closed or
+        nothing external is open. Read-only; never raises."""
+        loop, session = self._loop, self._session
+        if loop is None or session is None:
+            return None
+        try:
+            found = loop.call(self._external_candidate(session), timeout=timeout_s)
+        except Exception:
+            return None
+        return safe_url(found[1]["url"]) if found else None
 
     def close(self) -> None:
         """Kill the Browser Use Chrome and stop the loop thread. Idempotent."""
@@ -1336,6 +1527,7 @@ class MonsterApplyEntry:
                 extra=extra,
                 new_tab=new_tab,
                 browser_left_open=not quick_apply,
+                cdp_url=getattr(session, "cdp_url", None) if not quick_apply else None,
                 **common,
                 **ext(auth_required=True),
             )
@@ -1419,14 +1611,19 @@ class MonsterApplyEntry:
                     )
                 if kind == EXT_OTHER:
                     # redirected on to another destination: a supported ATS is
-                    # delegated by the adapter, anything else is external_redirect
+                    # delegated by the adapter, anything else is external_redirect.
+                    # An UNFAMILIAR destination (a plain Apply, not a Quick Apply) keeps
+                    # the browser open on that page instead of closing it.
                     dest = external_destination_type(final_url)
+                    keep_open = dest == DEST_EXTERNAL_OTHER and not quick_apply
                     return EntryResult(
                         OUTCOME_EXTERNAL,
                         destination_type=dest,
                         destination_url=final_url,
+                        cdp_url=getattr(session, "cdp_url", None) if keep_open else None,
                         new_tab=new_tab,
                         detail=f"Apply led to {dest}",
+                        browser_left_open=keep_open,
                         **common,
                         **ext(auth_completed=saw_auth),
                     )
@@ -1473,6 +1670,63 @@ class MonsterApplyEntry:
             new_tab=new_tab,
             **common,
             **ext(auth_completed=saw_auth),
+        )
+
+    async def _open_unfamiliar_external(
+        self, session, new_tab: bool, common: dict[str, Any], seed_url: str
+    ) -> EntryResult:
+        """Apply led to a destination that is neither hitayu.live, an identity provider nor a
+        supported ATS. Let its redirect chain settle (bounded, read-only), re-resolve the tab that
+        actually holds the destination, and KEEP the browser open on it instead of closing it.
+
+        Nothing is clicked, typed or submitted here. A blocked page (CAPTCHA / bot protection /
+        refusal) is reported and closed exactly as before. If the chain ends on a destination we
+        already handle, it is handled that way. A Quick Apply (submit_capable) keeps its existing
+        behaviour: the browser is closed, as for every other non-form outcome."""
+        loop = asyncio.get_running_loop()
+        deadline = loop.time() + EXTERNAL_REDIRECT_SETTLE_WAIT_S
+        final_url = seed_url
+        stable = 0  # consecutive polls on the same URL
+        while True:
+            found = await self._external_candidate(session)
+            if found is not None:
+                _page, st = found
+                blocked = classify_page(st["title"], st["body"], captcha_frame=st["captcha_frame"])
+                if blocked:
+                    return self._blocked(*blocked, new_tab=new_tab, destination_url=st["url"], **common)
+                dest = external_destination_type(st["url"])
+                if dest in (DEST_HITAYU, DEST_EXTERNAL_AUTH):
+                    return await self._follow_external(session, new_tab, common, st["url"])
+                if dest != DEST_EXTERNAL_OTHER:
+                    # the redirect chain ended on a destination an existing adapter handles
+                    return EntryResult(
+                        OUTCOME_EXTERNAL,
+                        destination_type=dest,
+                        destination_url=st["url"],
+                        new_tab=new_tab,
+                        detail=f"Apply led to {dest}",
+                        **common,
+                    )
+                stable = stable + 1 if st["url"] == final_url else 1
+                final_url = st["url"]
+                if stable >= 2:
+                    break
+            if loop.time() >= deadline:
+                break
+            await asyncio.sleep(POLL_INTERVAL_S)
+
+        keep_open = not common.get("submit_capable")
+        if keep_open:
+            logger.info("Unfamiliar external application page kept open (%s)", safe_url(final_url))
+        return EntryResult(
+            OUTCOME_EXTERNAL,
+            destination_type=DEST_EXTERNAL_OTHER,
+            destination_url=final_url,
+            cdp_url=getattr(session, "cdp_url", None) if keep_open else None,
+            new_tab=new_tab,
+            detail=f"Apply led to {DEST_EXTERNAL_OTHER}",
+            browser_left_open=keep_open,
+            **common,
         )
 
     async def _landing(
@@ -1547,6 +1801,8 @@ class MonsterApplyEntry:
                     dest = external_destination_type(st["url"])
                     if dest in (DEST_HITAYU, DEST_EXTERNAL_AUTH):
                         return await self._follow_external(session, new_tab, common, st["url"])
+                    if dest == DEST_EXTERNAL_OTHER:
+                        return await self._open_unfamiliar_external(session, new_tab, common, st["url"])
                     return EntryResult(
                         OUTCOME_EXTERNAL,
                         destination_type=dest,

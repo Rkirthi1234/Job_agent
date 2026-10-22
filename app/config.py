@@ -31,6 +31,22 @@ class Settings(BaseSettings):
     real_application_supported_destinations: str = ""
     playwright_headless: bool = True
     application_artifacts_dir: str = "data/artifacts"
+    # OPT-IN recording of external application recipes (recipe_recorder.py). Off by default.
+    # When APPLICATION_RECIPE_RECORDING=true and the Monster apply entry deliberately LEAVES A
+    # BROWSER OPEN for you to finish an external application by hand, a background thread attaches
+    # to that browser and records the SHAPE of what you do (pages, field labels, which candidate
+    # field each would be filled from, Next / Submit presses) -- never what you type, choose or
+    # upload, and never passwords / codes / CAPTCHA. Nothing is replayed. One JSON file per
+    # recipe goes to APPLICATION_RECIPES_DIR (relative paths resolve against the project root).
+    application_recipe_recording: bool = False
+    application_recipes_dir: str = "data/application_recipes"
+    # A recording normally ends by itself when the external page shows a genuine "application submitted"
+    # confirmation. When that never happens, it ends after this many seconds WITHOUT any page activity
+    # (APPLICATION_RECIPE_INACTIVITY_TIMEOUT_SECONDS, default 600) or this many seconds IN TOTAL
+    # (APPLICATION_RECIPE_MAX_DURATION_SECONDS, default 3600). 0 disables either limit. To stop one by
+    # hand, create a file named STOP_RECORDING inside APPLICATION_RECIPES_DIR while it is recording.
+    application_recipe_inactivity_timeout_seconds: float = 600.0
+    application_recipe_max_duration_seconds: float = 3600.0
     captcha_resume_timeout_seconds: float = 1800.0
     test_application_current_company: str = ""
     test_application_linkedin_url: str = ""
